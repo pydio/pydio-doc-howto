@@ -1,0 +1,23 @@
+title: "Custom variable + Meta.fs + LDAP to mount user’s homeDirectory into Pydio"
+language: en
+category:
+  Workspaces
+  Miscellaneous
+  Plugin
+tags: 
+  auto mount
+  core.conf/USER_HOME_DIR
+  custom
+  custom variable
+  homedir
+  homedirectory
+  mappin
+  ldap
+  MAP_USER_HOME_DIR
+  meta mount
+  meta.fs
+  metafs
+  mount automatically
+  plugin parameter
+  sudoers
+  variable

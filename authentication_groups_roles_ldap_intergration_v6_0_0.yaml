@@ -1,0 +1,12 @@
+title: "Groups and Roles with LDAP/AD integration [v6.0.0]"
+language: en
+category: Authentication
+tags: 
+  active directory
+  ad
+  fake memberof
+  ldap
+  map role
+  memberof
+  paged results control
+  role prefix

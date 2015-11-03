@@ -1,0 +1,7 @@
+title: "Deploying Pydio in AWS with GlusterFS"
+language: en
+category: System
+tags:
+  glusterfs
+  high availability
+  scalability

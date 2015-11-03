@@ -1,0 +1,12 @@
+title: "Pydio with Security-Enhanced Linux (SELinux)
+language: en
+category: Security
+tags:
+  centos
+  fcontext
+  seboolean
+  security
+  SELinux
+  SELinux context
+  semanage
+  targeted policy
