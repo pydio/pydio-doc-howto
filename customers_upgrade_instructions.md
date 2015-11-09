@@ -1,4 +1,5 @@
-Customers Upgrade instructions
+# Customers Upgrade instructions
+
 If you are currently running Pydio 6.0.8 along with our existing set of enterprise plugins (core.licence, custom.gui_customize), you have two choices. Either you want to just upgrade Pydio to its latest version and stick to the main « community » branch (although core.licence and custom.gui_customize still active), or migrate to our new Enterprise Distribution. In the latter case, after the migration, you will not need to maintain custom plugins anymore, they are directly part of the distribution.
 
 Upgrading to 6.2.0 and sticking to community edition
