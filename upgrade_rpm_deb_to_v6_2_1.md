@@ -22,10 +22,10 @@ or
 Use the meta-package "pydio-all" to make sure you don't miss some plugins that your using after the upgrade. 
 
 The new packages are structured as follow: 
- - pydio-core: minimal Pydio Community installation
- - pydio-plugin-<name>: plugin for Pydio Community version
- - pydio:  Pydio install with officials plugins
- - pydio-all: install Pydio Community with all plugins
+ * pydio-core: minimal Pydio Community installation
+ * pydio-plugin-<name>: plugin for Pydio Community version
+ * pydio:  Pydio install with officials plugins
+ * pydio-all: install Pydio Community with all plugins
 
 ### 3. Important : update the database
 
@@ -35,9 +35,9 @@ Depending on your DB type (MySQL / PostGreSql / Sqlite), you may have to use dif
 
 On CentOS/RHEL, you can find the SQL scripts directly in /usr/share/doc/pydio/sql.
 Otherwise, grab the correct script from 
- - https://github.com/pydio/pydio-core/blob/master/dist/php/6.2.0.mysql,
- - https://github.com/pydio/pydio-core/blob/master/dist/php/6.2.0.pgsql
- - https://github.com/pydio/pydio-core/blob/master/dist/php/6.2.0.sqlite.
+ * https://github.com/pydio/pydio-core/blob/master/dist/php/6.2.0.mysql,
+ * https://github.com/pydio/pydio-core/blob/master/dist/php/6.2.0.pgsql
+ * https://github.com/pydio/pydio-core/blob/master/dist/php/6.2.0.sqlite.
 
 This step is important, otherwise you will have some errors in the interface.
 
