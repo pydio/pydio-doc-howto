@@ -29,7 +29,8 @@ The new packages are structured as follow:
 
 Yum/Apt-get install command does not touch your database. As some modifications were introduced for v6.2.0, you will have to manually upgrade the DB.  
 Depending on your DB type (MySQL / PostGreSql / Sqlite), you may have to use different command line tool to apply the SQL scripts.
-Files included in /usr/share/doc/pydio/sql
+On CentOS/RHEL, you can find the SQL scripts directly in /usr/share/doc/pydio/sql.
+Otherwise, grab the correct script from https://github.com/pydio/pydio-core/blob/master/dist/php/6.2.0.mysql, https://github.com/pydio/pydio-core/blob/master/dist/php/6.2.0.pgsql or https://github.com/pydio/pydio-core/blob/master/dist/php/6.2.0.sqlite.
 
 This step is important, otherwise you will have some errors in the interface.
 
