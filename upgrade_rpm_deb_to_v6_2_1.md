@@ -1,6 +1,7 @@
 *Starting at version 6.2.1, Pydio Linux Repositories are moved from http://dl.ajaxplorer.info to https://download.pydio.com/linux/[package_type]. This document describes the necessary steps to upgrade existing 6.0.8 installations to the new repositories.*
 
 **Supported version and OS**
+
 Updating to Pydio 6.2.1 is only supported from a 6.0.8 version.
 First make sure that you are using the last 6.0.8 version updated from our old repositories.
 The new repositories currently support the following architecture: CentOS7 / RHEL7 and Debian 8. More will come.
