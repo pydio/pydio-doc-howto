@@ -88,10 +88,14 @@ To automatically start services at startup, you need to enable them (**as root**
 	# systemctl enable nginx.service
 
 ## Desktop client installation
-Desktop client is available using [pydio-sync-java package](https://aur.archlinux.org/packages/pydio-sync-java/) on [AUR](https://aur.archlinux.org/) so, to install it, the simplest way is to use [yaourt](https://wiki.archlinux.org/index.php/yaourt) :
+Desktop client is available using [pydio-sync package](https://aur.archlinux.org/packages/pydio-sync/) on [AUR](https://aur.archlinux.org/) so, to install it, the simplest way is to use [yaourt](https://wiki.archlinux.org/index.php/yaourt) :
 
-	$ yaourt -S pydio-sync-java
+	$ yaourt -S pydio-sync
 
 You can launch it using its included freedesktop.org compliant menu entry or using the following command :
 
-	$ pydio-sync-java
+	$ pydio-sync
+
+A git version is also available [here](https://aur.archlinux.org/packages/pydio-sync-git/). To install it, use the following command :
+
+	$ yaourt -S pydio-sync-git
