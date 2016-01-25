@@ -35,11 +35,10 @@ Once it is installed, just edit the *conf/boostrap\_context.php* (or */etc/pydio
 Sample: 
 
 ```
-// KEY-VALUE-CACHE 
-
-define("AJXP_KVCACHE_PREFIX", "my-pydio-instance"); 
-
 define("AJXP_KVCACHE_IGNORE", false);
+```
+```
+define("AJXP_KVCACHE_PREFIX", "my-pydio-instance"); 
 ```
 
 
