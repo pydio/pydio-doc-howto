@@ -30,7 +30,15 @@ This feature requires PHP to be available via the command line, and you must act
 
 Since v6.2.X, we introduced an in-memory caching system that allows Pydio to put some data in memory across http requests (see also [https://pydio.com/en/blog/how-we-improved-pydio-performances-using-blackfireio]()). The current implementation is relying on APC/APCu. Depending on your system, you should be able to activate this PHP Extension. For systems that don't support APC anymore, APCu should be available for emulating the legacy Key/Value Caching system that APC was providing. 
 
-Once it is installed, just edit the ```conf/boostrap_context.php``` (or ```/etc/pydio/bootstrap_context.php```) file and set the **AJXP\_KVCACHE\_IGNORE** flag to false instead of true. The additional parameter **AJXP\_KVCACHE\_PREFIX** can be used to separate multiple pydio instances running on the same server: make sure to have each pydio using a specific prefix!
+Once it is installed, just edit the *conf/boostrap\_context.php* (or */etc/pydio/bootstrap\_context.php*) file and set the **AJXP\_KVCACHE\_IGNORE** flag to false instead of true. The additional parameter **AJXP\_KVCACHE\_PREFIX** can be used to separate multiple pydio instances running on the same server: make sure to have each pydio using a specific prefix!
+
+Sample: 
+
+```
+// KEY-VALUE-CACHE 
+define("AJXP_KVCACHE_PREFIX", "my-pydio-instance"); 
+define("AJXP_KVCACHE_IGNORE", false);
+```
 
 
 [Note] *We are currently working on a more generic interface that will be able to support other Key-Value Stores, like Memcache, Memcached, Redis, etc.*
