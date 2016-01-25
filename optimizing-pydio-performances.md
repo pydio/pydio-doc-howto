@@ -36,7 +36,9 @@ Sample:
 
 ```
 // KEY-VALUE-CACHE 
+
 define("AJXP_KVCACHE_PREFIX", "my-pydio-instance"); 
+
 define("AJXP_KVCACHE_IGNORE", false);
 ```
 
