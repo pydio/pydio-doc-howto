@@ -31,6 +31,11 @@ where you would replace API_KEY / API_SECRET by the values retrieved from your p
 
 `yum update`
 
+Note : If you're using CentOS v6.2 you may encounter yum update failure blaming “qpid-cpp”, this is actually a bug in yum, and it’s been fixed in newer versions of CentOS. All you need to do is to uninstall and install qpid-cpp packages.
+- `yum erase qpid-cpp-server qpid-cpp-client`
+- `yum install qpid-cpp-server qpid-cpp-client`
+
+
 The following commands are applied for installation of new pydio and for doing upgrade from Pydio 6.0 to latest version
 
 `yum install pydio-all`
