@@ -9,6 +9,7 @@ On centos, it requires to use some extra repositories for php54 and its dependen
 
 `rpm -ivh https://www.softwarecollections.org/en/scls/remi/php54more/epel-6-x86_64/download/remi-php54more-epel-6-x86_64.noarch.rpm`
 
+`yum install epel-release`
 
 ### Install pydio repositories:
 
