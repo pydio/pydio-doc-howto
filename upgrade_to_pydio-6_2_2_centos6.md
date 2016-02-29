@@ -43,6 +43,9 @@ Activate php54
 
 `source /opt/rh/php54/enable`
 
+Disable php5.3
+`mv /etc/httpd/conf.d/php.conf /etc/httpd/conf.d/php.conf.bak`
+
 Disable old php (5.3)
 
 `mv /etc/httpd/conf.d/php.conf /etc/httpd/conf.d/php.conf.old`
