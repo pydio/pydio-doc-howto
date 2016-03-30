@@ -1,5 +1,6 @@
 title: "Custom variable + Meta.fs + LDAP to mount user’s homeDirectory into Pydio"
 language: und
+abstract: "Customization a variable on Pydio is a interested feature that helps you resolve some technical problems in installation and integration of Pydio in your organization. But the combination of Custom Variable and others plugins is complicated with typical user. In this ‘how-to’, I would like take an example that may helps you can easily understand Custom variable. The objective of this article is mount automatically user’s home directory in to Pydio each time user login and umount when he/she logout."
 category:
   Workspaces
   Miscellaneous

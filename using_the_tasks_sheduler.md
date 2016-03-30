@@ -25,6 +25,6 @@ First you must be familiar with the PHP CLI way of activating the framework. If 
 
 The action to trigger the scheduler is <code>scheduler_runAll</code>. Thus, if you want to for example, trigger using a CRONTAB this action every 5 minutes, you will add the following entry in the CRONTAB:
 
-`*/5 * * * * php /var/www/ajaxplorer/cmd.php -r=ajxp_conf -u=admin -p=YOUR_PASSWORD_HERE -a=scheduler_runAll >> /var/www/ajaxplorer/data/cache/cmd_outputs/cron_commands.log`
+`*/5 * * * * php /var/www/pydio/cmd.php -r=ajxp_conf -u=admin -p=YOUR_PASSWORD_HERE -a=scheduler_runAll >> /var/www/pydio/data/cache/cmd_outputs/cron_commands.log`
 
 Using the “Cron Expression” button in the Scheduler menu, you can simply copy and paste the correct expression, replacing your password with the correct value.

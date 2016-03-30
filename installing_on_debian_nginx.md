@@ -2,13 +2,13 @@
 
 **Update** Updated on Dec. 3 2014 to propose a new config file for Pydio 6
 
-Following are the instructions for installing [AjaXplorer](https://pyd.io/) with [Nginx](http://nginx.org/en/) on [Debian Wheezy](http://www.debian.org/intro/about).   The hardware I am using is a [Raspberry Pi](http://www.raspberrypi.org/faqs) with a [4TB Western Digital USB](http://www.wdc.com/en/products/products.aspx?id=870) hard drive attached.   Because the Raspberry Pi is a low powered device I am using Nginx as the web server with PHP-FPM for processing php.
+Following are the instructions for installing [Pydio](https://pyd.io/) with [Nginx](http://nginx.org/en/) on [Debian Wheezy](http://www.debian.org/intro/about).   The hardware I am using is a [Raspberry Pi](http://www.raspberrypi.org/faqs) with a [4TB Western Digital USB](http://www.wdc.com/en/products/products.aspx?id=870) hard drive attached.   Because the Raspberry Pi is a low powered device I am using Nginx as the web server with PHP-FPM for processing php.
 
 **Assumptions**
 
 You already have Debian 7.0 (Wheezy) running.
-You can download the AjaXplorer compressed file to your Debian server.
-To start off with we need to install the prerequisite packages.   I am keen to keep my Raspberry Pi lean and so I did some testing to determine the minimum required packages needed to get the full functionality of AjaXplorer.   Note I am not including the requirements for the AjaXplorer desktop client yet because it is in beta and I am not interested in testing it.   If you wish to use the desktop client you will need some rsync php related packages.   So here is the command to install the prerequisites;
+You can download the Pydio compressed file to your Debian server.
+To start off with we need to install the prerequisite packages.   I am keen to keep my Raspberry Pi lean and so I did some testing to determine the minimum required packages needed to get the full functionality of Pydio.   Note I am not including the requirements for the Pydio desktop client yet because it is in beta and I am not interested in testing it.   If you wish to use the desktop client you will need some rsync php related packages.   So here is the command to install the prerequisites;
 
     apt-get install nginx php5 php5-fpm php5-gd php5-cli php5-mcrypt
 
@@ -33,7 +33,7 @@ Then restart php fpm service
 
     /etc/init.d/php5-fpm restart
 
-Now we need to configure Nginx to setup our AjaXplorer web site (use your own domain name below);
+Now we need to configure Nginx to setup our Pydio web site (use your own domain name below);
 
     vim /etc/nginx/sites-available/x.yourdomain.com
 
@@ -79,7 +79,7 @@ And here is my drop.conf contents;
     location ~ /\ .          { access_log off; log_not_found off; deny all; }
     location ~ ~$           { access_log off; log_not_found off; deny all; }
 
-Note the first two deny all statements above are specific to AjaXplorer.
+Note the first two deny all statements above are specific to Pydio.
 Now create the php.conf file;
 
     vim /etc/nginx/php.conf
@@ -188,7 +188,7 @@ We can enable the site by deleting the default Nginx site and linking to the new
     rm default
     ln -s ../sites-available/x.yourdomain.com
 
-Time to get the AjaXplorer files. [Download](https://pyd.io/download/) the latest version and save it to your /var/www directory. Extract the downloaded file to the root of the www directory;
+Time to get the Pydio files. [Download](https://pyd.io/download/) the latest version and save it to your /var/www directory. Extract the downloaded file to the root of the www directory;
 
     cd /var/www
     tar -xzf <gz file name here>
@@ -202,19 +202,19 @@ Prior to opening a browser and seeing the result we need to restart the required
 `service php5-fpm restart`
 `service nginx restart`
 
-Now open a browser and hit your IP address or DNS name.   The first time you access AjaXplorer you will see a diagnostics page that will look like this.
+Now open a browser and hit your IP address or DNS name.   The first time you access Pydio you will see a diagnostics page that will look like this.
 
-[:image-popup:system/installing_on_debian+nginx/AjaXplorerDiagnosticTool.png]
+[:image-popup:system/installing_on_debian+nginx/PydioDiagnosticTool.png]
 
 You will need to fix any issues discovered by the Diagnostics program before continuing. You will notice the warning about SSL Encryption.   I am accessing my server using [Pound](http://www.apsis.ch/pound) as a reverse proxy to encrypt the pages using SSL.
 
-Once you have fixed any errors reported by the Diagnostics page click on the link under the title to continue to the AjaXplorer main interface. You will need to log in
+Once you have fixed any errors reported by the Diagnostics page click on the link under the title to continue to the Pydio main interface. You will need to log in
 with a username of admin and a password of admin for the first access.   Make sure you change the password at some point.
 
-The last required configuration for the installation is to adjust the AjaXplorer upload file size limit. This is achieved under settings;
+The last required configuration for the installation is to adjust the Pydio upload file size limit. This is achieved under settings;
 
 [:image-popup:system/installing_on_debian+nginx/AjaXplorerCoreConfigUploader.png]
 
-That’s it.   AjaXplorer is now installed and waiting for you to configure repositories and other customizations.  There are [plugins available](https://pyd.io/plugins/) and client applications.   I am using the [Android client](https://play.google.com/store/apps/details?id=info.ajaxplorer.android&hl=en) successfully and will look at the [Desktop client](https://pyd.io/extensions/desktop-sync/) once it is out of beta.
+That’s it.   Pydio is now installed and waiting for you to configure repositories and other customizations.  There are [plugins available](https://pyd.io/plugins/) and client applications.   I am using the [Android client](https://play.google.com/store/apps/details?id=info.ajaxplorer.android&hl=en) successfully and will look at the [Desktop client](https://pyd.io/extensions/desktop-sync/) once it is out of beta.
 
 The Raspberry Pi is an amazing platform for free open tools like this and I am now using a low powered Pi with a USB disk as my home file server cutting my electricity bill and reducing my carbon foot print.

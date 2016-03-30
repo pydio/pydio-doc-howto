@@ -16,4 +16,4 @@ You should use the “Try to connect to LDAP” button, with the “Test” user
 This seems to indicate that the password is not correctly passed : did you set the “Transmit Clear Pass” parameter to true?
 
 ### I cannot share folder or create shared users!
-You must set up a “secondary instance” in the Authentication panel, so that AjaXplorer can handle a “multiple” configuration : reading the master users from the Directory, but also creating new shared users inside its “local” directory. Use either Serial or DB auth storage for this secondary instance.
+You must set up a “secondary instance” in the Authentication panel, so that Pydio can handle a “multiple” configuration : reading the master users from the Directory, but also creating new shared users inside its “local” directory. Use either Serial or DB auth storage for this secondary instance.

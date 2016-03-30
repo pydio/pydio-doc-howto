@@ -1,4 +1,4 @@
-The following assumes you are running AjaXplorer on a Windows based machine with Apache server. Adjust the parameters below according to your configuration, if necessary.
+The following assumes you are running Pydio on a Windows based machine with Apache server. Adjust the parameters below according to your configuration, if necessary.
 
 1. Open a Command Prompt (Start>Run>cmd.exe) and browse to your Apache /bin directory:
 		cd c:/apache2.2.8/bin

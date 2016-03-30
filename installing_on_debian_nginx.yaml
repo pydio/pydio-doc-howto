@@ -1,4 +1,5 @@
 title: "Installing on Debian+Nginx"
+abstract: "Installing Pydio on Debian using Nginx as a webserver"
 language: und
 category: System
 tags:

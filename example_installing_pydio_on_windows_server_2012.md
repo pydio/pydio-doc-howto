@@ -1,4 +1,4 @@
-author Allan Dynes (Allan @ AllanDynes.com)
+Author Allan Dynes (Allan @ AllanDynes.com)
 This guide is assuming a vanilla install of Server 2012 R2 and lists all prereqs to get Pydio up and running with IIS 8.5 / Server 2012 R2.   I have found that none of the current guides cover everything 100% so through lots of testing and looking at all the other guides I wrote this one.  It’s making a couple assumptions which I think make sense for the average Windows based server:
 
 + You are starting with a fresh Server 2012 R2 install.  It is setup how you want it setup (named, domain joined, etc) and all windows updates are done.

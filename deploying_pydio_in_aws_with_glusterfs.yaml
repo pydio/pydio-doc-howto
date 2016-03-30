@@ -1,4 +1,5 @@
 title: "Deploying Pydio in AWS with GlusterFS"
+abstract: "Deploying Pydio in a highly-demanding environment (lots of users, tons of documents) to achieve a dropbox-like server at scale requires a solid and elastic architecture."
 language: und
 category: System
 tags:

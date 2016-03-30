@@ -1,7 +1,8 @@
 title: "Authentication w/ your CMS"
 language: und
 category: Authentication
-tags: 
+abstract: "This section will describe how to use the auth.remote plugin to create a bridge with an existing CMS. At first we’ll assume that the cms has it’s own authentification mechanism, and one just want to “inform” Pydio that a user is logged indeed. Then, we’ll see how to create an external login page and still  use Pydio’s own mechanism to check the users credentials (for example on a simple website that does not have users management at all)."
+tags:
   auth
   CMS
   drupal

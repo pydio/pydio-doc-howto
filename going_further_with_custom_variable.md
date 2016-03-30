@@ -76,7 +76,7 @@ We are going to split the components into 3 separate template elements for clari
     	<template name="head" element="ajxp_desktop" position="top"><![CDATA[
     		<script type="text/javascript">
     	document.observe("ajaxplorer:user_logged", function(){
-	    	var reg = ajaxplorer.getXmlRegistry();
+	    	var reg = pydio.getXmlRegistry();
 	    	var tplNode = XPathSelectSingleNode(reg, 'client_configs/template[@name="dynamic_head"]');
 	    	$("dynamic_header_div").remove();
 	    	$("ajxp_desktop").insert({top:tplNode.firstChild.nodeValue});
@@ -91,7 +91,7 @@ We are going to split the components into 3 separate template elements for clari
 ### Using the “skeleton” plugin options
 The custom Footer and Toolbar button target can be set from within the GUI using the plugin settings. (NB: I found that the button taget URL set in the GUI did not work as expected and so the button target can also be set directly in the manifest.xml file – as well as disabling the confirmation pop up.
 
- 	var confs = ajaxplorer.getPluginConfigs("action[@name='toolbar']");
+ 	var confs = pydio.getPluginConfigs("action[@name='toolbar']");
  	 var target = "http://yourbutton.target.com" window.open(target, "my_popup");
  	 
 NOTE: The filterVars function should have some checking / verification added (array_key_exists?) to make it error proof. If the code is added without a correctly named CUSTOM_DATA array element defined an error will likely occur.

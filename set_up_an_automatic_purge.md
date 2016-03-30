@@ -1,5 +1,5 @@
 ## Objective
-In many usecases, AjaXplorer is used to create an interface between the inside world and the outside world of an organization. To prevent information leakage and loss of control, many administrators will choose to automatically “expire” the documents: docs older than a given period are simply deleted. That way, users cannot forget and let confidential information stay in a semi-public area for too long.
+In many usecases, Pydio is used to create an interface between the inside world and the outside world of an organization. To prevent information leakage and loss of control, many administrators will choose to automatically “expire” the documents: docs older than a given period are simply deleted. That way, users cannot forget and let confidential information stay in a semi-public area for too long.
 
 ## Set up Purge parameter
 The PURGE parameter is a number of days after which docs are automatically removed, if they have not been modified. It’s a workspace parameter, and can be refined in many ways: on a per-workspace basis, and/or per-user and per-group basis.

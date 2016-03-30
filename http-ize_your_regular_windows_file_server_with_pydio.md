@@ -1,4 +1,4 @@
-author Koen Noens
+Author Koen Noens
 
 [:image-popup:system/http-ize_your_regular_windows_file_server_with_pydio/Win2Pydio.png]Take a regular Windows file server (or any NAS that understands SMB or CIFS). Deploy Pydio. Map your Pydio workspaces to folders and shares on your Windows file server, and let Pydio retrieve user accounts and groups from your Active Directory. Wat you get is that all those files are now instantly available to users with nothing but a web browser and an internet connection, from a laptop, a tablet, or a smartphone. With all your original NTFS Security Access Control Lists still in effect. That’s what “Put your data in orbit’ means to me.
 

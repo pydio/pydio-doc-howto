@@ -1,4 +1,5 @@
 title: "Fine-tune the actions in the GUI"
+abstract: "The simplest way to disable an action in the interface is to use the role-based action management in the Settings Panel. For either a USER, a GROUP or a ROLE, you will be able  to restrict some actions. At the end of the day, a user will see the sum of all its groups, roles, and personal settings parameters."
 language: und
 category: Miscellaneous
 tags: 

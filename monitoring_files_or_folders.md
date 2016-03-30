@@ -9,7 +9,7 @@ Using the meta.watch plugin along with the core.notifications features, the user
  
 
 ## Activating the Notifications
-If not already done at install, and particularly if coming from a previous version of AjaXplorer, you may find yourself with a running install but no notifications active. This feature introduced in V5 a new requirement for a database support, so you must prepare a connexion to either an existing MySQL database, or, if you want to skip this step, you can let AjaXplorer create a simple sqlite3 database. For this last solution, make sure that your PHP has the Sqlite3 extension loaded.
+If not already done at install, and particularly if coming from a previous version of Pydio, you may find yourself with a running install but no notifications active. This feature introduced in V5 a new requirement for a database support, so you must prepare a connexion to either an existing MySQL database, or, if you want to skip this step, you can let Pydio create a simple sqlite3 database. For this last solution, make sure that your PHP has the Sqlite3 extension loaded.
 
 Check in the Global Configurations > Core Configs > Configurations Management that you have a “Core Connexion” configured, using either MySQL or Sqlite3 driver. Then in Global Configurations > Core Configs > Notifications Center, push the “Install SQL Tables” button, and set the notifications to “Enabled”.
 

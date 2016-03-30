@@ -1,4 +1,5 @@
 title: "Custom variables in workspaces"
+abstract: "It’s a common need, especially when you handle a great number of users, to try to dynamically create the repositories for all users, instead of creating manually each repository for each users. The 'Custom Variables', in conjunction with specific PHP hooks, can be a smart way to implement such a feature."
 language: und
 category: Workspaces
 tags:

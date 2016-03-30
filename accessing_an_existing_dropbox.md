@@ -1,7 +1,7 @@
 A dropbox account can be used as a storage backend for Pydio. This tutorial goes through the necessary steps to create the link.
 
-## Creating AjaXplorer application in the dropbox account
-In order to let AjaXplorer communicate with your dropbox account, you will first have to declare AjaXplorer as an authorized application on the dropbox side. This is done by creating an “application” that will access to the “Datastore API”.
+## Creating Pydio application in the dropbox account
+In order to let Pydio communicate with your dropbox account, you will first have to declare Pydio as an authorized application on the dropbox side. This is done by creating an “application” that will access to the “Datastore API”.
 
 Go to https://www.dropbox.com/developers/apps and use the **Create app** button. Select “**Dropbox API app**” and select the appropriate options depending on your needs. See the screenshot below.
 

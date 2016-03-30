@@ -1,4 +1,5 @@
 title: "Groups and Roles with LDAP/AD integration"
+abstract: "When you’re using Pydio with LDAP/AD authentication and your LDAP directory supports the 'memberOf' attribute (i.e. you have Microsoft Active Directory, or an LDAP server with the 'memberOf' overlay set up), you can use your Active Directory groups in Pydio."
 language: und
 category: Authentication
 tags: 

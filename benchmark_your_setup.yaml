@@ -5,3 +5,4 @@ tags:
   audit
   benchmark
   security
+abtract: "As described in the security model, Pydio comes fully secured, and you should not have to worry about the major vulnerabilities brought by webapps. Still, there are a couple of tests you should make to be sure that your underlying configuration is not introducing problems."

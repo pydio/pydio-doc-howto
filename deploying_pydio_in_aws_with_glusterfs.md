@@ -108,9 +108,9 @@ Create a database
 
 ## Deploy pydio
 ### First Node
-Get the script from https://raw.github.com/ajaxplorer/ajaxplorer-core/master/dist/scripts/glusterfs/pydio-gluster.sh and run it as root.
+Get the script from https://raw.github.com/pydio/pydio-core/master/dist/scripts/glusterfs/pydio-gluster.sh and run it as root.
 
-`$ wget https://raw.github.com/ajaxplorer/ajaxplorer-core/master/dist/scripts/glusterfs/pydio-gluster.sh`
+`$ wget https://raw.github.com/pydio/pydio-core/master/dist/scripts/glusterfs/pydio-gluster.sh`
 `$ chmod u+x pydio-gluster.sh`
 `$ ./pydio-gluster.sh`
 
@@ -127,7 +127,7 @@ Then save an connect as admin, switch to the “Settings” workspace, and do so
 ### Second Node
 As they will share their base configuration through the gluster pydio-config volume, the next nodes will directly inherit from the first node configs. So to add fire a new node, all you will have to do will be the script part:
 
-`$ wget https://raw.github.com/ajaxplorer/ajaxplorer-core/master/dist/scripts/glusterfs/pydio-gluster.sh`
+`$ wget https://raw.github.com/pydio/pydio-core/master/dist/scripts/glusterfs/pydio-gluster.sh`
 `$ chmod u+x pydio-gluster.sh`
 `$ ./pydio-gluster.sh`
 
@@ -144,7 +144,7 @@ To configure how healthcheck will be performed (how does the LB check that insta
 > **NOTE** If you have an SSL certificate, which is definitely a good security rule, you will install it on this LoadBalancer, and redirect port 443 to 80: internal communications do not need to be encrypted.
 
 ### Session Stickyness
-Once edited and created, edit the “Stickyness” parameter of the redirection rules and choose “Enable Application Generated Cookie Stickyness”, using “AjaXplorer” as cookie name. This is important, as although clients will be randonly redirected to instances on first connexion, once a session is established, it will always stay on a given instance.
+Once edited and created, edit the “Stickyness” parameter of the redirection rules and choose “Enable Application Generated Cookie Stickyness”, using “Pydio” as cookie name. This is important, as although clients will be randonly redirected to instances on first connexion, once a session is established, it will always stay on a given instance.
 
  [:image-popup:system/deploying_pydio_in_aws_glusterfs/screenshot-2014-01-07-at-23-39-35.png]
 

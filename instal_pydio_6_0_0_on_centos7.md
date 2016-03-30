@@ -1,4 +1,5 @@
 Preparation
+
 Install net-tools (optional)
 
 	yum install net-tools

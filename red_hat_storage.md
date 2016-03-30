@@ -25,18 +25,18 @@ Red Hat Storage Server solves enterprise storage requirements, including:
 
 [:image-popup:system/red_hat_storage/redhat-logo.jpg]
 
-### AjaXplorer and Red Hat Storage
+### Pydio and Red Hat Storage
 #### _Solution overview_
 
-AjaXplorer is an open-source alternative to Dropbox and Box.net, providing accesss to any filesystem through a neat webapp, dedicated iOS and Android native applications, as well as WebDAV. This document will describe how to deploy it efficiently in an Red Hat Storage environment, assuming you have the following set up :
+Pydio is an open-source alternative to Dropbox and Box.net, providing accesss to any filesystem through a neat webapp, dedicated iOS and Android native applications, as well as WebDAV. This document will describe how to deploy it efficiently in an Red Hat Storage environment, assuming you have the following set up :
 
 + One RHServer node for LoadBalancer proxy (using HAProxy software).
 + N RHServer node accessing the distributed replicated gluster volume.
-+ Optionaly, and AD or LDAP directory to provide users (AjaXplorer has its own user system otherwise).
++ Optionaly, and AD or LDAP directory to provide users (Pydio has its own user system otherwise).
 
-The idea of this setup is to actually use the gluster nodes to act as HTTP servers, in an High Availability fashion : clients will access through the proxy to either node (based on a round-robin balance), and if one node dies it will be automatically ignored. Adding a node should be a matter of minutes, mounting the gluster volume, running the AjaXplorer install script, and telling the proxy of this new node.
+The idea of this setup is to actually use the gluster nodes to act as HTTP servers, in an High Availability fashion : clients will access through the proxy to either node (based on a round-robin balance), and if one node dies it will be automatically ignored. Adding a node should be a matter of minutes, mounting the gluster volume, running the Pydio install script, and telling the proxy of this new node.
 
-**_NOTE_** : During the AjaXplorer installation scripts, except it is already checked, you will be asked to enable the “RHServer EUS Optional Server” channel subscription, by providing your RHN login and password. Please make sure you have them available before running the script.
+**_NOTE_** : During the Pydio installation scripts, except it is already checked, you will be asked to enable the “RHServer EUS Optional Server” channel subscription, by providing your RHN login and password. Please make sure you have them available before running the script.
 
 #### _Architecture Diagram_
 
@@ -57,29 +57,29 @@ Download the following scripts on your gluster nodes :
 
 `chmod 755 rhs-ajaxplorer.sh`
 
-### Running AjaXplorer script on a first gluster node
-The provided rhs-ajaxplorer.sh script will deploy AjaXplorer and all necessary dependancies automatically on a gluster node.
+### Running Pydio script on a first gluster node
+The provided rhs-ajaxplorer.sh script will deploy Pydio and all necessary dependancies automatically on a gluster node.
 
 `./rhs-ajaxplorer.sh`
 
-It will detect if this is the very first node to be installed, and in that case will ask you to run the AjaXplorer graphical installation, by accessing this first node through a web-browser, at url http://first_node_IP/ajaxplorer/
+It will detect if this is the very first node to be installed, and in that case will ask you to run the Pydio graphical installation, by accessing this first node through a web-browser, at url http://first_node_IP/ajaxplorer/
 
-### AjaXplorer configuration
+### Pydio configuration
 #### _Standard set-up_
 
-When deploying this very first AjaXplorer node, you will have to go through the standard AjaXplorer installation wizard to setup the basic configs.
+When deploying this very first Pydio node, you will have to go through the standard Pydio installation wizard to setup the basic configs.
 
 + Choose an administrator user name and password
 + Skip Emails configuration for the moment
-+ Setup the “Configurations Storage” : this defines how AjaXplorer handles its own internal configurations. As a start, we suggest using an Sqlite3-based backend, although a MySQL DB would be recommanded for scalability purpose. The SQlite file will be stored on the gluster config volume, and will be shared amongs all AjaXplorer nodes.
++ Setup the “Configurations Storage” : this defines how Pydio handles its own internal configurations. As a start, we suggest using an Sqlite3-based backend, although a MySQL DB would be recommanded for scalability purpose. The SQlite file will be stored on the gluster config volume, and will be shared amongs all Pydio nodes.
 
 Execute installation and login, you’re in! If you go to the Settings panel (in the admin user menu), you will here be able to **_switch the Authentication mechanism to LDAP or AD_** if necessary. Please refer to the admin guide before touching this, you could end up being logged out of the system!
 
 #### _Solution specific configurations_
 
-Some AjaXplorer features will generate http links used by the users, and generally, AjaXplorer can safely detect the link “base” using the current server IP. In the architecture presented in this document, the software may end up building links using the AjaXplorer instance server IP, i.e. the internal LAN IP, not the public IP. For this reason, you must update a couple of AjaXplorer parameter using the HAProxy node public IP, the one that will be the unique entry point to the system by the clients.
+Some Pydio features will generate http links used by the users, and generally, Pydio can safely detect the link “base” using the current server IP. In the architecture presented in this document, the software may end up building links using the Pydio instance server IP, i.e. the internal LAN IP, not the public IP. For this reason, you must update a couple of Pydio parameter using the HAProxy node public IP, the one that will be the unique entry point to the system by the clients.
 
-Let’s say the public IP of haproxy is HA_IP, here are some options to set inside **AjaXplorer Main Options**
+Let’s say the public IP of haproxy is HA_IP, here are some options to set inside **Pydio Main Options**
 
 + Main Options > Server URL : http://HA_IP/ajaxplorer
 + Sharing > Download URL : http://HA_IP/ajaxplorer_public (there is a virtual host)
@@ -92,7 +92,7 @@ As your editing this parameters,  make sure the following are checked as well:
 + Command line > Command-line Active : Yes
 
 ### Next nodes deployment
-Once you’re setup with your configuration on the first AjaXplorer instance, you will be able to run the script on the other nodes, and configurations will be automatically imported from the “master”. At the end of the installation, you should be notified that AjaXplorer configurations were correctly detected on the gluster volume, and check that everything is indded running as expected by accessing the new node web server : http://new_node_IP/ajaxplorer/
+Once you’re setup with your configuration on the first Pydio instance, you will be able to run the script on the other nodes, and configurations will be automatically imported from the “master”. At the end of the installation, you should be notified that Pydio configurations were correctly detected on the gluster volume, and check that everything is indded running as expected by accessing the new node web server : http://new_node_IP/ajaxplorer/
 
 ## Installing the Load Balancer
 On the Proxy node, simply download and execute the rhs-haproxy.sh script:
@@ -114,7 +114,7 @@ Open the /etc/haproxy/haproxy.cfg At the very end of the file, you will see the 
       # Modify here the statistics user credential to use a secret key!
       #
       stats auth root:haproxy
-      # Round-Robin & Session Stick on AjaXplorer
+      # Round-Robin & Session Stick on Pydio
       balance roundrobin # Load Balancing algorithm
       appsession AjaXplorer len 64 timeout 3h request-learn
       option forwardfor # This sets X-Forwarded-For
@@ -134,13 +134,13 @@ Once you are done, restart HAProxy using
 
 `/etc/init.d/haproxy restart`
 
-## Using AjaXplorer: apps, REST, CLI
+## Using Pydio: apps, REST, CLI
 ### Standard Access
 At this step of the tutorial, you should be able to access the external IP http://external_IP/ajaxplorer/ and this will round robin the load on the various nodes.
 
 [:image-popup:system/red_hat_storage/screenshot-2013-05-14-at-23-00-14.png]
 
-This URL is the unique entry point, used by all standard AjaXplorer “clients” : this **webapp**, but also the **iOS** and **Android** applications. In these apps, at first connexion, you are prompted for some connexion information. Fill them using http://HA_IP/ajaxplorer/ as the server URL, and your login / password as credentials.
+This URL is the unique entry point, used by all standard Pydio “clients” : this **webapp**, but also the **iOS** and **Android** applications. In these apps, at first connexion, you are prompted for some connexion information. Fill them using http://HA_IP/ajaxplorer/ as the server URL, and your login / password as credentials.
 
 [:image-popup:system/red_hat_storage/photo.png]
 
@@ -176,13 +176,13 @@ Then , if you want for example to trigger the action “create_group” with par
 Note the difference between simple-dash parameters and double-dash parameters : the first ones are always necessary, whereas the latter ones will depend on the triggered action.
 
 ## Going further with HA
-This setup should easily demonstrate the horizontal scalability of such an RHS+AjaXplorer configuration. However, if you intend to deploy in a highly demanding production environnment, you should consider the following suggestions.
+This setup should easily demonstrate the horizontal scalability of such an RHS+Pydio configuration. However, if you intend to deploy in a highly demanding production environnment, you should consider the following suggestions.
 
 ### Doubling the HAProxy Node
 This is a fairly simple setup for demonstrating LoadBalancing and node failing automatic detection. To provide the best High Availability configuration, you should actually double the LoadBalancer nodes, using HAProxy and Heartbeat to make sure that if one of them fall down, a slave can take the relay.
 
 ### Setting up a mutual DB
-Although the key to the data high availabilty relies on the data being stored on the filesystem, some side-features of AjaXplorer are now requiring a database setup. In this tutorial, we covered the case using a Sqlite3 database shared through the Gluster volume, which would not scale well. You should instead consider dedicating a MySQL database to replace this, eventually using solutions like Percona DB to manage the DB replication and HA.
+Although the key to the data high availabilty relies on the data being stored on the filesystem, some side-features of Pydio are now requiring a database setup. In this tutorial, we covered the case using a Sqlite3 database shared through the Gluster volume, which would not scale well. You should instead consider dedicating a MySQL database to replace this, eventually using solutions like Percona DB to manage the DB replication and HA.
 
 ### Share the PHP Sessions
-The Proxy setup is set so that once a client is connected to a given AjaXplorer node, the session is “sticky” and HAProxy will always redirect this client to this node. If the node falls down, the client will have to start a new session. Avoiding this can be done by sharing the session amongst all AjaXplorer node, using for example a dedicated Memcache server accessed by all nodes.
+The Proxy setup is set so that once a client is connected to a given Pydio node, the session is “sticky” and HAProxy will always redirect this client to this node. If the node falls down, the client will have to start a new session. Avoiding this can be done by sharing the session amongst all Pydio node, using for example a dedicated Memcache server accessed by all nodes.

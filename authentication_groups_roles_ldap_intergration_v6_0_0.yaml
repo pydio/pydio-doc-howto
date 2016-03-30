@@ -1,6 +1,7 @@
 title: "Groups and Roles with LDAP/AD integration [v6.0.0]"
 language: und
 category: Authentication
+abstract: "In this article, we would like to introduce new functions on ldap plugin in Pydio version 6.0.0."
 tags: 
   active directory
   ad

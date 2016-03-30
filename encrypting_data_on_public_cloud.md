@@ -1,4 +1,4 @@
-In this how to we want to use S3FS coupled with ENCFS and Ajaxplorer to have encrypted data on an Amazon S3 server. We will see how to install and combine these features to be able to use them (directly on a shell or on Ajaxplorer).
+In this how to we want to use S3FS coupled with ENCFS and Pydio to have encrypted data on an Amazon S3 server. We will see how to install and combine these features to be able to use them (directly on a shell or on Pydio).
 
 
 ## Install S3FS and Fuse
