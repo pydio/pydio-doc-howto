@@ -1,4 +1,5 @@
 title: "Troubleshooting WebDAV server"
+abstract: "Web Distributed Authoring and Versioning (WebDAV) is an extension of the Hypertext Transfer Protocol (HTTP) that facilitates collaboration between users in editing and managing documents and files stored on World Wide Web servers. A working group of the Internet Engineering Task Force (IETF) defined WebDAV in RFC 4918."
 language: und
 category: System
 tags:

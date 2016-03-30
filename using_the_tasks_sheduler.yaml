@@ -1,4 +1,5 @@
 title: "Using the tasks scheduler"
+abstract: "The task scheduler is a component that was developed to centralized all the specific 'maintenance' tasks, without having to add multiple lines in the external CRON-like system. The idea is to program a CRON to trigger the scheduler on a regular basis, and let the scheduler handle internal tasks."
 language: und
 category: Plugins
 tags:

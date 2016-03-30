@@ -1,4 +1,4 @@
-Virtual Appliance 1.1.0 is built base on Debian 7.4 (Wheezy) 32 bits. There are several step to upgrade Pydio to latest version in using official repo
+Virtual Appliance 1.1.0 is built base on Debian 7.4 (Wheezy) 32 bits. There are several step to upgrade Pydio to latest version in using official repo.
 
 ## Step 1: Preparation before upgrade
 1.1. Add repo source.

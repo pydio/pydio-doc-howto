@@ -1,3 +1,4 @@
 title: "Syncing with externally modified workspace"
+abstract: "Syncing against an workspace which data can be modified outside of Pydio can be a challenge. This article will describe the mechanisms involved and the possible strategies for that."
 language: und
 category: Synchronization
