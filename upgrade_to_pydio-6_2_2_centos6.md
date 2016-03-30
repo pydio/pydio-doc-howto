@@ -8,6 +8,8 @@ On centos, it requires to use some extra repositories for php54 and its dependen
 
 `yum install epel-release`
 
+`yum update`
+
 ### Install pydio repositories:
 
 **Community version**
