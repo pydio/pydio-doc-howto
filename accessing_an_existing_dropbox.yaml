@@ -1,6 +1,7 @@
 title: "Accessing an existing Dropbox"
 language: und
 category: Workspaces
+abstract: "Using driver access.dropbox to let your users access their dropbox directly from within Pydio."
 tags:
   access
   dropbox
