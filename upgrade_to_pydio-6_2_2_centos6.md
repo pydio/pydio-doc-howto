@@ -2,13 +2,13 @@
 
 On centos, it requires to use some extra repositories for php54 and its dependencies. Execute following command to add such repositories
 
-`rpm -ivh https://www.softwarecollections.org/en/scls/rhscl/php54/epel-6-x86_64/download/rhscl-php54-epel-6-x86_64.noarch.rpm`
+`yum update`
+
+`rpm -ivh https://www.softwarecollections.org/repos/rhscl/php54/epel-6-x86_64/noarch/rhscl-php54-epel-6-x86_64-1-2.noarch.rpm`
 
 `rpm -ivh https://www.softwarecollections.org/en/scls/remi/php54more/epel-6-x86_64/download/remi-php54more-epel-6-x86_64.noarch.rpm`
 
 `yum install epel-release`
-
-`yum update`
 
 ### Install pydio repositories:
 
