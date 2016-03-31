@@ -45,12 +45,13 @@ Activate php54
 
 `source /opt/rh/php54/enable`
 
-Disable php5.3
-`mv /etc/httpd/conf.d/php.conf /etc/httpd/conf.d/php.conf.bak`
-
 Disable old php (5.3)
 
 `mv /etc/httpd/conf.d/php.conf /etc/httpd/conf.d/php.conf.old`
+
+Restart apache
+
+`service httpd restart`
 
 > Note: the php.ini file is located in: /opt/rh/php54/root/etc/php.ini
 
