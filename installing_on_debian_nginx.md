@@ -134,7 +134,7 @@ This is the new config, contributed by Vlad
     }
     server {
             server_name www.example.com;
-            root /var/www/localhost/htdocs/pydio6;
+            root /var/www/<extracted directory name>;
             index index.php;
             listen 443 ssl;
             keepalive_requests    10;
@@ -180,7 +180,7 @@ This is the new config, contributed by Vlad
                     include fastcgi.conf;
                     fastcgi_param  REQUEST_URI $request_url;
                     try_files $uri =404;
-                    fastcgi_pass unix:/tmp/php5-fpm.sock;
+                    fastcgi_pass unix:/var/run/php5-fpm.sock;
             }
 
            # Enables Caching
@@ -191,6 +191,13 @@ This is the new config, contributed by Vlad
             }
     }
 
+Edit `/etc/nginx/nginx.conf` file to change user from `nginx` to `www-data`:
+
+    #user nginx
+    user www-data
+
+Edit `/etc/nginx/fastcgi_params` file to add:
+`fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;`
 
 ## Now that all the Nginx files are created
 
