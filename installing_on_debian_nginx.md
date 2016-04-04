@@ -2,14 +2,26 @@
 
 **Update** Updated on Avr. 4 2016 to update new img for Pydio 6
 
-Following are the instructions for installing [Pydio](https://pyd.io/) with [Nginx](http://nginx.org/en/) on [Debian Wheezy](http://www.debian.org/intro/about).   The hardware I am using is a [Raspberry Pi](http://www.raspberrypi.org/faqs) with a [4TB Western Digital USB](http://www.wdc.com/en/products/products.aspx?id=870) hard drive attached.   Because the Raspberry Pi is a low powered device I am using Nginx as the web server with PHP-FPM for processing php.
+Following are the instructions for installing [Pydio](https://pydio.com/) with [Nginx](http://nginx.org/en/) on [Debian Jessie](http://www.debian.org/intro/about).   The hardware I am using is a [Raspberry Pi](http://www.raspberrypi.org/faqs) with a [4TB Western Digital USB](http://www.wdc.com/en/products/products.aspx?id=870) hard drive attached.   Because the Raspberry Pi is a low powered device I am using Nginx as the web server with PHP-FPM for processing php.
 
 **Assumptions**
 
-You already have Debian 7.0 (Wheezy) running.
+You already have Debian 8.0 (Jessie) running.
 You can download the Pydio compressed file to your Debian server.
-To start off with we need to install the prerequisite packages.   I am keen to keep my Raspberry Pi lean and so I did some testing to determine the minimum required packages needed to get the full functionality of Pydio.   Note I am not including the requirements for the Pydio desktop client yet because it is in beta and I am not interested in testing it.   If you wish to use the desktop client you will need some rsync php related packages.   So here is the command to install the prerequisites;
+To start off with we need to install the prerequisite packages.   I am keen to keep my Raspberry Pi lean and so I did some testing to determine the minimum required packages needed to get the full functionality of Pydio.   Note I am not including the requirements for the Pydio desktop client yet because it is in beta and I am not interested in testing it.   If you wish to use the desktop client you will need some rsync php related packages.
 
+First we need to authenticate the nginx repository signature, we add the key used to sign the nginx packages and repository to the apt program keyring. Download this [key](http://nginx.org/keys/nginx_signing.key) and add it to the apt program keyring with the following command:
+
+    apt-key add nginx_signing.key
+
+Then you can add at the end of `/etc/apt/sources.list` file:
+
+    deb http://nginx.org/packages/ubuntu/ jessie nginx
+    deb-src http://nginx.org/packages/ubuntu/ jessie nginx
+
+So after that, you can install the prerequisites;
+
+    apt-get update
     apt-get install nginx php5 php5-fpm php5-gd php5-cli php5-mcrypt
 
 Once the prerequisites are installed, create the www directory and set ownership;
