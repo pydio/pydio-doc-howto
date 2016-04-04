@@ -200,17 +200,20 @@ We can enable the site by deleting the default Nginx site and linking to the new
     rm default
     ln -s ../sites-available/x.yourdomain.com
 
-Time to get the Pydio files. [Download](https://pyd.io/download/) the latest version and save it to your /var/www directory. Extract the downloaded file to the root of the www directory;
+Time to get the Pydio files. [Download](https://pydio.com/en/get-pydio) the latest version and save it to your /var/www directory. Extract the downloaded file to the root of the www directory;
 
     cd /var/www
     tar -xzf <gz file name here>
     ls -l
     mv <extracted directory name>/* /var/www
-    rm -R /var/www/<extracted directory name>
+    rm -R /var/www/<gz file name here>
     chown -R www-data:www-data /var/www
 
 Prior to opening a browser and seeing the result we need to restart the required services to pick up the new config files;
+To restart nginx you need to unmask his service:
+`systemctl unmask nginx`
 
+Then restart php5-fpm and nginx service:
 `service php5-fpm restart`
 `service nginx restart`
 
@@ -227,6 +230,6 @@ The last required configuration for the installation is to adjust the Pydio uplo
 
 [:image-popup:system/installing_on_debian+nginx/PydioCoreConfigUploader.png]
 
-That’s it.   Pydio is now installed and waiting for you to configure repositories and other customizations.  There are [plugins available](https://pyd.io/plugins/) and client applications.   I am using the [Android client](https://play.google.com/store/apps/details?id=info.ajaxplorer.android&hl=en) successfully and will look at the [Desktop client](https://pyd.io/extensions/desktop-sync/) once it is out of beta.
+That’s it.   Pydio is now installed and waiting for you to configure repositories and other customizations.  There are [plugins available](https://pydio.com/en/docs/references/plugins) and client applications.   I am using the [Android client](https://play.google.com/store/apps/details?id=com.pydio.android.pydioPro&hl=fr) successfully and will look at the [Desktop client](https://pydio.com/products/downloads/pydiosync-desktop-app) once it is out of beta.
 
 The Raspberry Pi is an amazing platform for free open tools like this and I am now using a low powered Pi with a USB disk as my home file server cutting my electricity bill and reducing my carbon foot print.
