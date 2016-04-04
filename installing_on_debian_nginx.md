@@ -14,7 +14,7 @@ First we need to authenticate the nginx repository signature, we add the key use
 
     apt-key add nginx_signing.key
 
-Then you can add at the end of `/etc/apt/sources.list` file:
+Then you can add at the end of /etc/apt/sources.list file:
 
     deb http://nginx.org/packages/ubuntu/ jessie nginx
     deb-src http://nginx.org/packages/ubuntu/ jessie nginx
@@ -191,12 +191,12 @@ This is the new config, contributed by Vlad
             }
     }
 
-Edit `/etc/nginx/nginx.conf` file to change user from `nginx` to `www-data`:
+Edit /etc/nginx/nginx.conf file to change user from nginx to www-data:
 
     #user nginx
     user www-data
 
-Edit `/etc/nginx/fastcgi_params` file to add:
+Edit /etc/nginx/fastcgi_params file to add:
 `fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;`
 
 ## Now that all the Nginx files are created
