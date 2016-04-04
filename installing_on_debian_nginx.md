@@ -1,6 +1,6 @@
 **Author** Grant Carthew from http://uglygizmo.blogspot.fr/
 
-**Update** Updated on Dec. 3 2014 to propose a new config file for Pydio 6
+**Update** Updated on Avr. 4 2016 to update new img for Pydio 6
 
 Following are the instructions for installing [Pydio](https://pyd.io/) with [Nginx](http://nginx.org/en/) on [Debian Wheezy](http://www.debian.org/intro/about).   The hardware I am using is a [Raspberry Pi](http://www.raspberrypi.org/faqs) with a [4TB Western Digital USB](http://www.wdc.com/en/products/products.aspx?id=870) hard drive attached.   Because the Raspberry Pi is a low powered device I am using Nginx as the web server with PHP-FPM for processing php.
 
@@ -213,7 +213,7 @@ with a username of admin and a password of admin for the first access.   Make su
 
 The last required configuration for the installation is to adjust the Pydio upload file size limit. This is achieved under settings;
 
-[:image-popup:system/installing_on_debian+nginx/AjaXplorerCoreConfigUploader.png]
+[:image-popup:system/installing_on_debian+nginx/PydioCoreConfigUploader.png]
 
 That’s it.   Pydio is now installed and waiting for you to configure repositories and other customizations.  There are [plugins available](https://pyd.io/plugins/) and client applications.   I am using the [Android client](https://play.google.com/store/apps/details?id=info.ajaxplorer.android&hl=en) successfully and will look at the [Desktop client](https://pyd.io/extensions/desktop-sync/) once it is out of beta.
 
