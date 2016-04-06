@@ -1,10 +1,7 @@
 **Author** Dmitry
 
-## Disclaimer
-This how-to is targeted at not very experienced users. If you just need the rewrite rules, skip [here](https://pyd.io/fedora-lighttpd/#Additional). Also, configuration given here is basic and can and shall be tuned for security and performance (ex. chroot and php-fpm configuration), but should suit most. As a result, you get a LLMP server with Pydio running on it.
-
 ## Why lighttpd
-I believe using alternative web servers like lighttpd (or [nginx](https://pyd.io/nginx)) is a better option for most Pydio deployments as these are faster and less resouce-hungry (out of the box, at least) than Apache, tuning which sometimes looks like black magic to me. Lighttpd, which is important for Pydio, is optimized for a large number of parallel (keep-alive) connections (allows high performance AJAX applications) and has async IO capatibility.
+I believe using alternative web servers like lighttpd (or [nginx](http://nginx.org/)) is a better option for most Pydio deployments as these are faster and less resouce-hungry (out of the box, at least) than Apache, tuning which sometimes looks like black magic to me. Lighttpd, which is important for Pydio, is optimized for a large number of parallel (keep-alive) connections (allows high performance AJAX applications) and has async IO capatibility.
 
 ## Setting LLMP up
 This part is not tied to Pydio, so one may use it just to get LLMP running.
@@ -17,6 +14,7 @@ Switch to root:
 
 `sudo su`
 
+Disclaimer : If your Fedora version is more than 22 you must replace yum by [dnf](https://fedoraproject.org/wiki/Features/DNF)
 Install SELinux management utilities:
 
 `yum install policycoreutils-python`
@@ -28,9 +26,14 @@ Allow traffic on ports 80 and 443:
 
 ## Web server
 ### Init
+
 Install:
 
 `yum install lighttpd -y`
+
+After that you must check in lighttpd.conf file if your localhost bind in the good directory :
+
+`server.document_root = server_root + "/lighttpd"`
 
 Start:
 
@@ -65,7 +68,7 @@ Point your browser to server’s hostname or IP. You should see lighttpd’s log
 ### Init
 Install (this includes an accelerator (opcache)):
 
-`yum install php-fpm php-cli lighttpd-fastcgi php-opcache -y`
+`yum install php-fpm php-cli lighttpd-fastcgi php-opcache php-xml -y`
 
 ### Conf
 #### _PHP_
@@ -88,7 +91,7 @@ And configure it:
 
 	echo 'fastcgi.server += ( ".php" =>
 	 ((
-	 "socket" => "/var/run/php-fpm/php-fpm.sock",
+	 "socket" => "/var/run/php-fpm.sock",
 	 "broken-scriptfilename" => "enable"
 	 ))
 	 )' >> /etc/lighttpd/conf.d/fastcgi.conf
@@ -104,9 +107,17 @@ Allow lighty to write to it’s webroot directory:
 
 Switch to sockets (reduce overhead):
 
-`sed s/"listen = 127.0.0.1:9000"/"listen = \/var\/run\/php-fpm\/php-fpm.sock"/ /etc/php-fpm.d/www.conf -i`
+`sed s/"listen = 127.0.0.1:9000"/"listen = \/var\/run\/php-fpm.sock"/ /etc/php-fpm.d/www.conf -i`
 
 Restart php-fpm after optimizing.
+
+If you have error it's because you need to edit with a text editor the www.conf file :
+
+`listen = /var/run/php-fpm.sock`
+
+You need to change to owner the of /var/lib/php/session directory for lighttpd
+
+`chown -R lighttpd:lighttpd /var/lib/php/session`
 
 ### Fin
 Restart php-fpm and lighttpd.
@@ -157,7 +168,7 @@ Restart and enable to start at boot:
 ## Init
 Install prerequisites:
 
-`sudo yum install php-mcrypt php-gd -y`
+`sudo yum install php-mcrypt php-gd php-mysql -y`
 
 ## Conf
 ### Mandatory
@@ -263,6 +274,6 @@ You should be done by now. Access Pydio by visiting (default) https://$FQDN/pydi
 # Fin
 Congratulations, you now (probably) have a working file cloud setup. In case not, a good way to get help is a forum thread and a comment to this page with link to it.
 
-You may now consider exploring [plugins](https://pyd.io/plugins) or using clients: mobile: [iOS](https://pyd.io/apps/ios-client/) and [Android](https://pyd.io/apps/android-client/), [Thunderbird File](https://pyd.io/apps/thunderbird-file-link/) Link and [Desktop Sync](https://pyd.io/apps/desktop-sync-client/).
+You may now consider exploring [plugins](https://pydio.com/en/docs/references/plugins) or using clients: mobile: [iOS](https://itunes.apple.com/us/app/pydio/id709275884) and [Android](https://play.google.com/store/apps/details?id=com.pydio.android.Client), [Thunderbird File](https://pydio.com/fr/node/696) Link and [Desktop Sync](https://pydio.com/fr/node/19).
 
-Also, after using for a while and understanding how nice Pydio is, you may want to [tell developers about it](https://pyd.io/f/forum/troubleshooting/testimonies/). They would be quite pleased if you did.
+Also, after using for a while and understanding how nice Pydio is, you may want to [tell developers about it](https://pydio.com/forum/f/forum/troubleshooting/testimonies/). They would be quite pleased if you did.
