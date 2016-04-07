@@ -22,6 +22,6 @@ Once the dynamic workspace is created, you will be able to edit the Core Configs
 
 The “My FTP” here is the workspace created at previous step. The “Admin Login” should be a user of one accessible FTP server, that will be detected by Pydio as an admin if this user logs in.
 
-Disclaimer: If you want to switch from the "ftp login" to the "old login" be sure that "admin login" and "ftp login" are the same 
+**Disclaimer: If you want to switch from the "ftp login" to the "old login" be sure that "admin login" and "ftp login" are the same **
 
 Make sure not to set a secondary auth driver, otherwise the dynamic login screen mechanism will not properly work.
