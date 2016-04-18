@@ -1,5 +1,5 @@
 ### Workspace Templates
-[:image-popup/workspaces/delegating_workspace_creation/display_template.png]
+[:image-popup:workspaces/delegating_workspace_creation/display_template.png]
 
 There are two ways to let some non-administrator users create their own workspaces. In both cases, you first have to create a “Template”, which is a workspace where you prefill most of the necessary parameters, and only a couple of parameters are let to the user.
 
