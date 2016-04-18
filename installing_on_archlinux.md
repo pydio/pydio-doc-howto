@@ -73,7 +73,7 @@ To start, or restart,  needed services, we need to run the following command (as
 ### Let’s test
 Open a browser on you desktop and access you Pydio domain name :
 
-[:image-popup:system/installing_on_archlinux/AjaXplorerDiagnosticTool.png]
+[:image-popup:system/installing_on_archlinux/PydioDiagnosticTool.png]
 
 Pydio is working now.
 
