@@ -1,6 +1,6 @@
 **author** Contributed
 
-**Important for v6 & PydioSync** Please make sure to go through the other Nginx-dedicated How-To (on debian), as the v6 requires new rewrite rules to be active for the Rest API. Check https://pyd.io/nginx/ !
+**Important for v6 & PydioSync** Please make sure to go through the other Nginx-dedicated How-To (on debian), as the v6 requires new rewrite rules to be active for the Rest API. Check https://pydio.com/en/docs/kb/system/installing-debiannginx !
 
 **Introduction:**
 
