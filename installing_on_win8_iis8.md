@@ -1,8 +1,8 @@
-**Author** Florian BURNEL from [http://it-connect.fr]
+**Author** Florian BURNEL from [http://www.it-connect.fr]
 
 **Contributor** JR for the Authorization Rules [chiselapp]
 
-**TO READ FOR V6** Make sure to check https://pyd.io/configure-applicationpool-for-pydio-in-windows2012-iis8/ to grab the most up-to-date web.config instructions for Pydio6.
+**TO READ FOR V6** Make sure to check https://pydio.com/en/docs/kb/security/configure-applicationpool-pydio-windows2012-iis8-update-pydio-6 to grab the most up-to-date web.config instructions for Pydio6.
 
 ## Introduction
 In this how-to, we’ll see the installation of Pydio (Put Your Data In Orbit), which is a good alternative to Dropbox, Drive, or ownCloud. In this case, the installation will be carried on a Microsoft IIS 8 webserver, which in this case, is installed on Windows 8.

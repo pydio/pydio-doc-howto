@@ -48,7 +48,7 @@ Add repository
 
 **Configure permission for Pydio**
 
-Visit this article: https://pyd.io/permission-for-pydios-filesfolders/
+Visit this article: https://pydio.com/en/docs/kb/security/permission-pydios-filesfolders
 
 **htaccess**
 
@@ -67,7 +67,7 @@ Modify /var/lib/pydio/public/.htaccess
 	RewriteRule ^([a-zA-Z0-9_-]+)--([a-z]+)$ share.php?hash=$1&lang=$2 [QSA]
 	RewriteRule ^([a-zA-Z0-9_-]+)$ share.php?hash=$1 [QSA]
 
-Visit this article: https://pyd.io/upgrade-pydio-5-2-5-to-6-0-0/
+Visit this article: https://pydio.com/en/docs/kb/upgrades/upgrade-rpmdeb-v600
 
 **Public share link generation**
 
@@ -117,7 +117,7 @@ edit /etc/pydio/bootstrap_conf.php by adding this line
 
 **Troubleshooting:**
 **_Share link permission denined_**
-https://pyd.io/f/topic/share-links-permission-denied-centos7/
+https://pydio.com/forum/f/topic/share-links-permission-denied-centos7/
 
 **Change URI**
-https://pyd.io/f/topic/change-pydio-default-url-centos7/
+https://pydio.com/forum/f/topic/change-pydio-default-url-centos7/
