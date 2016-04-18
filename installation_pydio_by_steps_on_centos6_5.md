@@ -1,6 +1,6 @@
 This article will introduce steps to install Pydio step by step in CentOS 6.5 environement.
 
-If you are running CentOS7, please make sure to read the [dedicated article here](https://pyd.io/install-pydio-on-centos-7/).
+If you are running CentOS7, please make sure to read the [dedicated article here](https://pydio.com/en/docs/kb/system/install-pydio-600-centos-7/).
 
 Firstly, download pydio from sourceforge at https://pyd.io/download/. In this case, we are going to use installation from zip file
 
@@ -9,7 +9,7 @@ Firstly, download pydio from sourceforge at https://pyd.io/download/. In this ca
 
 – Install operating system
 
-– Download Pydio from https://pyd.io/download/. In this case, we are going to use installation from zip file
+– Download Pydio from https://pydio.com/en/get-pydio. In this case, we are going to use installation from zip file
 
 ## Step 2: Installation dependencies for Pydio
 – Update repository database
@@ -93,7 +93,7 @@ Attach this key/cert to apache
 	sed -i "s/localhost.key/pydio.pem/g" /etc/httpd/conf.d/ssl.conf
 
 ## Step 3. Install PYDIO
-Click on https://pyd.io/download/ to choose the way you would like to install pydio. In this article, we supposed using install from linux package on CentOS system
+Click on https://pydio.com/en/get-pydio to choose the way you would like to install pydio. In this article, we supposed using install from linux package on CentOS system
 
 Install the Pydio repository:
 
@@ -136,4 +136,4 @@ sample for iptables: [iptables.sh](https://github.com/pydio/configs/blob/master/
 ### Harden you server with several steps
 sample shell script: [harden-centos.sh](https://github.com/pydio/configs/blob/master/shell-script/harden-centos)
 
-Enforce by using SELinux: [see](https://pyd.io/pydio-with-security-enhanced-linux-selinux/)
+Enforce by using SELinux: [see](https://pydio.com/en/docs/kb/security/pydio-security-enhanced-linux-selinux)
