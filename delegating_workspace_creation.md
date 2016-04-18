@@ -1,5 +1,5 @@
 ### Workspace Templates
-[:image:image/workspaces/delegating_workspace_creation/screenshot-2013-06-03-at-14-47-29.png]
+[:image:image/workspaces/delegating_workspace_creation/display_template.png]
 
 There are two ways to let some non-administrator users create their own workspaces. In both cases, you first have to create a “Template”, which is a workspace where you prefill most of the necessary parameters, and only a couple of parameters are let to the user.
 
@@ -17,7 +17,7 @@ In that case, if a user creates a workspace from this template, any value set to
 
 Creating groups, you can then assign the “Administrator” Profile to a user of a group. This user will be able to access to a lightweight version of the Settings panel. She will only see the users, workspaces and roles of her group. And she will only be able to create a workspace based on an authorized template, not from scratch. Here is below a screenshot of the group admin Settings panel.
 
-[:image-popup:workspaces/delegating_workspace_creation/screenshot-2013-06-03-at-14-53-54.png]
+[:image-popup:workspaces/delegating_workspace_creation/group_admin.png]
 
  
 
