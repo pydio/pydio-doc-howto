@@ -2,7 +2,7 @@ This article will introduce steps to install Pydio step by step in CentOS 6.5 en
 
 If you are running CentOS7, please make sure to read the [dedicated article here](https://pydio.com/en/docs/kb/system/install-pydio-600-centos-7/).
 
-Firstly, download pydio from sourceforge at https://pyd.io/download/. In this case, we are going to use installation from zip file
+Firstly, download pydio from sourceforge at https://pydio.com/en/get-pydio. In this case, we are going to use installation from zip file
 
 ## Step 1: Preparation
 – Download CentOS from http://wiki.centos.org/Download. In this article, we used CentOS-6.5-x86_64-minimal.iso
