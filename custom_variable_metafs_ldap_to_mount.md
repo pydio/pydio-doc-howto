@@ -100,4 +100,4 @@ The best way to troubleshoot is use mount command line manually
 Depend on your ldap, the user home directory attribute is variable, such as home, userhome, homeDirectory
 
 ## Links
-https://pyd.io/f/topic/access-protected-var-for-homedrive/
+https://pydio.com/forum/f/topic/access-protected-var-for-homedrive/
