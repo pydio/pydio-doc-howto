@@ -10,21 +10,20 @@ ldap plugin on Pydio v6 takes control on this value and you can configure it eas
 
 Note: paged result control support by PHP version >=5.4
 
-[:image-popup:authentication/groups_and_roles_with_ldapad_integration[v6.0.0]/ldapserverpagesize_v6.png]
-
+[:image-popup:authentication/groups_and_roles_with_ldapad_integration_v6.0.0/ldapserverpagesize_v6.png]
 ### Search on multi attributes
 
 When doing share files/folder, you have to search user list and select people who you are looking for. This action can be translated on Pydio to a ldap query to search your input text that match with only one attribute on ldap. Obviously, its result is limited.
 
 Supposed that you are looking for a person who you remember only his name commence by ‘John’, but on displayName this attribute is ‘Kenedy John’ for example. You can not find his name on the list. On new version, you can find out this person if you specify the attributes to search for: displayName,givenName,cn
 
-[:image-popup:authentication/groups_and_roles_with_ldapad_integration[v6.0.0]/ldapsearchuserpyattrs_v6.png]
+[:image-popup:authentication/groups_and_roles_with_ldapad_integration_v6.0.0/ldapsearchuserpyattrs_v6.png]
 
 ### Fake memberOf
 
 Mapping ldap group to Pydio roles is very useful to intergrate Pydio in your system. A difficulty is some ldap system do not support memberOf attributes natively. So you have to install memberOf overlay on ldap. However, one of Pydio objective is minimizing the modification on your system. This is a reason why we develop a new ‘fake’ attribute memberof on ldap user object. With this technique, you can map memberof to roleId as memberof on AD. Of course, this can reduce the performance of Pydio.
 
-[:image-popup:authentication/groups_and_roles_with_ldapad_integration[v6.0.0]/ldapfakememberof_v6.png]
+[:image-popup:authentication/groups_and_roles_with_ldapad_integration_v6.0.0/ldapfakememberof_v6.png]
 
 In configuration, ‘Fake memberOf from’ is an attribute of ldap group object that Pydio will use to build memberof. It can be ‘member’ or ‘memberUid’ depend on your ldap.
 
@@ -45,7 +44,7 @@ It aslo can help you to add prefix of all roleID who mapped from ldap for furthe
 
 According to new feature, In Application core>Configuration management> Roles /groups Directory Listing session, you have more option
 
-[:image-popup:authentication/groups_and_roles_with_ldapad_integration[v6.0.0]/ldapMaprole_v6.png]
+[:image-popup:authentication/groups_and_roles_with_ldapad_integration_v6.0.0/ldapMaprole_v6.png]
 
 - Display roles and/or groups: For sharing, you need a list of user/role/group to select. You can limit this list for user only, or role, or group …
 - Role prefix: should the same value in ldap configuration indicate that listing only roles who has prefix
