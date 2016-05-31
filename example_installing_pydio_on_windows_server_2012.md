@@ -74,9 +74,9 @@ Go up a directory and then navigate to your wwwroot directory which should be c:
 Now we have to give the pydio application pool identity write access to the data and public directories.  Go into pydio folder, right click the data directory, and edit your pydio identity to have Modify rights by clicking **Edit** then adding the modify right for the pydio user then do the same for the public folder.
 
 ## Add our Web.Config Files
-For the data and public folders we need to create a web.config file to both protect our data and also make our rewrite rules work.  By default you cannot see file extensions so in Explorer click the View menu then check off File name extensions.  Create a new web.config file for each location and in the first notice the setting called maxAllaowedContentLength in the root web.config file.  This defaults to 30M through the GUI and in my example its set for 512M.  This will also prevent uploads larger then this value so adjust accordingly:
+For the data and public folders we need to create a web.config file to both protect our data and also make our rewrite rules work.  By default you cannot see file extensions so in Explorer click the View menu then check off File name extensions.  Create a new web.config file for each location and in the first notice the setting called maxAllaowedContentLength in the root web.config file.  This defaults to 30M through the GUI and in my example its set for 512M.  This will also prevent uploads larger then this value so adjust accordingly.  
 
-**C:\inetpub\wwwroot\pydio\web.config**
+**C:\inetpub\wwwroot\pydio\web.config**  (http://allandynes.com/wp-content/uploads/2015/08/WebConfigRoot.zip)
 
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
@@ -123,7 +123,7 @@ For the data and public folders we need to create a web.config file to both prot
 
  
 
-**C:\inetpub\wwwroot\pydio\public\web.config**
+**C:\inetpub\wwwroot\pydio\public\web.config**  (http://allandynes.com/wp-content/uploads/2015/08/WebConfigPublic.zip)
 
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
