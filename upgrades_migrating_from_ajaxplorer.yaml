@@ -1,7 +1,7 @@
 title: "Migrating from ajaxplorer to pydio repositories (linux)"
 abstract: "As the legacy ajaxplorer[stable|testing|source) repositories for both Debian and Linux are now discontinued, if you have installed the application from these, you are invited to install Pydio instead. The procedure is fairly simple and should leave you with a migrated install of pydio."
 language: und
-category: Miscellaneous
+category: Upgrades
 tags: 
   ajaxplorer
   deb
