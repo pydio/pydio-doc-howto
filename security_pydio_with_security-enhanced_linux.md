@@ -86,9 +86,13 @@ SELinux boolean is a solution that provides a way to change the security policy 
      semanage fcontext -a -t httpd_sys_rw_content_t "/path1/path2/pydiodata(/.*)?" 
      restorecon -Rv  /path1/path2/pydiodata
      
-#### Special permision for booster.
+#### Specific permision for booster.
 
 When you install/update pydio booster, executable file will be downloaded and saved in **AJXP_DATA_PATH/plugins/helper.booster/pydio* (or /var/lib/pydio/plugins/helper.booster/pydio).
+
+Turn on se bool
+
+    setsebool -P httpd_ssi_exec 1
 
 Set context for pydio booster file
 
