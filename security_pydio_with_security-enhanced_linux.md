@@ -88,7 +88,7 @@ SELinux boolean is a solution that provides a way to change the security policy 
      
 #### Specific permision for booster.
 
-When you install/update pydio booster, executable file will be downloaded and saved in **AJXP_DATA_PATH/plugins/helper.booster/pydio* (or /var/lib/pydio/plugins/helper.booster/pydio).
+When you install/update pydio booster, executable file will be downloaded and saved in **AJXP_DATA_PATH/plugins/helper.booster/pydio** (or /var/lib/pydio/plugins/helper.booster/pydio).
 
 Turn on se bool
 
@@ -130,5 +130,10 @@ Compile this file
 Import new module to SELinux
 
     semodule -i enablePydioBooster.pp
+
+Add module to SELinux "Targeted" policy and automatically load it on future boots
     
+    semodule -s targeted -i enablePydioBooster.pp
+ 
+
 > Note: To remove, use `semodule -r enablePydioBooster`
