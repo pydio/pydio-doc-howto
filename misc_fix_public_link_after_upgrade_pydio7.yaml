@@ -1,0 +1,10 @@
+title: "Fix public link after upgrading to Pydio 7"
+abstract: "The public links are no longer accessible after upgrading to Pydio 7. The how-to will help you to fix this issue"
+language: und
+category: Miscellaneous
+tags: 
+  public link
+  link
+  pydio7
+  pydio 7
+  upgrade
