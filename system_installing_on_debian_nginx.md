@@ -97,6 +97,8 @@ Since we are lazy and security concerned, everything hitting the port 80 is redi
         client_body_buffer_size 128k;
 		# All non existing files are redirected to index.php
         if (!-e $request_filename){
+			# For old links generated from Pydio 6
+			rewrite ^/data/public/([a-zA-Z0-9_-]+)$ /public/$1?;
             rewrite ^(.*)$ /index.php last;
         }
 
