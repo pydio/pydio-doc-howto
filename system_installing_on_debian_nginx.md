@@ -1,42 +1,44 @@
-**Author** Grant Carthew from http://uglygizmo.blogspot.fr/
-
 **Last Update** Updated on Dec. 8 2016 for Pydio 7
 
 Following are the instructions for installing [Pydio](https://pydio.com/) with [Nginx](http://nginx.org/en/) on [Debian Jessie](http://www.debian.org/intro/about).
-
-This tutorial can be followed on a [Raspberry Pi](http://www.raspberrypi.org/faqs) with a [4TB Western Digital USB](http://www.wdc.com/en/products/products.aspx?id=870) hard drive attached. Because the Raspberry Pi is a low powered device I am using Nginx as the web server with [PHP-FPM](https://php-fpm.org/) for processing PHP.
 
 **Assumptions**
 
 You already have Debian 8.0 (Jessie) running.
 
 You can download the Pydio compressed file to your Debian server. **/var/www/pydio**
-To start off with we need to install the prerequisite packages.   I am keen to keep my Raspberry Pi lean and so I did some testing to determine the minimum required packages needed to get the full functionality of Pydio.   Note I am not including the requirements for the Pydio desktop client yet because it is in beta and I am not interested in testing it.   If you wish to use the desktop client you will need some rsync php related packages.
+To start off with we need to install the prerequisite packages.  I am keen to keep my Raspberry Pi lean and so I did some testing to determine the minimum required packages needed to get the full functionality of Pydio.   Note I am not including the requirements for the Pydio desktop client yet because it is in beta and I am not interested in testing it.   If you wish to use the desktop client you will need some rsync php related packages.
 
-***Installing nginx***
+***Add Repository Sources***
+
 First we need to authenticate the nginx repository signature, we add the key used to sign the nginx packages and repository to the apt program keyring. Download this [key](http://nginx.org/keys/nginx_signing.key) and add it to the apt program keyring with the following command:
 
-    apt-key add nginx_signing.key
+    wget -O- http://nginx.org/keys/nginx_signing.key | apt-key add -
+    wget -O- https://www.dotdeb.org/dotdeb.gpg | apt-key add -
 
 Then you can add at the end of /etc/apt/sources.list file:
 
-    deb http://nginx.org/packages/ubuntu/ jessie nginx
-    deb-src http://nginx.org/packages/ubuntu/ jessie nginx
+    echo deb http://nginx.org/packages/debian/ jessie nginx > /etc/apt/sources.list.d/nginx.list
+    echo deb-src http://nginx.org/packages/debian/ jessie nginx >> /etc/apt/sources.list.d/nginx.list
 
-**Installing PHP-fpm and dependancies**
+And 
+
+    echo "deb http://packages.dotdeb.org jessie all" > /etc/apt/sources.list.d/dotdeb.list
+
+**Installing Nginx, PHP7-fpm and MySQL Server**
+
 So after that, you can install the prerequisites;
 
     apt-get update
-    apt-get install nginx php5 php5-fpm php5-gd php5-cli php5-mcrypt
+    apt install nginx mysql-server php7.0 php7.0-fpm php7.0-mysql php7.0-curl php7.0-json php7.0-gd php7.0-intl php7.0-mbstring php7.0-xml php7.0-zip php7.0-exif php7.0-apcu
 
 Once the prerequisites are installed, create the www directory and set ownership;
 
-    mkdir /var/www
-    chown www-data:www-data /var/www
+    chown -R www-data:www-data /var/www
 
 We need to configure php to support larger file uploads so edit the php.ini file;
 
-    vim /etc/php5/fpm/php.ini
+    vim /etc/php/7/fpm/php.ini
 
 Edit the following values to your liking;
 
@@ -48,14 +50,15 @@ Edit the following values to your liking;
 
 Then restart php fpm service
 
-    /etc/init.d/php5-fpm restart
+    /etc/initp.d/php7.0-fpm restart
 
 Now we need to configure Nginx to setup our Pydio web site (use your own domain name below);
 
-    vim /etc/nginx/nginx.conf
+    vim /etc/nginx/sites-available/pydio.conf
 
-### For Pydio 7
-Since we are lazy and security concerned, everything hitting the port 80 is redirected to port 443 over HTTPS. Pydio installation is assumed to be **/var/www/pydio**.
+### For Pydio 7 (for Pydio 6 see below)
+
+As we are security concerned, everything hitting the port 80 is redirected to port 443 over HTTPS. Pydio installation folder is assumed to be **/var/www/pydio**.
 
 	server {
 		listen 80;
@@ -102,11 +105,6 @@ Since we are lazy and security concerned, everything hitting the port 80 is redi
             rewrite ^(.*)$ /index.php last;
         }
 
-        # Only allow these request methods and do not accept DELETE, SEARCH and other methods
-        if ( $request_method !~ ^(GET|HEAD|POST|PROPFIND|OPTIONS)$ ) {
-                return 444;
-        }
-
 		# Manually deny some paths to ensure Pydio security
         location ~* ^/(?:\.|conf|data/(?:files|personal|logs|plugins|tmp|cache)|plugins/editor.zoho/agent/files) {
                 deny all;
@@ -134,7 +132,7 @@ Since we are lazy and security concerned, everything hitting the port 80 is redi
                 fastcgi_param  SERVER_NAME        $server_name;
 
                 try_files $uri =404;
-                fastcgi_pass unix:/var/run/php7.0-fpm.sock;
+                fastcgi_pass unix:/run/php/php7.0-fpm.sock ;
         }
 
 		# Enables Caching
@@ -145,9 +143,44 @@ Since we are lazy and security concerned, everything hitting the port 80 is redi
         }
 	}
 
-### For Pydio 6
+## Create database
 
-This is the new config, contributed by Vlad
+Log in to mysql server and create a database. You must have set a password for root user during MySQL installation:
+
+    mysql -u root -p
+    create database pydio;
+
+## Now that all the Nginx files are created
+
+We can enable the site by deleting the default Nginx site and linking to the new site;
+
+    cd /etc/nginx/sites-enabled
+    rm default
+    ln -s ../sites-available/pydio.conf
+
+Time to get the Pydio code. [Download](https://pydio.com/en/get-pydio) the latest version and save it to your /var/www directory. Extract the downloaded file to the root of the www directory;
+
+    cd /var/www
+    tar -xzf <gz file name here>
+    ls -l
+    mv <extracted directory name> pydio
+    rm -R /var/www/<gz file name here>
+    chown -R www-data:www-data /var/www/pydio
+
+Now open a browser and hit your IP address or DNS name.   The first time you access Pydio you will see a diagnostics page that will look like this.
+
+[:image-popup:system/installing_on_debian+nginx/PydioDiagnosticTool.png]
+
+You will need to fix any issues discovered by the Diagnostics program before continuing. You will notice the warning about SSL Encryption.   I am accessing my server using [Pound](http://www.apsis.ch/pound) as a reverse proxy to encrypt the pages using SSL.
+
+Once you have fixed any errors reported by the Diagnostics page click on the link under the title to continue to the Pydio installation wizard. Use the MySQL credentials and 'pydio' database you just created, and make sure to use the correct URL for the server (like https://your_server_name/), otherwise you may have issues loading public links.
+
+That’s it.   Pydio is now installed and waiting for you to configure workspaces and other customizations. There are [plugins available](https://pydio.com/en/docs/references/plugins) and [client applications](https://pydio.com/products/downloads/)
+
+
+## PS: Pydio 6 Rewrite Rules
+
+This is the old config.
 
     server {
             server_name www.example.com;
@@ -201,8 +234,9 @@ This is the new config, contributed by Vlad
                     }
                     include fastcgi.conf;
                     fastcgi_param  REQUEST_URI $request_url;
+                    fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
                     try_files $uri =404;
-                    fastcgi_pass unix:/var/run/php5-fpm.sock;
+                    fastcgi_pass unix:/run/php/php7.0-fpm.sock ;
             }
 
            # Enables Caching
@@ -212,53 +246,3 @@ This is the new config, contributed by Vlad
                     add_header Cache-Control "public, must-revalidate, proxy-revalidate";
             }
     }
-
-Edit /etc/nginx/nginx.conf file to change user from nginx to www-data:
-
-    #user nginx
-    user www-data
-
-Edit /etc/nginx/fastcgi_params file to add:
-`fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;`
-
-## Now that all the Nginx files are created
-
-We can enable the site by deleting the default Nginx site and linking to the new site;
-
-    cd /etc/nginx/sites-enabled
-    rm default
-    ln -s ../sites-available/x.yourdomain.com
-
-Time to get the Pydio files. [Download](https://pydio.com/en/get-pydio) the latest version and save it to your /var/www directory. Extract the downloaded file to the root of the www directory;
-
-    cd /var/www
-    tar -xzf <gz file name here>
-    ls -l
-    mv <extracted directory name>/* /var/www
-    rm -R /var/www/<gz file name here>
-    chown -R www-data:www-data /var/www
-
-Prior to opening a browser and seeing the result we need to restart the required services to pick up the new config files;
-To restart nginx you need to unmask his service:
-`systemctl unmask nginx`
-
-Then restart php5-fpm and nginx service:
-`service php5-fpm restart`
-`service nginx restart`
-
-Now open a browser and hit your IP address or DNS name.   The first time you access Pydio you will see a diagnostics page that will look like this.
-
-[:image-popup:system/installing_on_debian+nginx/PydioDiagnosticTool.png]
-
-You will need to fix any issues discovered by the Diagnostics program before continuing. You will notice the warning about SSL Encryption.   I am accessing my server using [Pound](http://www.apsis.ch/pound) as a reverse proxy to encrypt the pages using SSL.
-
-Once you have fixed any errors reported by the Diagnostics page click on the link under the title to continue to the Pydio main interface. You will need to log in
-with a username of admin and a password of admin for the first access.   Make sure you change the password at some point.
-
-The last required configuration for the installation is to adjust the Pydio upload file size limit. This is achieved under settings;
-
-[:image-popup:system/installing_on_debian+nginx/PydioCoreConfigUploader.png]
-
-That’s it.   Pydio is now installed and waiting for you to configure repositories and other customizations.  There are [plugins available](https://pydio.com/en/docs/references/plugins) and client applications.   I am using the [Android client](https://play.google.com/store/apps/details?id=com.pydio.android.pydioPro&hl=fr) successfully and will look at the [Desktop client](https://pydio.com/products/downloads/pydiosync-desktop-app) once it is out of beta.
-
-The Raspberry Pi is an amazing platform for free open tools like this and I am now using a low powered Pi with a USB disk as my home file server cutting my electricity bill and reducing my carbon foot print.
