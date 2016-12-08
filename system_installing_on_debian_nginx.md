@@ -4,10 +4,7 @@ Following are the instructions for installing [Pydio](https://pydio.com/) with [
 
 **Assumptions**
 
-You already have Debian 8.0 (Jessie) running.
-
-You can download the Pydio compressed file to your Debian server. **/var/www/pydio**
-To start off with we need to install the prerequisite packages.  I am keen to keep my Raspberry Pi lean and so I did some testing to determine the minimum required packages needed to get the full functionality of Pydio.   Note I am not including the requirements for the Pydio desktop client yet because it is in beta and I am not interested in testing it.   If you wish to use the desktop client you will need some rsync php related packages.
+You already have Debian 8.0 (Jessie) running with minimal stuff installed (no LAMP or existing web server stack).  If php5 is already installed, make sure to remove it before installing php7.0 (or replace the instructions to use php5, must be > 5.6).
 
 ***Add Repository Sources***
 
