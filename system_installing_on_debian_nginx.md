@@ -6,7 +6,7 @@ Following are the instructions for installing [Pydio](https://pydio.com/) with [
 
 You already have Debian 8.0 (Jessie) running with minimal stuff installed (no LAMP or existing web server stack).  If php5 is already installed, make sure to remove it before installing php7.0 (or replace the instructions to use php5, must be > 5.6).
 
-***Add Repository Sources***
+## Install Packages
 
 First we need to authenticate the nginx repository signature, we add the key used to sign the nginx packages and repository to the apt program keyring. Download this [key](http://nginx.org/keys/nginx_signing.key) and add it to the apt program keyring with the following command:
 
@@ -22,7 +22,7 @@ And
 
     echo "deb http://packages.dotdeb.org jessie all" > /etc/apt/sources.list.d/dotdeb.list
 
-**Installing Nginx, PHP7-fpm and MySQL Server**
+### Installing Nginx, PHP7-fpm and MySQL Server
 
 So after that, you can install the prerequisites;
 
@@ -49,11 +49,11 @@ Then restart php fpm service
 
     /etc/initp.d/php7.0-fpm restart
 
+## Configure VirtualHost
+
 Now we need to configure Nginx to setup our Pydio web site (use your own domain name below);
 
     vim /etc/nginx/sites-available/pydio.conf
-
-### For Pydio 7 (for Pydio 6 see below)
 
 As we are security concerned, everything hitting the port 80 is redirected to port 443 over HTTPS. Pydio installation folder is assumed to be **/var/www/pydio**.
 
@@ -140,14 +140,16 @@ As we are security concerned, everything hitting the port 80 is redirected to po
         }
 	}
 
-## Create database
+### Create database
 
 Log in to mysql server and create a database. You must have set a password for root user during MySQL installation:
 
     mysql -u root -p
     create database pydio;
+    
+For better security, please make sure to create a dedicated mysql user for the application, and grant privileges to this DB. For now we assume you use root user to configure pydio.
 
-## Now that all the Nginx files are created
+## Install Pydio
 
 We can enable the site by deleting the default Nginx site and linking to the new site;
 
@@ -174,8 +176,7 @@ Once you have fixed any errors reported by the Diagnostics page click on the lin
 
 That’s it.   Pydio is now installed and waiting for you to configure workspaces and other customizations. There are [plugins available](https://pydio.com/en/docs/references/plugins) and [client applications](https://pydio.com/products/downloads/)
 
-
-## PS: Pydio 6 Rewrite Rules
+## PS: Pydio 6 Nginx Configuration
 
 This is the old config.
 
