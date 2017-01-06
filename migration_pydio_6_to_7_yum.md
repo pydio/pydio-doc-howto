@@ -54,7 +54,7 @@ https://raw.githubusercontent.com/pydio/pydio-core/develop/dist/php/7.0.0.mysql
 
 https://raw.githubusercontent.com/pydio/pydio-core/develop/dist/php/7.0.2.mysql
 
-> Just copy and past to terminal of mysql
+> Just copy and paste to terminal of mysql
 
 ## Step 3
 
