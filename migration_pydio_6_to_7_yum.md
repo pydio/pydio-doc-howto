@@ -72,7 +72,7 @@ Delete some cache file on new machine: `rm -rf /var/cache/pydio/plugins_*`
 
 ##### 3.2
 
-Backup and edit /var/lib/pydio/plugins/boot.conf/bootstrap.json file to use new mysql connection (server, username, password, and database name - **pydiodb**)
+Backup and edit /var/lib/pydio/plugins/boot.conf/bootstrap.json file to use new mysql connection (server, username, password, and database name - **pydioold**) or rename pydioold to other convenient name.
 
 ## Step 4
 
