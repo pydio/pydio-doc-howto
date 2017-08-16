@@ -32,42 +32,5 @@ Below are some of the most current and how they are handled.
 ### Mobile Clients
 The mobile applications (iOS and Android) store the passwords using the standard “KeyChain” mechanism of each platform. They both support HTTPS connexion (see below). The iOS application also provides a way to PIN-lock the whole application, this is in the roadmap for the Android version.
 
-## Latest Audits
-During June 2013, Pydio was audited by a professional security agency in France (www.sysdream.com), that reported no critical issues on the application. Here is the list of the tests performed.
-
-We have tested several issue without success :
-
-+ Testing for Reflected Cross Site Scripting
-+ Testing for Stored Cross Site Scripting
-+ Testing for DOM based Cross Site Scripting
-+ Testing for Cross Site Flashing
-+ SQL Injection
-+ LDAP Injection
-+ ORM Injection
-+ XML Injection
-+ SSI Injection
-+ XPath Injection ­-
-+ IMAP/SMTP Injection
-+ Code Injection
-+ OS Commanding
-+ Buffer overflow
-+ Incubated vulnerability
-+ Testing for HTTP Splitting/Smuggling
-+ Testing for Business Logic
-+ Credentials transport over an encrypted channel
-+ Testing for user enumeration
-+ Brute Force Testing
-+ Testing for bypassing authentication schema
-+ Testing for vulnerable remember password and pwd reset
-+ Testing for CAPTCHA
-+ Testing Multiple Factors Authentication
-+ Testing for Session Fixation
-+ Testing for CSRF
-+ Testing for Path Traversal
-+ Testing for bypassing authorization schema
-+ Testing for Privilege Escalation
-
-Extract from the report “Black & Grey Box  – Pydio – 2013” by Sysdream.
-
 ## How to report a vulnerability?
 Write directly to security@pydio.com

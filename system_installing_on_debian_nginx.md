@@ -98,7 +98,7 @@ As we are security concerned, everything hitting the port 80 is redirected to po
 		# All non existing files are redirected to index.php
         if (!-e $request_filename){
 			# For old links generated from Pydio 6
-			rewrite ^/data/public/([a-zA-Z0-9_-]+)$ /public/$1?;
+			rewrite ^/data/public/([a-zA-Z0-9_-]+)$ /public/$1? permanent;
             rewrite ^(.*)$ /index.php last;
         }
 
