@@ -1,3 +1,5 @@
+*Note: NOT updated for Pydio 7 & 8, only compatible with P6*
+
 ### Introduction
 Documentation detailing how [administrators can use custom vars in repository paths](https://pydio.com/en/docs/kb/workspaces/custom-variables-workspaces) briefly describes what is required to pull your custom variables from an external data source and use them to dynamically assign repository paths to any user that logs on.
 
