@@ -1,4 +1,5 @@
 In this how-to, you will find the steps to do the migration and upgrade from Pydio 6 to pydio 7 on another machine base on CentOS 7.
+
 ## Contents
 1. Install latest version Pydio on new machine
 2. Migrate Database

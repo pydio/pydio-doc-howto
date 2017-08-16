@@ -1,0 +1,7 @@
+title: "Migration Pydio 6 to Pydio 7 with YUM"
+abstract: "In this how-to, you will find the steps to do the migration and upgrade from Pydio 6 to pydio 7 on another machine base on CentOS 7."
+language: und
+category: System
+tags:
+  yum
+  migration
