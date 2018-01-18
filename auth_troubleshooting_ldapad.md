@@ -1,5 +1,7 @@
 ### Php LDAP extension
-The first thing to check when trying to connect to an LDAP-based directory is that your php does have the LDAP Extension active.
+The first thing you need to check when you're trying to connect to an LDAP-based directory is that your php does have the LDAP Extension enabled.
+
+On Linux Distributions you generaly use : `install php-ldap` it can be aptitude yum curl ... & it can also depend on your php version too.
 
 See http://php.net/manual/en/ldap.installation.php and particularly the comments for many ways of installing this extension, depending on your server OS.
 
@@ -15,5 +17,5 @@ You should use the “Try to connect to LDAP” button, with the “Test” user
 ### Test user is OK but cannot login
 This seems to indicate that the password is not correctly passed : did you set the “Transmit Clear Pass” parameter to true?
 
-### I cannot share folder or create shared users!
-You must set up a “secondary instance” in the Authentication panel, so that Pydio can handle a “multiple” configuration : reading the master users from the Directory, but also creating new shared users inside its “local” directory. Use either Serial or DB auth storage for this secondary instance.
+### I cannot share folders or create shared users!
+You must set a new "secondary instance" in secondary driver and set it as DB Auth Storage and then you can change the master driver's main instance with your LDAP/AD Directory so that Pydio handles a "multiple" configuration : reading the master users from the directory but also creating the new shared users inside its "local" directory.

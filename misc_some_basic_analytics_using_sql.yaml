@@ -1,9 +1,0 @@
-title: "Some basic analytics using SQL queries on ajxp_log table"
-abstract: "Some basic analytics using SQL queries on ajxp_log table. This has since been added to the core."
-language: und
-category: Miscellaneous
-tags:
-  analytics
-  dashboard
-  logs
-  queries
