@@ -1,5 +1,5 @@
-This section will describe how to use the auth.remote plugin to create a bridge with an existing CMS. At first we’ll assume that the cms has it’s own authentification mechanism, and one just want to “inform” Pydio that a user is logged indeed. Then, we’ll see how to create an external login page and still  use Pydio’s own mechanism to check the users credentials (for example on a simple website that does not have users management at all).
-One of the best way to see the auth.remote plugin work in real life is to download and inspect the existing bridges with external cms : wordpress, drupal, joomla and cmsms. They all do exactly what is described here.
+This section will describe how to use the auth.remote plugin to create a bridge with an existing CMS. At first we’ll assume that the cms has it’s own authentification mechanism, and one just want to “inform” Pydio that a user is logged. Then, we’ll see how to create an external login page and still use Pydio’s own mechanism to check the users credentials (for example on a simple website that does not have users management at all).
+One of the best way to see the auth.remote plugin work in real life is to download and inspect the existing bridges with external cms : wordpress, drupal, joomla and cms's. They all do exactly what is described here.
 
 ### Auth.remote plugin basics
 **SSO Mechanism**
@@ -24,32 +24,32 @@ Now we can have a closer look at the auth.remote parameters
 
 [:image-popup:authentication/authentication_w_your_cms/screenshot-2013-05-13-at-11-45-57.png]
 
-You can choose the CMS type amongst the most well-known types (Drupal, WordPress, Joomla) or Custom, where you will enter all parameters manually. Basically, the main URL and login URL will point to the CMS root, and to a CMS page containing a login submission form.
+You can choose the CMS type amongst the most well-known types (Drupal, WordPress, Joomla) or Custom, where you will enter all the parameters manually. Basically, the main URL and login URL will point to the CMS root, and to a CMS page containing a login submission form.
 
-Auth Form ID is a specific parameter that you may have to check: the login page of your CMS MUST CONTAIN an html Form element with the id indicated here. The default value used here should worked by default, but you may verify that typically your CMS custom theme did not change this value. It is necessary if you want to have a chance the Pydio can actually authenticate users on the Pydio-side. Which is necessary to have the Mobile Clients working.
+Auth Form ID is a specific parameter that you may have to check: the login page of your CMS MUST CONTAIN an html Form element with the id indicated here. The default value used here should worked by default, but you may verify that typically your CMS custom theme did not change this value. It is necessary if you want to have the chance that Pydio can actually authenticate users on the Pydio-side. Which is necessary, to have the Mobile Clients working.
 
 ### Communicating between the two apps
 **The glueCode API**
 
 Let’s digg how the glueCode works : its role is to be inserted inside an already existing system (cms or not, but assuming they are written in PHP of course) and be able to let this system “call” Pydio authentication functions (login, logout, create/delete users, etc).
 
-Necessarily, if you want to call a function of such a framework as Pydio, you can’t just “require()” a file and call the function : you have to initialize the framework first, by requiring all necessary dependencies, starting the right PHP session, etc, etc. This can be very tedious, it’s a lot of work to learn the given framework, what classes are needed etc. That’s why all this code is in fact performed directly by the glueCode! It can be seen as a parenthesis in your code, injecting and initializing all the Pydio framework, executing one instruction, and going out. The glueCode is located inside auth.remote plugin, in the file glueCode.php (good choice no?). So all you’ll have to do is to know the absolute (ore relative) path on your server to this file, and you’ll be ok!
+Necessarily, if you want to call a function of such a framework as Pydio, you can’t just “require()” a file and call the function : you have to initialize the framework first, by requiring all the necessary dependencies, starting the right PHP session, etc, etc. This can be very tedious, it’s a lot of work to learn the given framework, what classes are needed etc. That’s why all this code is in fact performed directly by the glueCode! It can be seen as a parenthesis in your code, injecting and initializing all the Pydio framework, executing one instruction, and going out. The glueCode is located inside auth.remote plugin, in the file glueCode.php (good choice no?). So all you’ll have to do is to know the absolute (or relative) path on your server to this file, and you’ll be ok!
 
 How can we pass parameters to this piece of code, like the name of a user? We use the PHP global scope to communicate between the two applications : before including the glueCode, you just have to declare a global array() named **$AJXP_GLUE_GLOBALS** that will contain all necessary arguments : the target function and its arguments, but also the secret key, the auth.remote plugin configuration, etc.
 
 **Calling glueCode sample**
 
-So as an example, let’s take the simplest action logout : when a user disconnects from the CMS, we want to be sure that he will also be disconnected from ajaXplorer, so we add the following lines in the CMS. **Please note the AJXP_EXEC constant** : it’s important, otherwise you’ll have an “Access not allowed” error when including glueCode.php to your code.
+So as an example, let’s take the simplest action logout : when a user disconnects from the CMS, we want to be sure that he will also be disconnected from Pydio, so we add the following lines in the CMS. **Please note the AJXP_EXEC constant** : it’s important, otherwise you’ll have an “Access not allowed” error when including glueCode.php to your code.
 
     $glueCode = "path/to/pydio/plugins/auth.remote/glueCode.php";
-	$secret = "secret_key_passed_to_auth.remote_by_configuration";
-	define('AJXP_EXEC', true);
+    $secret = "secret_key_passed_to_auth.remote_by_configuration";
+    define('AJXP_EXEC', true);
 
-	global $AJXP_GLUE_GLOBALS;
-	$AJXP_GLUE_GLOBALS = array();
-	$AJXP_GLUE_GLOBALS["secret"] = $secret;
-	$AJXP_GLUE_GLOBALS["plugInAction"] = "logout";
-   	include($glueCode);
+    global $AJXP_GLUE_GLOBALS;
+    $AJXP_GLUE_GLOBALS = array();
+    $AJXP_GLUE_GLOBALS["secret"] = $secret;
+    $AJXP_GLUE_GLOBALS["plugInAction"] = "logout";
+    include($glueCode);
 
 ### Auth.remote actions reference
 We’ll list here the available actions made available by the glueCode.php file. Of course, it’s up to you to extend and write your own glueCode.php if you need more interactions with Pydio. As described in the previous section, the array $AJXP_GLUE_GLOBALS defined in the PHP global scope is used to pass both the action name (key “plugInAction”) and the action paramaters (other keys described). The output of each action is set by the glueCode as a boolean inside AJXP_GLUE_GLOBALS[“result”].
@@ -79,7 +79,7 @@ We’ll list here the available actions made available by the glueCode.php file.
     - **_Parameters_**
         * “plugInAction” : “addUser”
         * “user” : array(“name” => username, “password” => userpassword”, [optional] “right” => “admin”)
-If not already done, please download the pydio “External Bridges” distribution and have a  look for example at the wordrpress WpAjxp.php class : you’ll now be able to understand what’s happening : beside all the pure WordPress work necessary to hook a given function inside the available wordpress extensions points, the functions are all really simple and just make use of this API to trigger the necessary actions inside Pydio.
+If not already done, please download the pydio “External Bridges” distribution and have a look for example at the wordrpress WpAjxp.php class : you’ll now be able to understand what’s happening : beside all the pure WordPress work necessary to hook a given function inside the available wordpress extensions points, the functions are all really simple and just make use of this API to trigger the necessary actions inside Pydio.
 
 So if either your CMS implement extension points, or you can easily determine where to place the calls in your code (just after successfull login, just after successfull logout, etc, etc), include the glueCode.php having set the right arguments and it should work.
 
@@ -109,33 +109,33 @@ Now, assuming you have configured your Pydio installation to use auth.remote, wi
 
     if(isSet($_POST["login"]) && isSEt($_POST["password"])){
 
-    	// Necessary to make "connection" with the glueCode
-    	define("AJXP_EXEC", true);
-    	$glueCode = "absolute/path/to/ajxp/plugins/auth.remote/glueCode.php";
-	    $secret = "my_secret_key";
+        // Necessary to make "connection" with the glueCode
+        define("AJXP_EXEC", true);
+        $glueCode = "absolute/path/to/ajxp/plugins/auth.remote/glueCode.php";
+        $secret = "my_secret_key";
 
-    	// Initialize the "parameters holder"
-    	global $AJXP_GLUE_GLOBALS;
-    	$AJXP_GLUE_GLOBALS = array();
-    	$AJXP_GLUE_GLOBALS["secret"] = $secret;
-    	$AJXP_GLUE_GLOBALS["plugInAction"] = "login";
-    	$AJXP_GLUE_GLOBALS["autoCreate"] = false;
+        // Initialize the "parameters holder"
+        global $AJXP_GLUE_GLOBALS;
+        $AJXP_GLUE_GLOBALS = array();
+        $AJXP_GLUE_GLOBALS["secret"] = $secret;
+        $AJXP_GLUE_GLOBALS["plugInAction"] = "login";
+        $AJXP_GLUE_GLOBALS["autoCreate"] = false;
 
-    	// NOTE THE md5() call on the password field.
-     	$AJXP_GLUE_GLOBALS["login"] = array("name" => $_POST["login"], "password" => md5($_POST["password"]));
+        // NOTE THE md5() call on the password field.
+        $AJXP_GLUE_GLOBALS["login"] = array("name" => $_POST["login"], "password" => md5($_POST["password"]));
 
-    	// NOW call glueCode!
-       	include($glueCode);
+        // NOW call glueCode!
+        include($glueCode);
     }
     ?>
     <html>
-    	<body>
-    		<form action="login.php" method="POST">
-    			Login : <input name="login"><br>
-    			Password : <input name="password" type="password"><br>
-    			<input type="submit" value="SUBMIT">
-    		</form>
-    	</body>
+        <body>
+            <form action="login.php" method="POST">
+                Login : <input name="login"><br>
+                Password : <input name="password" type="password"><br>
+                <input type="submit" value="SUBMIT">
+            </form>
+        </body>
     </html>
     
 Well, that’s all for today folks!
