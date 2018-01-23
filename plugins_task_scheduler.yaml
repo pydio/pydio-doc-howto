@@ -1,0 +1,8 @@
+title: "Using the tasks scheduler"
+abstract: "With Pydio you can schedule tasks and gain a lot of time instead of running every task indivudaly you can run them all at a chosen time such as maintenance tasks."
+language: und
+category: Plugins
+tags:
+  cron
+  scheduler
+  task

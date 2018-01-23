@@ -1,5 +1,5 @@
-title: "Delegating workspace creation"
-abstract: "There are two ways to let some non-administrator users create their own workspaces. In both cases, you first have to create a Template, which is a workspace where you prefill most of the necessary parameters, and only a couple of parameters are let to the user."
+abstract: "You can create templates that will allow you to quickly deploy Workspaces.
+"
 language: und
 category: Workspaces
 tags:

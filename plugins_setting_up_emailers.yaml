@@ -1,8 +1,10 @@
 title: "Setting up emailers"
-abstract: "We’ll gather in this page various configuration tips and tricks for having emails work on various systems."
+abstract: "We’ll gather in this page various configuration and guides to have emailing working on various systems."
 language: und
 category: Plugins
 tags: 
   emails
   mailer
   php mailer
+  emailing
+  emailer

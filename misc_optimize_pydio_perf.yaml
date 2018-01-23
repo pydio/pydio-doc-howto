@@ -1,0 +1,10 @@
+title: "Optimizing Pydio Performances"
+abstract: "Here we will give you all the tips that you need to have an optimized running Pydio."
+language: und
+category: Miscellaneous
+tags: 
+  performances
+  optimization
+  caching
+  commandline
+  buffering

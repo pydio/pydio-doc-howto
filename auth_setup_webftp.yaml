@@ -1,0 +1,12 @@
+title: "Setup a WEBFTP"
+abstract: "With Pydio you can have FTP Workspaces implying that you will have to authenticate one way or another to have access the content and so we offer you a plugin that allows you to have users logging in this workspace as if they were logging in to a FTP server such as *FileZilla*."
+language: und
+category: Authentication
+tags: 
+  auth
+  dynamic
+  ftp
+  users
+  webftp
+  FileZilla
+
