@@ -4,10 +4,11 @@ You can create templates that will allow you to quickly deploy Workspaces.
 #### BASIC TEMPLATE
 We will see how you can create a basic template from scratch we'll see what every parameter stands for.
 
-##### CREATE TEMPLATE
+#### CREATE TEMPLATE
 Go to **Workspaces & Users > Workspaces > Manage Templates**
 Now click on **+TEMPLATE**
 now you have the following screen :
+
 [:image-popup:/workspaces/ws_template_options_workspace_CREATION.png]
 ##### 1. TEMPLATE OPTIONS
 + **Label** : The template's Name
@@ -17,12 +18,13 @@ now you have the following screen :
 + **Allow to Group Admins** : You can allow admins to create a repository using this Template
 + **Default Label** : You can prefill a label so that whenever someone creates a workspace from this template it will fill the label line with this
 + **Small Icon** : You can have a 16X16 icon representing the tempalte
-+ **Big Icon** : You can avec a bigger icon representing the template
++ **Big Icon** : You can have a bigger icon representing the template
 
 ##### 2. CHOOSE STORAGE DRIVER
 You can choose you a storage type.
-+ **Select Storage Type**: you have to choose a storage type, you can use the ones that you have from your plugins too.
+
++ **Select Storage Type** : you have to choose a storage type, you can use the ones that you have from your plugins too (dropbox,aws,etc...).
 
 ##### 3. DRIVER OPTIONS
-The driver options totally depends on what type of storage you choose,
-it enables you to choose the ones that you want to be used by default with the template.
+The driver's options totally depends on what type of storage you choose,
+it enables you to choose the ones that you want for the template.

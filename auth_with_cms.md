@@ -1,5 +1,5 @@
-w### AUTHENTIFICATION USING A CMS
-In this guide we will see you how to do a basic remote authentification with a CMS.
+### AUTHENTIFICATION USING A CMS
+In this guide we will see how to do a basic remote authentification with a CMS.
 First and foremost if you're here it will be assumed that you have finished your Pydio installation and that you can log and use it.
 
 ### REMOTE AUTHENTIFICATION PLUGIN
@@ -7,26 +7,26 @@ First and foremost if you're here it will be assumed that you have finished your
 Go to **Application Parameters > Available Plugins > Authentification Backend** and enable the plugin if it wasn't already done.
 This plugin will create a bridge between Pydio and an application.
 
-*If you want more details about the plugin you can go on **[this](https://pydio.com/fr/docs/references/plugins/auth/remote)** page*
+*If you want more details about the plugin you can go to **[this](https://pydio.com/fr/docs/references/plugins/auth/remote)** page*
 
 Now you can install **[Pydio-Bridge](https://pydio.com/en/get-pydio/downloads/cms-bridges)**, first download it then go to your cms's extensions/addons/(whatever it is called) settings and install it.
+
 > The supported versions are Wordpress **all versions**, Joomla **1.5 to 3.0** and Drupal **6.X, 7.X**
 
 After that you just need it to be enabled on your cms and set with the following parameters :
-+ **Pydio's installation path** : you must give an absolute path such as for example
- `/var/www/pydio` or wherever you have it on your webserver.
++ **Pydio's installation path** : you must give an absolute path such as for example `/var/www/pydio` or wherever you have it on your webserver.
 + **Secret Key** : this secret key allows your Pydio and CMS to recognize each other.
 + **Create Users**: Usually this should be enabled, what it does is that if you're logging in with a user that is not in Pydio's database it will automatically create an entry for it.
 
 
->These are the most common settings but if your configuration is different from the ones that i listed, i highly recommand you to go look at your CMS'S documentation.
+> These are the most common settings but if your configuration is different from the ones that i listed, i highly recommand you to go look at your CMS'S documentation.
 
 Now on Pydio's side you have to go to **Application Parameters > Authentification > Master Driver > Main Instance > and choose remote authentifcation**
 
 I will give you a basic configuration for those cms's.
 
 #### Joomla!
-[:image-popup:/authentification_auth_remote_joomla_CMS.png]
+[:image-popup:/authentification/auth_remote_joomla_CMS.png]
 
 + **Joomla! URL** : link to your joomla `http://host/path` or `/path`.
 + **Home node** : Joomla's main page where the login form is located.
@@ -37,7 +37,7 @@ I will give you a basic configuration for those cms's.
 
 
 #### Wordpress
-[:image-popup:/authentification_auth_remote_wordpress_CMS.png]
+[:image-popup:/authentification/auth_remote_wordpress_CMS.png]
 
 + **Wordpress URL** : link to your wordpress installation `http://host/path`or`/path`.
 + **Login URL** : if you're not in slave mode let it by default else it will redirect you to a given URL.
@@ -48,7 +48,7 @@ you have the choice between `back to main page`or`logout`.
 + **Users** : this is the users list, you should let the default value if you're not used to it. 
 
 #### Drupal
-[:image-popup:/authentification_auth_remote_drupal_CMS.png]
+[:image-popup:/authentification/auth_remote_drupal_CMS.png]
 
 + **Drupal URL** : link to your drupal installation `http://host/path`or`/path`.
 + **Login URL** : Drupal's main login page.
@@ -59,7 +59,7 @@ you have the choice between `back to main page`or`logout`.
 + **Users** : this is the users list, you should not change the default value if you're not used to it. 
 
 #### Custom
-[:image-popup:/authentification_auth_remote_custom_CMS.png]
+[:image-popup:/authentification/auth_remote_custom_CMS.png]
 
 + **Login URL** : to your custom login page.
 + **Logout URL** : Redirects you to this URL when you're logging out.

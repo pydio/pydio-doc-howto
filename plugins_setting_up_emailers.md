@@ -1,7 +1,7 @@
 #### HOW TO USE THE EMAILER ON YOUR SYSTEM
 We will provide you with a list that you can use to install your EMAILER.
 
->>>It is assumed that you have installed and correctly configured **Pydio**.
+>It is assumed that you have installed and correctly configured **Pydio**.
 
 #### 1. SETTING UP THE EMAILER
 Here's a list of guides that are tested and approved.
