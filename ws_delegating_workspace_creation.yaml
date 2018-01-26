@@ -1,5 +1,5 @@
-abstract: "You can create templates that will allow you to quickly deploy Workspaces.
-"
+title: "Delegating workspace creation"
+abstract: "You can create templates that will allow you to quickly deploy Workspaces."
 language: und
 category: Workspaces
 tags:
