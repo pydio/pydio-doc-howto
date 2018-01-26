@@ -1,10 +1,10 @@
-### AUTHENTIFICATION USING A CMS
-In this guide we will see how to do a basic remote authentification with a CMS.
+### AUTHENTICATION USING A CMS
+In this guide we will see how to do a basic remote authentication with a CMS.
 First and foremost if you're here it will be assumed that you have finished your Pydio installation and that you can log and use it.
 
-### REMOTE AUTHENTIFICATION PLUGIN
+### REMOTE AUTHENTICATION PLUGIN
 
-Go to **Application Parameters > Available Plugins > Authentification Backend** and enable the plugin if it wasn't already done.
+Go to **Application Parameters > Available Plugins > Authentication Backend** and enable the plugin if it wasn't already done.
 This plugin will create a bridge between Pydio and an application.
 
 *If you want more details about the plugin you can go to **[this](https://pydio.com/fr/docs/references/plugins/auth/remote)** page*
@@ -21,12 +21,12 @@ After that you just need it to be enabled on your cms and set with the following
 
 > These are the most common settings but if your configuration is different from the ones that i listed, i highly recommand you to go look at your CMS'S documentation.
 
-Now on Pydio's side you have to go to **Application Parameters > Authentification > Master Driver > Main Instance > and choose remote authentifcation**
+Now on Pydio's side you have to go to **Application Parameters > Authentication > Master Driver > Main Instance > and choose remote authentication**
 
 I will give you a basic configuration for those cms's.
 
 #### Joomla!
-[:image-popup:/authentification/auth_remote_joomla_CMS.png]
+[:image-popup:/authentication/auth_remote_joomla_CMS.png]
 
 + **Joomla! URL** : link to your joomla `http://host/path` or `/path`.
 + **Home node** : Joomla's main page where the login form is located.
@@ -37,7 +37,7 @@ I will give you a basic configuration for those cms's.
 
 
 #### Wordpress
-[:image-popup:/authentification/auth_remote_wordpress_CMS.png]
+[:image-popup:/authentication/auth_remote_wordpress_CMS.png]
 
 + **Wordpress URL** : link to your wordpress installation `http://host/path`or`/path`.
 + **Login URL** : if you're not in slave mode let it by default else it will redirect you to a given URL.
@@ -48,7 +48,7 @@ you have the choice between `back to main page`or`logout`.
 + **Users** : this is the users list, you should let the default value if you're not used to it. 
 
 #### Drupal
-[:image-popup:/authentification/auth_remote_drupal_CMS.png]
+[:image-popup:/authentication/auth_remote_drupal_CMS.png]
 
 + **Drupal URL** : link to your drupal installation `http://host/path`or`/path`.
 + **Login URL** : Drupal's main login page.
@@ -59,7 +59,7 @@ you have the choice between `back to main page`or`logout`.
 + **Users** : this is the users list, you should not change the default value if you're not used to it. 
 
 #### Custom
-[:image-popup:/authentification/auth_remote_custom_CMS.png]
+[:image-popup:/authentication/auth_remote_custom_CMS.png]
 
 + **Login URL** : to your custom login page.
 + **Logout URL** : Redirects you to this URL when you're logging out.
@@ -67,6 +67,7 @@ you have the choice between `back to main page`or`logout`.
 + **Local Prefix** : if you create a user using this prefix he will be stored in the local filesystem.
 + **Secret Key** : this is the key that you get on your Drupal's extension Pydio-Bridge.
 + **Users** : this is the users list, you should not change the default value if you're not used to it. 
-> with the Pydio-Bridge file there is a basic login form that you can use and modify as you please.
+
+>With the Pydio-Bridge file there is a basic login form that you can use as a template and modify as you please.
 
 

@@ -20,9 +20,9 @@ Then choose the workspace that you want to be Synced.(You can also choose if you
 
 After that you will have to choose a destination, meaning the folder on your local device that you want to be synced with Pydio.
 
-[:image-popup:/sync/ssync_step3_pydio_SYNC.png]
+[:image-popup:/sync/sync_step3_pydio_SYNC.png]
 
-This screen shows you global view of your syncronisation, and also offers you more **advanced parameters** ( see below ).
+This screen shows you a global view of your syncronization, and also offers you more **advanced parameters** ( see below ).
 
 [:image-popup:/sync/sync_adv_pydio_SYNC.png]
 

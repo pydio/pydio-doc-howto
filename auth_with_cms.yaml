@@ -1,7 +1,7 @@
 title: "Authentication with your CMS"
 language: und
 category: Authentication
-abstract: "In this guide we will see how to do a basic remote authentification with a CMS. First and foremost if you're here it will be assumed that you have finished your Pydio installation and that you can log and use it."
+abstract: "In this guide we will see how to do a basic remote authentication with a CMS. First and foremost if you're here it will be assumed that you have finished your Pydio installation and that you can log and use it."
 tags:
   auth
   CMS

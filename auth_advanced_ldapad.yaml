@@ -1,5 +1,5 @@
 title: "Advanced Authentication with LDAP/AD"
-abstract: "In this guide we will look at the specifics that Pydio offers when you're authentificating with an LDAP/AD server and give you examples to make it easier for you to use it."
+abstract: "In this guide we will look at the specifics that Pydio offers when you're authenticating with an LDAP/AD server and give you examples to make it easier for you to use it."
 language: und
 category: Authentication
 tags: 
