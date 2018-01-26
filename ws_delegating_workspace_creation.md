@@ -8,7 +8,7 @@ We will see how you can create a basic template from scratch we'll see what ever
 Go to **Workspaces & Users > Workspaces > Manage Templates**
 Now click on **+TEMPLATE**
 now you have the following screen :
-[:image-popup:workspaces/ws_template_options_workspace_CREATION.png]
+[:image-popup:/workspaces/ws_template_options_workspace_CREATION.png]
 ##### 1. TEMPLATE OPTIONS
 + **Label** : The template's Name
 + **Description** : A short description of the template

@@ -9,7 +9,7 @@ WordPress implementation is quite straightforward, but Joomla & Drupal necessits
 
 For this reason, you’ll have to make sure that the **_MASTER_URL / LOGIN_URL_** points to a page that indeed displays the login form, that this form’s HTML id is the right one as defined by **_Auth Form Id_**. For Joomla, the default id is **login-form**, but some installs seems to use **form-login** instead. For Drupal, the default id is user-login-form. For wordpress it is not necessary.
 
-[:image-popup:authentication/remote_auth_mobile_access/screenshot-2013-05-13-at-11-37-34.png]
+[:image-popup:/authentication/remote_auth_mobile_access/screenshot-2013-05-13-at-11-37-34.png]
 
 ### Troubleshooting
 If it’s still not working, and you see an error concerning  “loadHTML() function failing” in your log file, the page HTML is probably creating errors at parsing time. In that case, create a simple login page with the least HTML possible, but with just the login form of your CMS.
