@@ -150,5 +150,5 @@ you can check guides such as :
 + **[LEMP Stack DEBIAN 8](https://www.digitalocean.com/community/tutorials/how-to-install-linux-nginx-mysql-php-lemp-stack-on-debian-8)**
 + **[Nginx/Linux](https://www.digitalocean.com/community/tutorials/how-to-install-nginx-on-ubuntu-16-04)**
 
-Or visit our **[Forum](https://forum.pydio.com/)**.
+Or visit our **[Forum](https://forum.pydio.com/)** and look for a similar issue if you dont find one you can leave a post and we will gladly answer.
 
