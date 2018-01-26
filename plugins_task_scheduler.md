@@ -7,7 +7,7 @@ First make sure you have the **Tasks Scheduler** Plugin *Enabled* go to **Availa
 Now lets see how you can program & run a task i will give you an example but you can apply the logic for other tasks.
 
 Go to **Menu > Scheduler** and click on create a new task.
-![step1 task scheduler](:image-popup:/plugins/plugins_step1_task_SCHEDULER.png)
+[:image-popup:/plugins/plugins_step1_task_SCHEDULER.png]
 **SCHEDULE TAB**
 + **Schedule** : you need to use a cron expression, to set the time for when you're tasks are going to be executed.
 ```
@@ -17,7 +17,7 @@ for example : 0 0 0/1 1/1 * ? * ( i want to send mails every HOUR )
 
 
 **ACTION TAB**
-![step2 task scheduler](:image-popup:/plugins/plugins_step2_task_SCHEDULER.png)
+[:image-popup:/plugins/plugins_step2_task_SCHEDULER.png]
 + **Action** : Choose the action that you want to perform.
 ```
 for example : consume_mail_queue ( it will send all the mails that i queued in one batch )
@@ -30,7 +30,7 @@ for example : i'm creating a task that will send a notification mail lets name i
 >>> Its just an example feel free to name it as you want.
 
 **CONTEXT TAB**
-![step3 task scheduler](:image-popup:/plugins/plugins_step3_task_SCHEDULER.png)
+[:image-popup:/plugins/plugins_step3_task_SCHEDULER.png]
 + **User(s)** : The user that is identifying the task.
 + **Repository ID** : The workspace that you're targeting with the task, you can choose all the workspaces if you wish to. You can add multiple single workspaces if you want to be more precise.
 

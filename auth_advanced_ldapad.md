@@ -4,7 +4,7 @@ In this guide we will look at the specifics that Pydio offers when you're authen
 First and foremost you have enabled the LDAP Authentification and you **[binded your server](https://pydio.com/en/docs/v8/binding-ldapad-server)**, second you have basic knowledge of the **[Groups & Roles](https://pydio.com/en/docs/v8/inheritance-groups-and-users-roles)** feature.
 
 ### GROUP MAPPING
-![IMG GROUP INTERFACE](:image-popup:authentication/auth_group_LDAP.png)
+[:image-popup:/authentication/auth_group_LDAP.png]
 As you can see the Group Schema is sort of self explanatory but dont worry i will go in details and give you an example to help you have an up and running Pydio with LDAP/AD authentification.
 + **Groups DN** : you can map groups with a Distinguished Names (you can add as many as you want)
 ```
@@ -30,7 +30,7 @@ put the prefix of your choice to make it easy to know which LDAP/AD Users are pa
 ```
 
 ### ATTRIBUTES MAPPING
-![IMG ATTRIBUTE INTERFACE](:image-popup:authentication/auth_attributes_LDAP.png)
+[:image-popup:/authentication/auth_attributes_LDAP.png]
 Here you can map attributes in a more precise way so that they match your Pydio's attribute ...
 
 > i will give you an example of one of the many possibilites that you can achieve with the attribute mapping
@@ -49,7 +49,7 @@ for example : ExampleROLE
 (the ID of the role that we want to be mapped with our LDAP attribute)
 ```
 ### ADVANCED PARAMETERS
-![IMG ADVANCED PARAM INTERFACE](:image-popup:authentication/auth_adv_param_LDAP.png)
+[:image-popup:/authentication/auth_adv_param_LDAP.png]
 You can set advanced parameters to have a more personalized experience with your Pydio
 
 + **Fake Member from** : if you dont have the memberOF attribute/overlay you can enter a group attribute that has the members ids to fake one on Pydio.
@@ -69,7 +69,7 @@ You can set advanced parameters to have a more personalized experience with your
 
 
 ### AUTH DRIVER COMMONS
-![IMG AUTH DRIVER COMMONS INTERFACE](:image-popup:authentication/auth_driver_common_LDAP.png)
+[:image-popup:/authentication/auth_driver_common_LDAP.png]
 
 + **Auto Create User** : if its enabled it will automatically create a user when you're using a remote authentification system.
 

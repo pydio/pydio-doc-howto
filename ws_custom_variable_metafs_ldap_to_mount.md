@@ -17,7 +17,7 @@ In Pydio, go to Globall Settings >> Workspaces >> Click “new workspace”
 Workspace Name: HomeDirectory
 *Note: specify the PATH of this workspace is folder you’ve created.
 
-[:image-popup:miscellaneous/custom_variable_metafs_ldap_to_mount/CV_wsp_metaFS.png]
+[:image-popup:/miscellaneous/custom_variable_metafs_ldap_to_mount/CV_wsp_metaFS.png]
 
 ## Add meta.fs (FS mount) into this workspace
 In Pydio, go to Globall Settings >> Workspaces >> >> Select “HomeDirectory” >> Click Edit

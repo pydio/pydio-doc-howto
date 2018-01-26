@@ -1,4 +1,4 @@
-### AUTHENTIFICATION USING A CMS
+w### AUTHENTIFICATION USING A CMS
 In this guide we will see you how to do a basic remote authentification with a CMS.
 First and foremost if you're here it will be assumed that you have finished your Pydio installation and that you can log and use it.
 
@@ -26,7 +26,7 @@ Now on Pydio's side you have to go to **Application Parameters > Authentificatio
 I will give you a basic configuration for those cms's.
 
 #### Joomla!
-![joomla](:image-popup:authentification_auth_remote_joomla_CMS.png)
+[:image-popup:/authentification_auth_remote_joomla_CMS.png]
 
 + **Joomla! URL** : link to your joomla `http://host/path` or `/path`.
 + **Home node** : Joomla's main page where the login form is located.
@@ -37,7 +37,7 @@ I will give you a basic configuration for those cms's.
 
 
 #### Wordpress
-![wordpress](:image-popup:authentification_auth_remote_wordpress_CMS.png)
+[:image-popup:/authentification_auth_remote_wordpress_CMS.png]
 
 + **Wordpress URL** : link to your wordpress installation `http://host/path`or`/path`.
 + **Login URL** : if you're not in slave mode let it by default else it will redirect you to a given URL.
@@ -48,7 +48,7 @@ you have the choice between `back to main page`or`logout`.
 + **Users** : this is the users list, you should let the default value if you're not used to it. 
 
 #### Drupal
-![drupal](:image-popup:authentification_auth_remote_drupal_CMS.png)
+[:image-popup:/authentification_auth_remote_drupal_CMS.png]
 
 + **Drupal URL** : link to your drupal installation `http://host/path`or`/path`.
 + **Login URL** : Drupal's main login page.
@@ -59,7 +59,7 @@ you have the choice between `back to main page`or`logout`.
 + **Users** : this is the users list, you should not change the default value if you're not used to it. 
 
 #### Custom
-![custom](:image-popup:authentification_auth_remote_custom_CMS.png)
+[:image-popup:/authentification_auth_remote_custom_CMS.png]
 
 + **Login URL** : to your custom login page.
 + **Logout URL** : Redirects you to this URL when you're logging out.

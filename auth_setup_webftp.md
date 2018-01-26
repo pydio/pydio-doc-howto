@@ -10,8 +10,7 @@ With Pydio you can have FTP Workspaces implying that you will have to authentica
 First you need you enable this plugin go to **Application Parameters > Available Plugins > Authentification Backends > _FTP Authentification_**.
 
 Then you can start to set it up, i will explain what does every field stand for and it's usage.
-
-![FTP AUTH](:image-popup:authentication/auth_FTP.png)
+[:image-popup:/authentication/auth_FTP.png]
 
 + **FTP Login Screen** : if you want your users to have dialog allowing them to enter host/port data, but in most cases you should disable it.
 + **Workspace** : The Workspace that you are using to check if the credentials are right.

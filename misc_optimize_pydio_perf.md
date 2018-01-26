@@ -39,7 +39,7 @@ To use it first make sure you have the plugin enabled, by going to **All Plugins
 
 Then go to **Application Parameters > Cache Server** Cache store instance and set it as you want.
 I will give you an example : 
-![MISC OPTI PERF IMG](:image-popup:miscellanous/misc_opti_PERF.png)
+[:image-popup:/miscellanous/misc_opti_PERF.png]
 
 + **Instance** : If you want to use cache you have to put Doctrine cache driver ( the plugin allowing to use caching ).
 + **Cache Driver** : What caching are you going to use.
