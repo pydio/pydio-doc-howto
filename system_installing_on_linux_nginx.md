@@ -1,5 +1,5 @@
 ### INSTALLING LINUX + NGINX AND PYDIO
-After a fresh install of a Linux distribution we will see all the steps that will help you run Pydio on a LINUX/Nginx.
+After a fresh install of a Linux distribution we will see all the steps that will help you run Pydio on a LINUX/Nginx environnement.
 **All the command lines where used on Ubuntu but you have the same thing pretty much on every Linux Distriution so dont forget to adapt it to your configuration if required**
 
 > I advise you to read everything even if you are not using the same configuration, it can help you figure out issues with your installation.
@@ -88,7 +88,7 @@ Dont forget to create a Database for Pydio `mysql -uroot -p`
 and when you're logged in use `CREATE DATABASE <databasename>;`.
 Give it privileges with `GRANT ALL PRIVILEGES ON <databasename>.* TO <username>@<server> IDENTIFIED BY '<password>' ;`.
 
-Then to install Pydio you have multiple ways check them **[here](https://pydio.com/en/docs/v8/installation-guide)**.
+Then to install Pydio you have multiple ways check them right **[HERE](https://pydio.com/en/docs/v8/installation-guide)**.
 
 
 ##### 4. Virtual Hosts Nginx
@@ -97,6 +97,7 @@ This part is important if you're going to use Virutal Hosts.
 First you need to give the rights to your Pydio `sudo chown -R $USER:$USER /var/www/YourPydio`
 it can also be `www-data:www-data`,
 then `sudo chmod -R 755 /var/www`.
+
 
 Now you have to create your config file, you can copy the default one to use it as a template 
 `cp /etc/nginx/sites-available/default /etc/nginx/sites-available/YourPydio`.
@@ -138,7 +139,7 @@ Use `nginx -t`to verify syntax errors.
 
 ##### 5. Security
 For security you have a lot of choices so identify your needs and refer to guides that can give you details about it,
-with Pydio you already have security but you can add a lair to your WebServer, "better safe than sorry".
+with Pydio you already have security but you can add a lair to your WebServer, "better be safe than sorry".
 You can add SSL and such.
 
 #### IF YOU'RE HAVING AN ISSUE
