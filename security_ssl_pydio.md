@@ -1,8 +1,21 @@
-### Installing Security SSL on your webserver for Pydio
+### Installing SSL Security on your webserver for Pydio
 
-For this example we will see how to use a SSL certificate to use HTTPS protocol.
+#### 1. Lets encrypt
+Right now lets encrypt is one of the best ways to have a SSL certificate as Let’s Encrypt is a free and open certificate authority run for the public’s benefit. It is a service provided by the Internet Security Research Group (ISRG) and by that you can use it to secure your Pydio.
 
->In this guide the example will be realized using our self created certificate but if you buy one it should be pretty much the same thing
+To set it up it should be easy if you guides such as : 
+
+- [Apache Lets encrypt](https://www.digitalocean.com/community/tutorials/how-to-secure-apache-with-let-s-encrypt-on-ubuntu-16-04)
+- [Nginx Lets encrypt](https://www.digitalocean.com/community/tutorials/how-to-secure-nginx-with-let-s-encrypt-on-ubuntu-16-04)
+
+- [Apache/Nginx Lets encrypt](https://www.vultr.com/docs/setup-letsencrypt-on-linux)
+
+It should be really easy if you follow the steps.
+
+#### 2. Self Created certificate
+For this example we will see how to use a Self create certificate to use HTTPS protocol.
+
+>In this guide the example will be realized using our self created certificate but if you buy one or use lets encrypt it should be pretty much the same.
 
 Then lets begin : 
 
