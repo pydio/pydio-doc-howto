@@ -3,7 +3,7 @@
 #### 1. Lets encrypt
 Right now lets encrypt is one of the best ways to have a SSL certificate as Let’s Encrypt is a free and open certificate authority run for the public’s benefit. It is a service provided by the Internet Security Research Group (ISRG) and by that you can use it to secure your Pydio.
 
-To set it up it should be easy if you guides such as : 
+To set it up it use the following guides as a base and adapt it with your configuration (such as virutalhosts ...) : 
 
 - [Apache Lets encrypt](https://www.digitalocean.com/community/tutorials/how-to-secure-apache-with-let-s-encrypt-on-ubuntu-16-04)
 - [Nginx Lets encrypt](https://www.digitalocean.com/community/tutorials/how-to-secure-nginx-with-let-s-encrypt-on-ubuntu-16-04)
