@@ -1,13 +1,12 @@
 title: "Troubleshooting LDAP/AD"
+icon: Login
 abstract: "We'll see how to troubleshoot LDAP/AD"
 language: und
 category: Authentication
-tags: 
+tags:
   ad
   auth
   ldap
   mapping
   troubleshoot
   users
-
-

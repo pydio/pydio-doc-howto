@@ -1,8 +1,9 @@
 title: "Remote auth: mobile access"
+icon: Login
 abstract: "For those of you using the auth.remote plugin in slave mode with an external CMS like Drupal, WordPress or Joomla!, the RESTful access to Pydio necessary to create a communication with the mobile (iOS / Androïd) clients is tricky, but should work."
 language: und
 category: Authentication
-tags: 
+tags:
   cms
   drupal
   joomla

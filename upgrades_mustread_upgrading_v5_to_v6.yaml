@@ -1,4 +1,5 @@
 title: "[must read] Upgrading v5 to v6"
+icon: Update
 abstract: "This is a summary of common issues that can appear during upgrade from Pydio 5 to Pydio 6"
 language: und
 category: Upgrades

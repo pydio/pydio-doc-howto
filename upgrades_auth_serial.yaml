@@ -1,4 +1,5 @@
 title: "Upgrade Auth serial_otp, basic_http and cas in v6"
+icon: Update
 abstract: "In Pydio 6, the authentication modules were split between auth backend and auth frontends. The idea is to decouple the user 'credentials' method (frontend) and how we do use those credentials to authenticate (backend). The mix of both concepts in v5 was preventing to easily implement a new way of capturing credentials (e.g. One-Time-Password) without locking this to a predefined authentification backend (sql, serial, etc..)."
 language: und
 category: Upgrades

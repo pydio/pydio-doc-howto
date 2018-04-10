@@ -1,4 +1,5 @@
 title: "Installing on FreeBSD (nginx and PHP-FPM)"
+icon: setting-gear-window-control-panel
 abstract: "Installing Pydio on FreeBSD using Nginx as webserver and PHP-FPM"
 language: und
 category: System

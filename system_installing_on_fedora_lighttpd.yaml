@@ -1,4 +1,5 @@
 title: "Installing on Fedora + Lighttpd"
+icon: setting-gear-window-control-panel
 abstract: "Tutorial for installing Pydio on Fedora OS using Lighttpd as a webserver."
 language: und
 category: System

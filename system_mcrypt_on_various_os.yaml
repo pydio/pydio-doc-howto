@@ -1,4 +1,5 @@
 title: "MCrypt on various OS"
+icon: setting-gear-window-control-panel
 abstract: "This How-To will try to summarize various OS-Specific ways of installing the php-mcrypt extension."
 language: und
 category: System

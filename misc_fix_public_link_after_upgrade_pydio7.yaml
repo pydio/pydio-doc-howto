@@ -1,8 +1,9 @@
 title: "Fix public link after upgrading to Pydio 7"
+icon: Troubleshooting
 abstract: "The public links are no longer accessible after upgrading to Pydio 7. The how-to will help you to fix this issue"
 language: und
 category: Legacy
-tags: 
+tags:
   public link
   link
   pydio7

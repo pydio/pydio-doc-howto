@@ -1,4 +1,5 @@
 title: "Permission for Pydio’s files/folders"
+icon: security-lock-safe-authority-shield
 abstract: "The setting permission on Pydio’s files/folders is an easy task but very important. Correct permission can reduce the risk of modification from others entities than web server and system administrator. We highly recommend to use the most restricted permission for Pydio data."
 language: und
 category: Security

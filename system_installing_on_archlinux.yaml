@@ -1,4 +1,5 @@
 title: "Installing on ArchLinux"
+icon: setting-gear-window-control-panel
 abstract: "Install Pydio on ArchLinux with Nginx"
 language: und
 category: System

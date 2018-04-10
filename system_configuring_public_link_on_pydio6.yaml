@@ -1,4 +1,5 @@
 title: "Configuring public link on Pydio 6"
+icon: setting-gear-window-control-panel
 language: und
 abstract: "Configuring public folder seems to be complicated and confused to some typical user. Some don’t know where is public folder, some don’t know how to configure RewriteRules and some others are stuck in blank page in public link. In this how-to, we hope that you can configure public folder easily."
 category: Legacy

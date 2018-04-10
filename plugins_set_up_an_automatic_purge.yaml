@@ -1,8 +1,9 @@
 title: "Set up an automatic purge"
+icon: Plugin
 abstract: "In many usecases, Pydio is used to create an interface between the inside world and the outside world of an organization. To prevent information leakage and loss of control, many administrators will choose to automatically “expire” the documents: docs older than a given period are simply deleted. That way, users cannot forget and let confidential information stay in a semi-public area for too long."
 language: und
 category: Plugins
-tags: 
+tags:
   access
   purge
   scheduler
