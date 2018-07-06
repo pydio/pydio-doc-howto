@@ -9,7 +9,7 @@ This plugin will create a bridge between Pydio and an application.
 
 *If you want more details about the plugin you can go to **[this](https://pydio.com/fr/docs/references/plugins/auth/remote)** page*
 
-Now you can install **[Pydio-Bridge](https://pydio.com/en/get-pydio/downloads/cms-bridges)**, first download it then go to your cms's extensions/addons/(whatever it is called) settings and install it.
+Now you can install **[Pydio-Bridge](https://pydio.com/en/blog/type/release-note?component%5B0%5D=236&type=All&license=All)**, first download it then go to your cms's extensions/addons/(whatever it is called) settings and install it.
 
 > The supported versions are Wordpress **all versions**, Joomla **1.5 to 3.0** and Drupal **6.X, 7.X**
 
