@@ -1,12 +1,12 @@
 ### ADVANCED SETTINGS OF THE "LDAP/AD" AUTHENTIFICATION
-In this guide we will look at the specifics that Pydio offers when you're authentificating with an LDAP/AD server and give you examples to make it easier to use it.
+In this guide we will look at the specifics that Pydio offers when you're authenticating with an LDAP/AD server and give you examples to make it easier to use it.
 
-First and foremost you have enabled the LDAP Authentification and you **[binded your server](https://pydio.com/en/docs/v8/binding-ldapad-server)**, second you have basic knowledge of the **[Groups & Roles](https://pydio.com/en/docs/v8/inheritance-groups-and-users-roles)** feature.
+First and foremost you have enabled the LDAP Authentication and you **[binded your server](https://pydio.com/en/docs/v8/binding-ldapad-server)**, second you have basic knowledge of the **[Groups & Roles](https://pydio.com/en/docs/v8/inheritance-groups-and-users-roles)** feature.
 
 ### GROUP MAPPING
 [:image-popup:/authentication/auth_group_LDAP.png]
 
-As you can see the Group Schema is sort of self explanatory but dont worry i will go in details and give you an example to help you have an up and running Pydio with LDAP/AD authentification.
+As you can see the Group Schema is sort of self explanatory but dont worry i will go in details and give you an example to help you have an up and running Pydio with LDAP/AD authentication.
 
 + **Groups DN** : you can map groups with a Distinguished Names (you can add as many as you want)
 ```
@@ -36,7 +36,7 @@ put the prefix of your choice to make it easy to know which LDAP/AD Users are pa
 
 Here you can map attributes in a more precise way so that they match your Pydio's attribute.
 
-> I will give you an example of one of the many possibilites that you can achieve with the attribute mapping
+> I will give you an example of one of the many possibilities that you can achieve with the attribute mapping
 
 + **LDAP attribute** : the ldap attribute of your choice that you're going to map
 ```
@@ -68,7 +68,7 @@ You can set advanced parameters to have a more personalized experience with your
 
 + **LDAP Server page size** : the size of the LDAP Server page
 
-+ **Use referral bind** : The Bind operation allows creadentials to be exchanged between the client and server to establish a new authorization state.
++ **Use referral bind** : The Bind operation allows credentials to be exchanged between the client and server to establish a new authorization state.
 
 + **Cache Users Count ( in hours )** : if you want to locally cache the number of users for X hours, if you have huge directories it can be really a good to enable it
 
@@ -77,14 +77,30 @@ You can set advanced parameters to have a more personalized experience with your
 ### AUTH DRIVER COMMONS
 [:image-popup:/authentication/auth_driver_common_LDAP.png]
 
-+ **Auto Create User** : if its enabled it will automatically create a user when you're using a remote authentification system.
++ **Auto Create User** : if its enabled it will automatically create a user when you're using a remote authentication system.
 
 + **Login Redirect** : you can choose to perform a redirection to a given URL after a login operation.
 
 + **Administrator Login** : you can choose a user to be a default admin by specifying a User ID.  
 
-+ **Auto apply role** : you can choose to automatically apply a role to a user whenever he's authentificating through this driver.
++ **Auto apply role** : you can choose to automatically apply a role to a user whenever he's authenticating through this driver.
 
 
 
 > And thats just a sample of what you can achieve with Pydio, i let you try and custom everything to fit what you want.
+
+### TROUBLESHOOTING LDAP
++ **PHP-LDAP extension** : you should make sure that you have php-ldap 
+you can use `php -m | grep ldap` to check.
+If you do not have the ldap extension you can install it through
+aptitude, yum, curl ... by using `install php-ldap`.
+
+> If you want to get more informations about the extension you can visit the [PHP-LDAP](http://php.net/manual/en/ldap.installation.php) page.
+    
+    
+### IF YOUR ISSUE WAS NOT LISTED
+You should re-check if the test between your LDAP and Pydio was successful when you were setting it up, you have the **'Try to connect to LDAP'** Button to make sure that you gave the right informations. Otherwise i advise you to reconfigure it from scratch in case you missed a setting.
+
+If none of the above worked you should make sure that your Pydio installation was rightfully done, you can also go check **[Pydio's Troubleshooting](https://pydio.com/en/docs/v8/troubleshooting)** page.
+
+Else you can go on our **[Forum](https://forum.pydio.com/)** and search if someone had a similar issue or you can create a post.

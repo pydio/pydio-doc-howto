@@ -1,5 +1,0 @@
-title: "Setup HTTPS on Windows+Apache"
-icon: setting-gear-window-control-panel
-abstract: "The following assumes you are running Pydio on a Windows based machine with Apache server. Adjust the parameters below according to your configuration, if necessary."
-language: und
-category: System

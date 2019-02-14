@@ -1,5 +1,4 @@
-title: "Pydio with Security-Enhanced Linux (SELinux)"
-icon: security-lock-safe-authority-shield
+title: "[P8] Pydio with Security-Enhanced Linux (SELinux)"
 abstract: "SELinux is a linux kernel module security that provides the mechanism for enforcing the security in access control management of the system. As we can see, linux has applied Discret Access Control (DAC) model since it was in conception form. In DAC, each object (file, folder …) has attached attribuites to indicate the ownership and permissions. SELinux, howerver, can provide an other method which is more powerful and flexible in controlling access to system resource. SELinux base on several Mandatory Access Control (MAC) method such as: Type-Domain, Multi-levels Multi-Categories, RBAC. And the combination of such methods forme the context in SELinux, which can make a lot of trouble and difficulties to typical system administrators."
 language: und
 category: Security

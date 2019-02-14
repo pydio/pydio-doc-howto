@@ -32,10 +32,10 @@ We will go through each category(tabs Link/Access/Visibility) and explain for wh
 [:image-popup:/cells/create_share_access.png]
 
 - **Access** : you can manage the access to your link and set limitations such as download, expiration date.
-    - **Password** : add a password to access the content of this link (when saved you will be able to change to password to another on the fly).
-    - **Will expire on** : you can set an expiration date for the link and therefore limitate for instance it's access to 1 day or couple.
-    - **Allowed downloads** : you can limit the amount of download of it's content for the users using the link.
-    - **Layout** : you have to options either you display a preview of the content or there will be only a download button for the end user.
+- **Password** : add a password to access the content of this link (when saved you will be able to change to password to another on the fly).
+- **Will expire on** : you can set an expiration date for the link and therefore limitate for instance it's access to 1 day or couple.
+- **Allowed downloads** : you can limit the amount of download of it's content for the users using the link.
+- **Layout** : you have to options either you display a preview of the content or there will be only a download button for the end user.
 
 [:image-popup:/cells/create_share_visibility.png]
 

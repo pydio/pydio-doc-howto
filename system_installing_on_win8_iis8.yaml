@@ -1,9 +1,0 @@
-title: "Installing on Win8 / IIS8"
-icon: setting-gear-window-control-panel
-abstract: "Installing Pydio on Windows 8 with IIS8 as webserver"
-language: und
-category: System
-tags:
-  contributed
-  iis8
-  pydio5

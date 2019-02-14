@@ -1,9 +1,0 @@
-title: "Monitoring files or folders"
-icon: Plugin
-abstract: "Using the meta.watch plugin along with the core.notifications features, the users will be able to precisely monitor some activities on any files or folder."
-language: und
-category: Plugins
-tags:
-  alerts
-  notifications
-  watch
