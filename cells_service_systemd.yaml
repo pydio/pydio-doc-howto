@@ -1,5 +1,5 @@
 title: "Cells service with systemd"
-abstract: ""
+abstract: "Run cells as a service with systemd"
 language: und
 category: Devops
 tags:

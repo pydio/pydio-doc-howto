@@ -1,5 +1,5 @@
 title: "Proxying a cells docker"
-abstract: ""
+abstract: "Run a cells docker behind a reverse proxy"
 language: und
 category: Devops
 tags:

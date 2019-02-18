@@ -1,5 +1,5 @@
 title: "Proxying cells with nginx"
-abstract: ""
+abstract: "Use nginx reverse proxy"
 language: und
 category: Devops
 tags:

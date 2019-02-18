@@ -1,5 +1,5 @@
 title: "Cells service with supervisor"
-abstract: ""
+abstract: "Run cells as a service with supervisor"
 language: und
 category: Devops
 tags:

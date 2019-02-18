@@ -1,5 +1,5 @@
 title: "Proxying cells with caddy"
-abstract: ""
+abstract: "Use caddy reverse proxy"
 language: und
 category: Devops
 tags:

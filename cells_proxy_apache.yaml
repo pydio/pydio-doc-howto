@@ -1,5 +1,5 @@
 title: "Proxying cells with apache"
-abstract: ""
+abstract: "Use apache reverse proxy"
 language: und
 category: Devops
 tags:
