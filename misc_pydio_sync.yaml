@@ -1,8 +1,7 @@
 title: "Use pydio sync client"
-icon: Troubleshooting
-abstract: "Install and Use the PYDIO SYNC CLIENT."
+abstract: "Install and Use the pydio sync client."
 language: und
-category: Miscellaneous
+category: 
 tags:
   Sync
-  CLIENT
+  Client

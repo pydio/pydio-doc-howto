@@ -2,7 +2,7 @@ title: "[P8] Setting up emailers"
 icon: Plugin
 abstract: "We’ll gather in this page various configuration and guides to have emailing working on various systems."
 language: und
-category: Plugins
+category: Pydio 8 plugins
 tags:
   emails
   mailer

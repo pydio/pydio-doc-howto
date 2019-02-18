@@ -2,7 +2,7 @@ title: "Deploying Pydio in AWS with GlusterFS"
 icon: setting-gear-window-control-panel
 abstract: "Deploying Pydio in a highly-demanding environment (lots of users, tons of documents) to achieve a dropbox-like server at scale requires a solid and elastic architecture."
 language: und
-category: System
+category: Pydio 8 installation
 tags:
   glusterfs
   high availability
