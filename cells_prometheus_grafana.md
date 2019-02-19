@@ -47,7 +47,7 @@ You can configure  Prometheus to start on the port you wish, default is 9090.
 With cells-enterprise running, you can check that all processes are correctly detected by checking [http://localhost:9090/targets](http://localhost:9090/targets).
 
 <!-- ![Prom Targets](https://github.com/pydio/internal-tracker/raw/master/howtos/resources/Prometheus-Targets.png) -->
-[:image-popup:/devops/prometheus-targets.png]
+[:image-popup:/devops/Prometheus-Targets.png]
 
 ### Setup Grafana
 
@@ -67,7 +67,7 @@ Dashboards can be imported from JSON to Grafana.
 The new dashboard should be available and show something like the image below.
 
 <!-- ![Dashboard](https://github.com/pydio/internal-tracker/raw/master/howtos/resources/Grafana-Dashboard.png) -->
-[:image-popup:/devops/grafana-dashboard.png]
+[:image-popup:/devops/Grafana-Dashboard.png]
 
 ## Important Note: Code & Vendoring Info
 
