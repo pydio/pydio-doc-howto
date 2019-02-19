@@ -1,30 +1,35 @@
-//TODO
 ## Using Apache as a reverse proxy
 
 ### Specific Pydio Cells Configuration
 
 During the installation process, instead of the offered settings you should enter configuration similar to this:
 
-```sh
-Binding Host (Internal, Other): cells.example.com:7070
-External Host: cells.example.com
+```conf
+Internal url: cells.example.com:7070
+External Host: http://cells.example.com
 ```
 
-* Binding Host : address where the application http server is bound to. It MUST contain a server name and a port.
-* External host : url the end user will use to connect to the application.
+* Internal Host : address where the application http server is bound to. It MUST contain a server name and a port.
+* Protocol: If you are going to use SSL then the external host must be starting with `https://` (you don't need to specify the port)
+* External host : url the end user will use to connect to the application, (the protocol will be added automatically)
 * Example:
-  If you want your application to run on the localhost at port 8080 and use the url mycells.mypydio.com, then set CELLS_BIND to localhost:8080 and CELLS_EXTERNAL to mycells.mypydio.com
+  If you want your application to run on the localhost at port 8080 with SSL and use the url `mycells.mypydio.com`, then set CELLS_INTERNAL to `localhost:8080` and CELLS_EXTERNAL to `https://mycells.mypydio.com`.
 
-**If you wish to use the 0.0.0.0 address you must respect this rule, cells_bind has to be exactly like this `cells_bind=0.0.0.0:<port>` and `cells_external=<domain name,address>:<port>`, the *port* is mandatory in both otherwise you will have a grey screen stuck in the loading**
+**If you wish to use the 0.0.0.0 address you must respect this rule, cells_bind has to be exactly like this `cells_internal=0.0.0.0:<port>` and `cells_external=<domain name,address>:<port>`, the *port* is mandatory in both otherwise you will have a grey screen stuck in the loading**
 
 ### Configure Apache
 
 You must enable the following mods with apache :
-- `proxy`
-- `proxy_http`
-- `proxy_wstunnel`
+
+* `proxy`
+* `proxy_http`
+* `proxy_wstunnel`
+
+> sudo a2enmod **modname**
 
 Edit Apache mod_ssl configuration file to have this:
+
+> For this example the proxy is running on a server with this address `192.168.0.176`, while the cells is running on another server using `192.168.0.172` under the port `8080`.
 
 ```conf
 Listen 8080
@@ -63,7 +68,7 @@ CustomLog ${APACHE_LOG_DIR}/access-ssl.log combined
 </VirtualHost>
 ```
 
-> For this example my proxy is running on `192.168.0.176`, while my cells is running on another server `192.168.0.172` under the port `8080` .
+
 
 Please note:
 
