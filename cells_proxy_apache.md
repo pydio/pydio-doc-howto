@@ -34,8 +34,9 @@ Edit Apache mod_ssl configuration file to have this:
 ```conf
 Listen 8080
 <VirtualHost *:8080>
-ServerName demo.fr
-ServerAdmin demo.fr
+
+  ServerName demo.fr
+  ServerAdmin demo.fr
   AllowEncodedSlashes On
   RewriteEngine On
   #SSLProxyEngine On
@@ -50,28 +51,28 @@ ServerAdmin demo.fr
   # for ssl
   # ProxyPassMatch "/ws/(.*)" wss://ip.or.domain.server/ws/$1 nocanon
   
-  # onlyoffice
+  # Onlyoffice
   # ProxyPassMatch "/onlyoffice/(.*)/websocket$" ws://192.168.0.172:8080/onlyoffice/$1/websocket nocanon
 
   #Finally simple proxy instruction
   ProxyPass "/" "http://192.168.0.172:8080/"
   ProxyPassReverse "/" "http://192.168.0.172:8080/"
 
-  #Uncoment if you are going to use SSL
+  #Uncomment if you are going to use SSL
   #SSLEngine on
   #SSLCertificateFile /etc/ssl/localcerts/server.crt
   #SSLCertificateKeyFile /etc/ssl/localcerts/server.key
   #SSLCertificateChainFile /etc/ssl/localcerts/bundled.crt
 
-ErrorLog ${APACHE_LOG_DIR}/error-ssl.log
-CustomLog ${APACHE_LOG_DIR}/access-ssl.log combined
+  ErrorLog ${APACHE_LOG_DIR}/error-ssl.log
+  CustomLog ${APACHE_LOG_DIR}/access-ssl.log combined
 </VirtualHost>
 ```
 
-
+### Important points
 
 Please note:
 
-- The **AllowEncodedSlashes** On that may be necessary if not activated globally in apache (to call APIs like /a/meta/bulk/path%2F%to%2Ffolder
+- The **AllowEncodedSlashes** enabled, may be necessary if not activated globally in apache (to API calls like `/a/meta/bulk/path%2F%to%2Ffolder`)
 
 - When I configure Cells, even on another port, I actually **make sure to bind it directly to the cells.example.com** as well (like Apache). This is necessary for the presigned URL used with S3 API for uploads and downloads (they used signed headers and a mismatch between received Host headers may break the signature). Another option is to still bind Cells using a local IP, then in the Admin Settings, under Configs Backend, use the field “Replace Host Header for S3 Signature” and use the internal IP here.

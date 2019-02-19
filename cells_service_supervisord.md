@@ -1,8 +1,8 @@
-//TODO
+## Run cells as a service with Supervisor
 
-### With Supervisor
+You can use supervisor to run your pydio cells instance as a service, supervisor will provide for instance a way to auto restart your cells when you restart your server or when there is a failure and so on.
 
-#### Requirements
+### Requirements
 
 You only need to install supervisor if not yet present:
 
@@ -13,13 +13,13 @@ sudo systemctl enable supervisor
 sudo systemctl start supervisor
 ```
 
-#### Configuration
+### Configuration for debian/ubuntu based systems
 
 _Note: this configuration assume you have done a vanilla setup following our install guides. Adapt to your specific setup if necessary._
 
 You must then declare the path to your binary **cells** file in a supervisor configuration file:
 
-- Create a file here `/etc/supervisor/conf.d/<the-file>.conf` named for instance `cells.conf`
+- Create a file here `/etc/supervisor/conf.d/<the-file>.conf` named for instance `cells.conf` (the path might be different on centos).
 - Add this after having replaced the `<path-to-binary>` and `<user-launching-cells>` place holders by their respective values depending on your setup:
 
 ```conf
@@ -59,7 +59,6 @@ Configure supervisor to monitor this new program by using following command:
 ```sh
 sudo supervisorctl reread
 ```
-
 _Note: this triggers a reload of all `*.conf` files located within the `/etc/supervisor/conf.d` directory_
 
 Then enact the changes with:
@@ -68,7 +67,7 @@ Then enact the changes with:
 sudo supervisorctl update
 ```
 
-#### Usage
+### Usage
 
 You can now monitor your program by using `supervisorctl`
 
@@ -102,68 +101,9 @@ Use `quit` to leave the supervisor menu.
 
 You now have Pydio Cells running as a daemon and auto-restarting after server reboot.
 
-## CentOS
+### For CentOS
 
-On a RHEL/CentOS system, you have two options:
-
-- Run as a service
-- Use Supervisor
-
-### Configure Cells as a systemd service
-
-Create new `/etc/systemd/system/cells.service` file with following content:
-
-```conf
-[Unit]
-Description=Pydio Cells
-Documentation=https://pydio.com
-Wants=network-online.target
-After=network-online.target
-AssertFileIsExecutable=/home/pydio/cells
-[Service]
-WorkingDirectory=/home/pydio/.config/
-User=pydio
-Group=pydio
-PermissionsStartOnly=true
-#ExecStartPre=echo \"Starting Pydio Cells - Home Edition service\""
-ExecStart=/home/pydio/cells start
-Restart=on-failure
-StandardOutput=journal
-StandardError=inherit
-LimitNOFILE=65536
-TimeoutStopSec=5
-KillSignal=INT
-SendSIGKILL=yes
-SuccessExitStatus=0
-[Install]
-WantedBy=multi-user.target
-```
-
-If you are running Pydio Cells in a production environment, you probably want to enable production logging.  
-You have 2 options:
-
-```conf
-# Add en environment variable in the [Service] section
-Environment=PYDIO_LOGS_LEVEL=production
-
-# *or* replace the 13th line with
-ExecStart=/home/pydio/cells start --log production
-```
-
-Then, enable and start the service:
-
-```sh
-systemctl enable cells
-systemctl start cells
-```
-
-The output of the service can be seen via the journal service:
-
-```sh
-journalctl -f -u cells
-```
-
-### Using Supervisord
+On a RHEL/CentOS systems, this is a config sample that will run cells as a service.
 
 This configuration is based on a system that has a **pydio** Unix account. Please refer to [this tutorial](/en/docs/cells/v1/centosrhel-systems) or adapt to your custom setup if necessary.
 

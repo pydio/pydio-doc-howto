@@ -1,4 +1,3 @@
-//TODO
 ## Run your Docker Container behind an Apache reverse Proxy using SSL
 
 The process is pretty much the same as the previous example on apache,
@@ -28,6 +27,7 @@ Then create configuration file for apache proxy (if used as it is , it will work
 ```conf
 <IfModule mod_ssl.c>
 <VirtualHost *:443>
+
   ServerName domain.pydio.com
   # May be necessary for API direct accesses
   AllowEncodedSlashes On
@@ -39,13 +39,16 @@ Then create configuration file for apache proxy (if used as it is , it will work
   SSLProxyCheckPeerName Off
   SSLProxyVerify none
 
-  # The Certificate path
+  # The Certificates path you can change the path to another
     SSLCertificateFile /home/user/cert/apache.crt
     SSLCertificateKeyFile /home/user/cert/apache.key
 
+  # Onlyoffice
+  # ProxyPassMatch "/onlyoffice/(.*)/websocket$" ws://192.168.0.172:8080/onlyoffice/$1/websocket nocanon  
+
   # Proxy WebSocket
   RewriteCond %{HTTP:Upgrade} =websocket [NC]
-  # RewriteRule /(.*)           wss://192.168.0.12:8080/$1 [P,L]
+  # RewriteRule /(.*)           wss://192.168.0.12:7070/$1 [P,L]
   # Finally simple proxy instruction
   ProxyPass "/" "https://192.168.1.12:7070/"
   ProxyPassReverse "/" "https://192.168.1.12:7070/"
@@ -53,3 +56,5 @@ Then create configuration file for apache proxy (if used as it is , it will work
 </VirtualHost>
 </IfModule>
 ```
+
+> you can apply the same set of rules for nginx, caddy etc... .
