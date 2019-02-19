@@ -1,7 +1,8 @@
-### HOW TO USE PYDIO SYNC
+### How to use the pydio Sync client
 Once you have **[Pydio Sync](https://pydio.com/en/get-pydio/downloads/pydiosync-desktop-app)** installed which should be pretty easy on Windows & Mac.
 
-#### SETTING & USING PYDIO SYNC
+#### Setting & Using the pydio sync client
+
 #### 1. FOR WINDOWS, MAC & LINUX(graphical environnement)
 Now launch the app click on getting started and you should have the following screen.
 
@@ -27,6 +28,13 @@ This screen shows you a global view of your syncronization, and also offers you 
 [:image-popup:/sync/sync_adv_pydio_SYNC.png]
 
 
-
 > The settings are the same with **Windows** and **Linux**
 
+#### Troubleshooting
+
+You can find the files and therefore the log files of the pydio sync client here:
+
+Win: `C:\Users\<USER>\AppData\Roaming\Pydio`
+
+Mac: `~/Library/Application\ Support/Pydio`
+Full path : `/Users/username/Library/Application Support/Pydio`
