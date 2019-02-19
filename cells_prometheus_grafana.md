@@ -1,6 +1,5 @@
 # Enabling monitoring with Prometheus / Grafana
 
-This feature is currently available on master.
 
 ## Enabling metrics in Cells-Enterprise
 
@@ -62,7 +61,7 @@ Add a Prometheus DataSource in Grafana pointing to the Prometheus port defined i
 
 Dashboards can be imported from JSON to Grafana.
 
-- Copy the content of [Grafana-Dashboard.json](./resources/Grafana-Dashboard.json)
+- Copy the content of [Grafana-Dashboard.json](needs link)
 - In the left menu, select Dashboard > Import > Paste JSON and put the json here
 
 The new dashboard should be available and show something like the image below.
