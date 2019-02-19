@@ -1,4 +1,4 @@
-## Run your Docker Container behind an Apache reverse Proxy using SSL
+## Run your Cells docker CContainer behind an Apache reverse Proxy using SSL
 
 The process is pretty much the same as the previous example on apache,
 when you run you docker container either with the command `docker run` or in a docker-compose file have to specify `CELLS_BIND` and `CELLS_EXTERNAL`.
