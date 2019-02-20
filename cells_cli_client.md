@@ -64,38 +64,43 @@ Other commands are available for listing datasources, users, roles, etc... but i
 
 **1/ Listing the content of the personal-files workspace**
 
-```bash
+```shell
 $ ./cec ls personal-files
-+--------+--------------------------+
-|  TYPE  |           NAME           |
-+--------+--------------------------+
-| Folder | personal-files           |
-| File   | Huge Photo-1.jpg         |
-| File   | Huge Photo.jpg           |
-| File   | IMG_9723.JPG             |
-| File   | P5021040.jpg             |
-| Folder | UPLOAD                   |
-| File   | anothercopy              |
-| File   | cec22                    |
-| Folder | recycle_bin              |
-| File   | test_crud-1545206681.txt |
-| File   | test_crud-1545206846.txt |
-| File   | test_file2.txt           |
-+--------+--------------------------+
 ```
+
+it will display an array of this form:
+
+|  TYPE | NAME  |
+|---    |  ---  |
+|  Folder | personal-files  |
+| File  | Huge Photo-1.jpg  |
+| File  | Huge Photo.jpg  |
+| File  | IMG_9723.jpg  |
+| File  | P5021040.jpg  |
+| Folder  | UPLOAD  |
+| File  | anothercopy  |
+| File  | cec22  |
+| Folder  | recycle_bin  |
+| File  | test_crud-1545206681.txt  |
+| File  |  test_crud-1545206846.txt |
+| FIle  | test_file2.txt
+
+
+
 
 **2/ Showing details about a file**
 
 ```shell
 $ ./cec ls personal-files/P5021040.jpg -d
 Listing: 1 results for personal-files/P5021040.jpg
-+------+--------------------------------------+-----------------------------+--------+------------+
-| TYPE |                 UUID                 |            NAME             |  SIZE  |  MODIFIED  |
-+------+--------------------------------------+-----------------------------+--------+------------+
-| File | 98bbd86c-acb9-4b56-a6f3-837609155ba6 | personal-files/P5021040.jpg | 3.1 MB | 5 days ago |
-+------+--------------------------------------+-----------------------------+--------+------------+
-
 ```
+
+it will display an array of this form:
+
+| TYPE | UUID | NAME | SIZE | MODIFIED |
+| --- |  ---  |  --- | ---  |       --- |
+| File| 98bbd86c-acb9-4b56-a6f3-837609155ba6 | personal-files/P5021040.jpg | 3.1 MB | 5 days ago |
+| --- | --- | --- | --- | --- |
 
 **3/ Uploading a file to server**
 
