@@ -1,4 +1,3 @@
-## Using Caddy as a reverse proxy
 
 [:image-popup:/devops/caddy-black.png]
 

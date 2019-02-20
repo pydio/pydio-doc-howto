@@ -1,5 +1,3 @@
-## Using Apache as a reverse proxy
-
 ### Specific Pydio Cells Configuration
 
 During the installation process, instead of the offered settings you should enter configuration similar to this:

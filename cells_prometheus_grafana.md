@@ -1,7 +1,4 @@
-# Enabling monitoring with Prometheus / Grafana
-
-
-## Enabling metrics in Cells-Enterprise
+### Enabling metrics in Cells-Enterprise
 
 Cells code is instrumented using Gauge, Counters, etc... We use an interface for various metrics systems (uber-go/tally), using a Noop
 implementation by default. In Cells-Enterprise, the start flag `--enable_metrics` will register a Prometheus compatible collector instead of the Noop implementation, and achieve two things:
@@ -12,7 +9,7 @@ implementation by default. In Cells-Enterprise, the start flag `--enable_metrics
 
 In a distributed mode, you will have to run Prometheus on the same node where pydio.gateway.metrics is running.
 
-## Installing Prometheus and Grafana
+### Installing Prometheus and Grafana
 
 Download [Prometheus](https://prometheus.io/download/) and [Grafana](https://grafana.com/grafana/download) binaries for your platform or install using Docker.
 Install them on the node where the pydio.gateway.metrics service will be running.
@@ -57,7 +54,7 @@ Set up admin / password and basic install steps for Grafana.
 
 Add a Prometheus DataSource in Grafana pointing to the Prometheus port defined in the previous step.
 
-## Grafana Dashboard
+### Grafana Dashboard
 
 A simple dashboard has been published on the Grafana website. See https://grafana.com/dashboards/9817 
 It can be simply imported with the following steps

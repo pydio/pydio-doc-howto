@@ -1,5 +1,3 @@
-## Run as a systemd service
-
 You can use systemd as a way to run cells as a service, it will provide you advantages such as automatically restarting your cells after failure.
 
 _Note: this configuration assume you have done a vanilla setup following our installation guides. Adapt to your specific setup if necessary._

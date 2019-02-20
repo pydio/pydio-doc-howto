@@ -1,4 +1,4 @@
-title: "Metrics with prometheus & grafana"
+title: "Monitoring Cells with Prometheus & Grafana"
 abstract: "Enable metrics with prometheus and grafana"
 language: und
 category: Devops
