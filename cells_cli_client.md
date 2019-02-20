@@ -1,9 +1,9 @@
 In this how to we will take a look at the new cells command line tool and how it enables you to perform actions such as **cp, ls, ...** on your cells instance.
 
-### Using the Cells command line tool
+### What is the Cells command line tool
 
-The cells command line tool works like every other tool integrated in most linux distributions, for instance **scp**. 
-The tool gives you the ability to upload directly to your remote cells instance into your (workspace/folder/cell) data with the ease of a command on your terminal.
+The cells command line tool works like every other tool integrated in most linux distributions, for instance **scp**.
+The tool gives you the ability to list, download and upload directly to your remote cells instance into your (workspace/folder/cell) data with the ease of a command on your terminal.
 
 ### Installation
 
