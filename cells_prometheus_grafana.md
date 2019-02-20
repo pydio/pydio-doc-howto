@@ -69,9 +69,3 @@ The new dashboard should be available and show something like the image below.
 
 <!-- ![Dashboard](https://github.com/pydio/internal-tracker/raw/master/howtos/resources/Grafana-Dashboard.png) -->
 [:image-popup:/devops/Grafana-Dashboard.png]
-
-## Important Note: Code & Vendoring Info
-
-Warning, packages github.com/uber-go/tally/... and github.com/m3db/prometheus_client_golang/... are respectively vendored inside cells/cells-enterprise and cells-enterprise using our custom forked remotes branches (pydio/tally /pydio/prometheus_client_golang).
-
-To add metrics in Code, use Counters, Gauge, etc... Temporary copy/pasting the `metrics` service and running it in Cells may be easier for test&learn. Make sure not to commit it though!
