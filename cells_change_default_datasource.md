@@ -1,6 +1,6 @@
 You can change the default datasources with another storage, but you will need to execute those exact steps to make it work.
 
-## Create the datasources and buckets required.
+### Create the datasources and buckets required.
 
 First create the datasources that you wish to use, for our example we are going to use a remote S3 datasource.
 Let's replicate the exact datasources that where by default, but on our S3 remote storage.
@@ -17,7 +17,7 @@ Basically create the required buckets and create the s3 connection to each one o
 
 The array above gives you an idea to replicate the exact functionning default datasources.
 
-| default datasource  | default workspaces using the datasource  | NewDatasource  |
+| **default datasource**  | **default workspaces using the datasource**  | **NewDatasource**  |
 |---|---|---|
 | common files  | pydiods1  | datasourceNew  |
 |  personal files | my-files  | personalNew  |
@@ -36,7 +36,7 @@ We need to change the paths to the new datasources to whom they are pointing.
 
 Let's start with CELLS, the part that we need to modify is this one:
 
-| before | after |
+| **Before** | **After** |
 | --- | --- |
 | Path = DataSources.**cellsdata** + "/" + User.Name;  |  Path = DataSources.**cellsdataNew** + "/" + User.Name; |
 
@@ -44,7 +44,7 @@ Let's start with CELLS, the part that we need to modify is this one:
 
 And for MY-FILES:
 
-| before | after |
+| **Before** | **After** |
 | --- | --- |
 | Path = DataSources.**personal** + "/" + User.Name;  |  Path = DataSources.**personalNew** + "/" + User.Name; |
 
