@@ -27,7 +27,7 @@ $ ./cec configure
 
 You will be prompted with the following informations : 
 
-- Server Address : full URL to Cells, e.g. https://cells.yourdomain.com/
+- Server Address : full URL to Cells, e.g. `https://cells.yourdomain.com/`
 
 - Client ID / Client Secret: this is used by the OpenIDConnect service for authentication. Look in your server `pydio.json` file for the following section (see below), **Id** is the Client ID and **Secret** is the client Secret.
 
