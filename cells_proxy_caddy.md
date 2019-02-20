@@ -1,9 +1,4 @@
-In this how to, we are going to take a look at the Caddy webserver and how you can configure it to be used as a reverse proxy
-
-
-
-
-
+In this how to, we are going to take a look at the Caddy webserver and how you can configure it to be used as a reverse proxy.
 
 [:image-popup:/devops/caddy-black.png]
 

@@ -1,11 +1,5 @@
 In this how yo we are going to take a look on how you can configure a reverse proxy for your Cells Docker container and what settings are the most important to change.
 
-
-
-
-
-
-
 ### Run your Cells docker Container behind an Apache reverse Proxy using SSL
 
 The process is pretty much the same as the example on reverse proxying with **apache** (you can apply those principles with every proxy),

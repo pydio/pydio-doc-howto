@@ -1,10 +1,5 @@
 In this how to we will take a look at a basic Apache configuration for a reverse proxy to run for your Cells installation.
 
-
-
-
-
-
 ### Specific Pydio Cells Configuration
 
 During the installation process, instead of the offered settings you should enter configuration similar to this:

@@ -1,3 +1,5 @@
+This how to will give a you the steps to run Prometheus & Grafana enabling you to have metrics of your Cells Instance.
+
 ### Enabling metrics in Cells-Enterprise
 
 Cells code is instrumented using Gauge, Counters, etc... We use an interface for various metrics systems (uber-go/tally), using a Noop
