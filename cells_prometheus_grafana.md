@@ -59,10 +59,11 @@ Add a Prometheus DataSource in Grafana pointing to the Prometheus port defined i
 
 ## Grafana Dashboard
 
-Dashboards can be imported from JSON to Grafana.
+A simple dashboard has been published on the Grafana website. See https://grafana.com/dashboards/9817 
+It can be simply imported with the following steps
 
-- Copy the content of [Grafana-Dashboard.json](needs link)
-- In the left menu, select Dashboard > Import > Paste JSON and put the json here
+- In the left menu, select Dashboard > Import
+- In the "Grafana.com Dashboard" text field, enter the dashboard ID **9817**
 
 The new dashboard should be available and show something like the image below.
 
