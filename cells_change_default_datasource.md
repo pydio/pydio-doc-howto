@@ -54,7 +54,7 @@ Now let's proceed to the next step.
 
 Inside the `pydio.json` file that is located in your `~/.config/pydio/cells/pydio.json` folder ( the _~_ being the home of the user that launched the cells binary )
 
-![Screenshot 2018-12-18 at 15.13.27](https://i.imgur.com/LUiroxT.png)
+[:image-popup:/devops/change_default_ds.png]
 
 Modify the higlighted part (by default it uses the default datasource `pydiods1`) to your new datasource for instance `pydiods1new`.
 
