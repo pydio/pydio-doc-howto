@@ -1,5 +1,10 @@
 You can use supervisor to run your pydio cells instance as a service, supervisor will provide for instance a way to auto restart your cells when you restart your server or when there is a failure and so on.
 
+
+
+
+
+
 ### Requirements
 
 You only need to install supervisor if not yet present:

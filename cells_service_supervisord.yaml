@@ -1,5 +1,5 @@
-title: "Cells service with supervisor"
-abstract: "Run cells as a service with supervisor"
+title: "Running Cells as a service with Supervisor"
+abstract: "How to run Cells as a service using supervisor"
 language: und
 category: Devops
-tags:
+tags: supervisor

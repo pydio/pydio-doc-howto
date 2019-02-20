@@ -1,7 +1,15 @@
+In this how yo we are going to take a look on how you can configure a reverse proxy for your Cells Docker container and what settings are the most important to change.
+
+
+
+
+
+
+
 ### Run your Cells docker Container behind an Apache reverse Proxy using SSL
 
 The process is pretty much the same as the example on reverse proxying with **apache** (you can apply those principles with every proxy),
-when you run you docker container either with the command `docker run` or in a docker-compose file have to specify `CELLS_BIND` and `CELLS_EXTERNAL`.
+when you run you docker container either with the command `docker run` or in a docker-compose file, you have to specify `CELLS_BIND` and `CELLS_EXTERNAL`.
 
 Here's what CELLS_BIND and CELLS_EXTERNAL mean to give a you a general understanding.
 
@@ -13,11 +21,12 @@ If you want your application to run on the localhost at port 8080 and use the ur
 ```
 **If you wish to use the 0.0.0.0 address you must respect this rule, cells_bind has to be exactly like this `cells_bind=0.0.0.0:<port>` and `cells_external=<domain name,address>:<port>`, the *port* is mandatory in both otherwise you will have a grey screen stuck in the loading**
 
-To illustrate the concept above an example is provided.
+To illustrate the concept above an example is provided (this example show a reverse proxy on the same server but in the case of a different server, the `cells_external` value must be the one ).
 
 For instance you have your cells container running on a server that has an address such as : `192.168.1.12`
 you decide to run your container on port `7070` and therefore to run your container behind the proxy you will have  to set:
 `CELLS_BIND = 192.168.1.12:7070` and `CELLS_EXTERNAL = 192.168.1.12` 
+
 > (can be done in the docker-compose or as environment variables in the docker run command).
 
 If you want to use SSL do not forget to also put `CELLS_NO_SSL = 0` that is SSL on cells side but even if you want to use SSL for your Apache Proxy you will have to enable it (and set the certificates path for the proxy to use).
