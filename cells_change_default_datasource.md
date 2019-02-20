@@ -1,6 +1,6 @@
 You can change the default datasources with another storage, but you will need to execute those exact steps to make it work.
 
-### Create the datasources and buckets required.
+### Create the datasources and required buckets.
 
 First create the datasources that you wish to use, for our example we are going to use a remote S3 datasource.
 Let's replicate the exact datasources that where by default, but on our S3 remote storage.
