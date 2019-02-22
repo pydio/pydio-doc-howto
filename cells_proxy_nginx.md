@@ -59,4 +59,4 @@ server {
 
 > As you can notice the proxy_pass is the **internal_url**.
 
-Then once you restarted your Nginx, you can go to `http://192.168.1.201` and you will have access to Pydio Cells.
+Then once you restart your Nginx, you can go to `http://192.168.1.201` and you will have access to Pydio Cells.
