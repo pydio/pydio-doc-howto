@@ -51,6 +51,9 @@ Listen 8080
   # for ssl
   # ProxyPassMatch "/ws/(.*)" wss://ip.or.domain.server/ws/$1 nocanon
   
+  # Collabora Online
+  # ProxyPassMatch "/lool/(.*)ws$" wss://127.0.0.1:9980/lool/*1/ws noncanon
+
   # Onlyoffice
   # ProxyPassMatch "/onlyoffice/(.*)/websocket$" ws://192.168.0.172:8080/onlyoffice/$1/websocket nocanon
 

@@ -4,6 +4,7 @@ In this guide we will look at the specifics that Pydio offers when you're authen
 First and foremost you have enabled the LDAP Authentication and you **[binded your server](https://pydio.com/en/docs/v8/binding-ldapad-server)**, second you have basic knowledge of the **[Groups & Roles](https://pydio.com/en/docs/v8/inheritance-groups-and-users-roles)** feature.
 
 ### GROUP MAPPING
+
 [:image-popup:/authentication/auth_group_LDAP.png]
 
 As you can see the Group Schema is sort of self explanatory but dont worry i will go in details and give you an example to help you have an up and running Pydio with LDAP/AD authentication.
@@ -32,6 +33,7 @@ put the prefix of your choice to make it easy to know which LDAP/AD Users are pa
 ```
 
 ### ATTRIBUTES MAPPING
+
 [:image-popup:/authentication/auth_attributes_LDAP.png]
 
 Here you can map attributes in a more precise way so that they match your Pydio's attribute.
@@ -75,6 +77,7 @@ You can set advanced parameters to have a more personalized experience with your
 
 
 ### AUTH DRIVER COMMONS
+
 [:image-popup:/authentication/auth_driver_common_LDAP.png]
 
 + **Auto Create User** : if its enabled it will automatically create a user when you're using a remote authentication system.
@@ -90,6 +93,7 @@ You can set advanced parameters to have a more personalized experience with your
 > And thats just a sample of what you can achieve with Pydio, i let you try and custom everything to fit what you want.
 
 ### TROUBLESHOOTING LDAP
+
 + **PHP-LDAP extension** : you should make sure that you have php-ldap 
 you can use `php -m | grep ldap` to check.
 If you do not have the ldap extension you can install it through
@@ -99,6 +103,7 @@ aptitude, yum, curl ... by using `install php-ldap`.
     
     
 ### IF YOUR ISSUE WAS NOT LISTED
+
 You should re-check if the test between your LDAP and Pydio was successful when you were setting it up, you have the **'Try to connect to LDAP'** Button to make sure that you gave the right informations. Otherwise i advise you to reconfigure it from scratch in case you missed a setting.
 
 If none of the above worked you should make sure that your Pydio installation was rightfully done, you can also go check **[Pydio's Troubleshooting](https://pydio.com/en/docs/v8/troubleshooting)** page.
