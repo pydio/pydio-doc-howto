@@ -1,5 +1,5 @@
 
-This how-to will show you how to configure and use different webdav clients, be advised that each client has different it's unique behaviour.
+This how-to will show you how to configure and use different webdav clients, be advised that each client has a different behaviour unique to itself.
 
 ## MacOS Finder
 
