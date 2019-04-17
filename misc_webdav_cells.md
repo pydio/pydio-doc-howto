@@ -1,6 +1,7 @@
-### Using webdav with integrated file browsers
 
-#### MacOS
+This how-to will show you how to configure and use different webdav clients, be advised that each client has different it's unique behaviour.
+
+## MacOS Finder
 
 Do the following: **go to your finder > right click > connect to a server**.
 
@@ -14,9 +15,9 @@ You are then prompted to put in your login informations.
 
 You can now access to your files located in your pydio server through the macos finder. It is mounted as a remote disk: if you the connection is lost you also loose your ability to see/interact with the finder.
 
-**Do not forget to refresh the finder if there are changes on pydio side**
+**Do not forget to refresh the finder if there are changes on cells' side**
 
-#### Ubuntu (or any other Linux users)
+## Ubuntu (or any other Linux users)
 
 Ubuntu or other linux users can use the Nautilus file manager.
 
@@ -31,7 +32,7 @@ For instance: `dav://192.168.0.1:8080/dav/personal-files`. You are then prompted
 
 > For command line user you can use `mount` and mount the volume using the same path.
 
-#### Windows
+## Windows Explorer
 
 Windows 10 users must:
 
@@ -45,7 +46,7 @@ _in the example we show a specific workspace, but you can browse all of them by 
 
 [:image-popup:miscellaneous/webdav/windows_webdav_2.png]
 
-With windows you might encounter an issue when accessing a webdav that is not behind ssl,
+With windows you might encounter an issue when accessing a webdav that is running not with ssl,
 to remediate this issue you will have to edit a value in the registry:
 
 * Look for this inside the registry: `HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\WebClient\Parameters`
@@ -58,7 +59,7 @@ It's done. You can now browse your workspaces and cells from your explorer.
 
 **Do not forget to sometimes refresh the explorer (F5 key) if you did operations on the webui directly**
 
-#### Cyberduck client (macos & windows)
+## Cyberduck client (macos & windows)
 
 Cyberduck is a free storage browser and it also have the ability to act as a webdav client, you can downlooad and find more informations about it on their website.
 
