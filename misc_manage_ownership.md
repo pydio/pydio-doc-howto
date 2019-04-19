@@ -36,11 +36,11 @@ We then add user `jess` to the list of users and give her following privileges (
 
 You can now notice on screenshot **4** that she has the link listed on her view. She can also **right-click >> edit share**.
 
-3)
+_Screenshot #3_
 
 [:image-popup:miscellaneous/visibility/visibility_share_2.png]
 
-4)
+_Screenshot #4_
 
 [:image-popup:miscellaneous/visibility/visibility_share_2_enabled.png]
 
