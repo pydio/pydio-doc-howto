@@ -1,29 +1,40 @@
-In this how-to we are going to take a closer look at the visibility parameters on the shared resources, we will see what they are, how to enable them and some use cases to display their work.
+In this HowTo, we take a closer look at the visibility parameters of the shared resources:
+
+- what they are
+- how to enable them
+- and a few use cases
 
 ### Cells ownership
 
 [:image-popup:miscellaneous/visibility/visibility_cells.png]
 
-With Pydio Cells you can define the **Visibility (2)** of your resource (a cell in this instance) which enables you to transfer the ownership with users, groups or even roles.
-What it means is that they have the ability to act as if it was their own resource therefore they have the same rights as if they have created the resource and add users,etc...
+With Pydio Cells, you can define the **Visibility (2)** of your resource (eg. a cell in an instance) that enables transfering ownership of a resource, using users, groups or even roles:  
+A user who has been assigned or has corresponding group or role, can act as if it was her own resource. She therefore has same rights as if she has created the resource herself and can thus modify the cell definition, add users, etc...
 
-Often times this setting(**Visibility (2)**) can be confused with **Shared with (1)** which is the entity with whom you are going to share the resource,they can also interact with it such as reading or modifying.
+This **Visibility (2)** setting is often mistaken for the **Shared with (1)** setting. For the record, the **Shared with (1)** setting defines with whom you share a resource, and what they can do with it (read, download or modify, among others).
 
 ### Share links ownership
 
-In the case of a common workspace where multiple users have access, you can choose to display your link to some of them and/or allow them to edit its settings.
+In the case of a workspace that can be accessed by multiple users, you can choose to display your link to some of them and/or allow them to edit the link settings.
 
-This is an example of a common workspace (common-files) where two different users have access (`admin`, `jess`), in this first couple of screenshots you can witness that the setting is disabled (screenshot **1**) (the user `jess` is not selected) and therefore he does not see the sharelink on the file(Desert 6.png) (screenshot **2**).
+Below is an example of a common workspace (common-files) that can be accessed by two different users, `admin` and `jess`.
 
-1)
+In the first couple of screenshots, the setting is disabled (screenshot **1**): user `jess` is not selected. She therefore does not see the share link on the file (Desert 6.png) (screenshot **2**).
+
+_Screenshot #1_
 
 [:image-popup:miscellaneous/visibility/visibility_share_1.png]
 
-2)
+_Screenshot #2_
 
 [:image-popup:miscellaneous/visibility/visibility_share_1_disabled.png]
 
-Now we add the user (`jess`) to the list of users and give him **view**(sees the link in the workspace) and **edit**(enables the user to modify the share settings as if it was his own) rights(screenshot **3**) and now you can now notice(screenshot **4**) that he has the link listed on his view and he also can **right-click >> edit share**.
+We then add user `jess` to the list of users and give her following privileges (see screenshot **3**):
+
+- **view**: she sees the link in the workspace
+- **edit**: she can modify the share settings as if it was her own
+
+You can now notice on screenshot **4** that she has the link listed on her view. She can also **right-click >> edit share**.
 
 3)
 
@@ -33,6 +44,6 @@ Now we add the user (`jess`) to the list of users and give him **view**(sees the
 
 [:image-popup:miscellaneous/visibility/visibility_share_2_enabled.png]
 
-### Use case
+### Use cases
 
-* For instance you have a user that is going to take a vacation and he has important resources with clients so before he leaves he should give the visibility to another of his co-workers which will enable him to have access to the resource.
+- You have a user that is going on vacation and owns important resources about a given client. Before she leaves, she should give the visibility to another of her co-workers that is then able to access this resource.
