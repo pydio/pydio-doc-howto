@@ -53,8 +53,8 @@ Then create configuration file for apache proxy (if used as it is , it will work
   RewriteCond %{HTTP:Upgrade} =websocket [NC]
   # RewriteRule /(.*)           wss://192.168.0.12:7070/$1 [P,L]
   # Finally simple proxy instruction
-  ProxyPass "/" "https://192.168.1.12:7070/"
-  ProxyPassReverse "/" "https://192.168.1.12:7070/"
+  ProxyPass "/" "https://192.168.1.12:7070/" nocanon
+  ProxyPassReverse "/" "https://192.168.1.12:7070/" nocanon
 
 </VirtualHost>
 </IfModule>

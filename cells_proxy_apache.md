@@ -11,9 +11,11 @@ External Host: http://cells.example.com
 
 * Internal Host : address where the application http server is bound to. It MUST contain a server name and a port.
 * Protocol: If you are going to use SSL then the external host must be starting with `https://` (you don't need to specify the port)
-* External host : url the end user will use to connect to the application, (the protocol will be added automatically)
+* External host : url the end user will use to connect to the application, (in this case the external is the reverse proxy, because it will be used to access Cells)
 * Example:
-  If you want your application to run on the localhost at port 8080 with SSL and use the url `mycells.mypydio.com`, then set CELLS_INTERNAL to `localhost:8080` and CELLS_EXTERNAL to `https://mycells.mypydio.com`.
+  If you want your application to run on the localhost at port 8080 with SSL 
+  and use the url `mycells.mypydio.com`,
+  then set CELLS_INTERNAL to `localhost:8080` and CELLS_EXTERNAL to `https://mycells.mypydio.com`.
 
 **If you wish to use the 0.0.0.0 address you must respect this rule, cells_bind has to be exactly like this `cells_internal=0.0.0.0:<port>` and `cells_external=<domain name,address>:<port>`, the *port* is mandatory in both otherwise you will have a grey screen stuck in the loading**
 
@@ -25,7 +27,7 @@ You must enable the following mods with apache :
 * `proxy_http`
 * `proxy_wstunnel`
 
-> sudo a2enmod **modname**
+`sudo a2enmod **modname**`
 
 Edit Apache mod_ssl configuration file to have this:
 
@@ -52,14 +54,14 @@ Listen 8080
   # ProxyPassMatch "/ws/(.*)" wss://ip.or.domain.server/ws/$1 nocanon
   
   # Collabora Online
-  # ProxyPassMatch "/lool/(.*)ws$" wss://127.0.0.1:9980/lool/*1/ws noncanon
+  # ProxyPassMatch "/lool/(.*)ws$" wss://192.168.0.172:9980/lool/*1/ws nocanon
 
   # Onlyoffice
   # ProxyPassMatch "/onlyoffice/(.*)/websocket$" ws://192.168.0.172:8080/onlyoffice/$1/websocket nocanon
 
   #Finally simple proxy instruction
-  ProxyPass "/" "http://192.168.0.172:8080/"
-  ProxyPassReverse "/" "http://192.168.0.172:8080/"
+  ProxyPass "/" "http://192.168.0.172:8080/" nocanon
+  ProxyPassReverse "/" "http://192.168.0.172:8080/" nocanon
 
   #Uncomment if you are going to use SSL
   #SSLEngine on
@@ -72,6 +74,8 @@ Listen 8080
 </VirtualHost>
 ```
 
+_Please advise, this is a sample config working for a simple setup_
+
 ### Important points
 
 Please note:
@@ -79,3 +83,5 @@ Please note:
 - The **AllowEncodedSlashes** enabled, may be necessary if not activated globally in apache (to API calls like `/a/meta/bulk/path%2F%to%2Ffolder`)
 
 - When I configure Cells, even on another port, I actually **make sure to bind it directly to the cells.example.com** as well (like Apache). This is necessary for the presigned URL used with S3 API for uploads and downloads (they used signed headers and a mismatch between received Host headers may break the signature). Another option is to still bind Cells using a local IP, then in the Admin Settings, under Configs Backend, use the field “Replace Host Header for S3 Signature” and use the internal IP here.
+
+- `nocanon` is required after the **ProxyPass** to be able to download files that contains special characters such as commas/parthensis. 
