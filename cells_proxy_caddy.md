@@ -1,34 +1,40 @@
-In this how to, we are going to take a look at the Caddy webserver and how you can configure it to be used as a reverse proxy.
+In this how to, we are going to take a look at the Caddy webserver and how it can be configured as a reverse proxy.
 
 [:image-popup:/devops/caddy-black.png]
 
-Caddy is a lightweight webserver coded in go, it's also the server embed with pydio cells that exposes the services.
-Caddy is easy to configure and to use visit the caddy site to download and read the documentation for a more advanced configuration.
-[Caddy website](https://caddyserver.com)
+Caddy is a lightweight webserver coded in go, it is also the server embedded with pydio cells that exposes the services.
+For more details and to download, visit the [Caddy website](https://caddyserver.com).
 
-The example below shows the configuration of a proxy that serves the demo.pydio.com url and redirects to a Pydio Cells environment running on port `8080` of the following address `192.168.0.34` :
+The example below shows the configuration of a proxy that serves the `demo.pydio.com` url and redirects to a Pydio Cells.
 
-For instance you have a pydio cells running on `internal url = 192.168.0.34:8080 and external_url = 192.168.0.162` (you can notice that the external_url is the proxy address) and your caddy proxy is running on a server with the following address
-`192.168.0.162`.
+For instance you have a Pydio Cells running on `internal url = 0.0.0.0:8080 and external_url = https://demo.pydio.com` (you can notice that the external_url is also the proxy url).
 
 ```conf
 
-192.168.0.162 {
+https://demo.pydio.com {
   log stdout
-
+  timeouts 0
+  
   # if you want to use tls with self signed, etc... refer to the documentation for more details
   # tls /etc/certs/pydio.crt /etc/certs/pydio.key
 
-  timeouts 0
-
   # And the rest to pydio
-  proxy / 192.168.0.34:8080 {
+  proxy / localhost:8080 {
     insecure_skip_verify
     transparent
     websocket
   }
 }
 ```
+
+_This first example is a Caddy reverse-proxy running on the same machine as Cells._
+
+For this case using the Caddyfile above, you must use one of the following values for the **internal URL**:
+
+* `http://0.0.0.0:8080`
+* `http://demo.pydio.com`
+
+Detail about some directives:
 
 > The `websocket` to forward ws connections and `transparent` for the headers.
 
