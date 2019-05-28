@@ -84,9 +84,9 @@ For instance:
 
 * And many more.
 
-### Basic configuration for cells
+### Basic configuration for Cells
 
-First set a filebeat on the machine running cells,
+First set a filebeat on the machine running Cells,
 
 for debian/ubuntu machines use the following:
 

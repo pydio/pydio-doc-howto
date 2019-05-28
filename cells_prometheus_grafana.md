@@ -5,11 +5,11 @@ This how to will give a you the steps to run Prometheus & Grafana enabling you t
 Cells code is instrumented using Gauge, Counters, etc... We use an interface for various metrics systems (uber-go/tally), using a Noop
 implementation by default. In Cells-Enterprise, the start flag `--enable_metrics` will register a Prometheus compatible collector instead of the Noop implementation, and achieve two things:
 
-- Expose metrics as http on a random port under the /metrics endpoint on *each cells process* (only one per process, not per service)
+- Expose metrics as http on a random port under the /metrics endpoint on *each Cells process* (only one per process, not per service)
 - Via Cells registry, gather info about these exposed endpoints (for all processes), to list all these endpoints as Prometheus compatible targets.
 - Dynamically update a JSON file under $HOME/.config/pydio/cells/services/pydio.grpc.metrics/prom_clients.json to be monitored by prometheus (see below).
 
-In a distributed mode, you will have to run Prometheus on the same node where pydio.gateway.metrics is running.
+In a distributed mode, you must run Prometheus on the same node where pydio.gateway.metrics is running.
 
 ### Installing Prometheus and Grafana
 
@@ -43,7 +43,7 @@ scrape_configs:
 
 You can configure  Prometheus to start on the port you wish, default is 9090.
 
-With cells-enterprise running, you can check that all processes are correctly detected by checking [http://localhost:9090/targets](http://localhost:9090/targets).
+With Cells-enterprise running, you can check that all processes are correctly detected by checking [http://localhost:9090/targets](http://localhost:9090/targets).
 
 <!-- ![Prom Targets](https://github.com/pydio/internal-tracker/raw/master/howtos/resources/Prometheus-Targets.png) -->
 [:image-popup:/devops/Prometheus-Targets.png]

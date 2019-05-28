@@ -23,8 +23,6 @@ you decide to run your container on port `7070` and therefore to run your contai
 
 > (can be done in the docker-compose or as environment variables in the docker run command).
 
-If you want to use SSL do not forget to also put `CELLS_NO_SSL = 0` that is SSL on cells side but even if you want to use SSL for your Apache Proxy you will have to enable it (and set the certificates path for the proxy to use).
-
 Then create configuration file for apache proxy (if used as it is , it will work when you have ssl enabled on both the proxy and cells) with the following:
 
 ```conf
