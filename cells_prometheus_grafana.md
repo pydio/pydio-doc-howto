@@ -1,26 +1,32 @@
-This how to will give a you the steps to run Prometheus & Grafana enabling you to have metrics of your Cells Instance.
+This tutorial quickly introduce how to set up and run [Prometheus](https://prometheus.io) and [Grafana](https://grafana.com) to gather and display metrics for your Pydio Cells instance.
 
-### Enabling metrics in Cells-Enterprise
+Please note that it is an Enterprise Distribution only feature.
 
-Cells code is instrumented using Gauge, Counters, etc... We use an interface for various metrics systems (uber-go/tally), using a Noop
-implementation by default. In Cells-Enterprise, the start flag `--enable_metrics` will register a Prometheus compatible collector instead of the Noop implementation, and achieve two things:
+### Enabling metrics
 
-- Expose metrics as http on a random port under the /metrics endpoint on *each cells process* (only one per process, not per service)
-- Via Cells registry, gather info about these exposed endpoints (for all processes), to list all these endpoints as Prometheus compatible targets.
-- Dynamically update a JSON file under $HOME/.config/pydio/cells/services/pydio.grpc.metrics/prom_clients.json to be monitored by prometheus (see below).
+The backend code is instrumented with gauges and counters. We use an interface for various metrics systems (uber-go/tally), using a no-op implementation by default.
 
-In a distributed mode, you will have to run Prometheus on the same node where pydio.gateway.metrics is running.
+Using the `--enable_metrics` flag upon startup registers a Prometheus compatible collector instead of the no-op implementation, and achieve three things:
 
-### Installing Prometheus and Grafana
+- Expose metrics as HTTP on a random port under the `/metrics` endpoint on **each Cells process** (only one per process, not per service)
+- Gather info about these exposed endpoints for all processes via the registry and thus list all these endpoints as Prometheus compatible targets.
+- Dynamically update a JSON file under `<cells root dir>/services/pydio.grpc.metrics/prom_clients.json`. This file is watched by Prometheus so that the endpoints can be dynamically discovered (see below).
 
-Download [Prometheus](https://prometheus.io/download/) and [Grafana](https://grafana.com/grafana/download) binaries for your platform or install using Docker.
-Install them on the node where the pydio.gateway.metrics service will be running.
+In a distributed mode, you must run Prometheus on the same node where `pydio.gateway.metrics` is running.
 
-### Setup Prometheus
+### Installation
 
-Edit `prometheus.yml` to add a new job in the scrape_config section, using the embeded `file_sd_configs` prometheus discovery mechanism.
-This tool allows prometheus to watch for a specific file in json or yaml, and load scraping targets from there.
-Yaml section should look like (the first job is set by default in prometheus to monitor itself):
+You can download [Prometheus](https://prometheus.io/download/) and [Grafana](https://grafana.com/grafana/download) binaries for your platform or install them using Docker.
+Remember that you must install them on the same node where the `pydio.gateway.metrics` service is running.
+
+### Setup
+
+#### Prometheus
+
+Edit `prometheus.yml` to add a new job in the `scrape_config section`, using the embeded `file_sd_configs` Prometheus discovery mechanism.
+This tool allows Prometheus to watch for a specific JSon (or YAML) file and thus know where to load scraping targets.
+
+YAML section should look like (the first job is set by default by Prometheus to monitor itself):
 
 ```yaml
 # A scrape configuration containing exactly one endpoint to scrape:
@@ -41,30 +47,28 @@ scrape_configs:
         - {PATH_TO_CELLS_CONFIG_FOLDER}/services/pydio.gateway.metrics/prom_clients.json
 ```
 
-You can configure  Prometheus to start on the port you wish, default is 9090.
+You can configure Prometheus to start on the port you wish, default is 9090.
 
-With cells-enterprise running, you can check that all processes are correctly detected by checking [http://localhost:9090/targets](http://localhost:9090/targets).
+With Cells ED running, you can check that all processes are correctly detected by visiting [http://localhost:9090/targets](http://localhost:9090/targets).
 
-<!-- ![Prom Targets](https://github.com/pydio/internal-tracker/raw/master/howtos/resources/Prometheus-Targets.png) -->
 [:image-popup:/devops/Prometheus-Targets.png]
 
-### Setup Grafana
+#### Grafana
 
-Start grafana, will be accessible via port 3000 by default, you can change it by exporting `GF_SERVER_HTTP_PORT` to the value you want.
+First Start Grafana. By default, it is accessible at port 3000. You define your own specific port using the `GF_SERVER_HTTP_PORT` environement variable.
 
-Set up admin / password and basic install steps for Grafana.
+Choose an admin/password and perform basic install steps.
 
 Add a Prometheus DataSource in Grafana pointing to the Prometheus port defined in the previous step.
 
-### Grafana Dashboard
+### The Grafana Dashboard
 
-A simple dashboard has been published on the Grafana website. See https://grafana.com/dashboards/9817 
-It can be simply imported with the following steps
+A [simple dashboard has been published on the Grafana website](https://grafana.com/dashboards/9817).  
+It can be simply imported with the Graphana UI by following steps:
 
 - In the left menu, select Dashboard > Import
 - In the "Grafana.com Dashboard" text field, enter the dashboard ID **9817**
 
 The new dashboard should be available and show something like the image below.
 
-<!-- ![Dashboard](https://github.com/pydio/internal-tracker/raw/master/howtos/resources/Grafana-Dashboard.png) -->
 [:image-popup:/devops/Grafana-Dashboard.png]

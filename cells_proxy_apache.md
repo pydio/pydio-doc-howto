@@ -1,37 +1,39 @@
-In this how to we will take a look at a basic Apache configuration for a reverse proxy to run for your Cells installation.
+In this tutorial, we shortly present a basic setup to use an Apache webserver as reverse proxy in front of a Pydio Cells installation.
 
 ### Specific Pydio Cells Configuration
 
-During the installation process, instead of the offered settings you should enter configuration similar to this:
+During the installation process, instead of the default settings, enter a configuration similar to this:
 
 ```conf
-Internal url: cells.example.com:7070
+Internal URL: cells.example.com:7070
 External Host: http://cells.example.com
 ```
 
-* Internal Host : address where the application http server is bound to. It MUST contain a server name and a port.
-* Protocol: If you are going to use SSL then the external host must be starting with `https://` (you don't need to specify the port)
-* External host : url the end user will use to connect to the application, (in this case the external is the reverse proxy, because it will be used to access Cells)
-* Example:
+- Internal Host: address where the application http server is bound to. It MUST contain a server name and a port.
+- External host: url the end user will use to connect to the application, (in this case the external is the reverse proxy, because it will be used to access Cells)
+- Protocol: if you are using SSL, the external host must be starting with `https://` (you don't need to specify the port)
+- Example:
   If you want your application to run on the localhost at port 8080 with SSL 
   and use the url `mycells.mypydio.com`,
   then set CELLS_INTERNAL to `localhost:8080` and CELLS_EXTERNAL to `https://mycells.mypydio.com`.
 
-**If you wish to use the 0.0.0.0 address you must respect this rule, cells_bind has to be exactly like this `cells_internal=0.0.0.0:<port>` and `cells_external=<domain name,address>:<port>`, the *port* is mandatory in both otherwise you will have a grey screen stuck in the loading**
+**If you wish to use the 0.0.0.0 address you must respect this rule, cells_bind has to be exactly like this `cells_internal=0.0.0.0:<port>` and `cells_external=<domain name or IP address>:<port>`, the *port* is mandatory in both otherwise you will have a grey screen stuck in the loading**
 
 ### Configure Apache
 
 You must enable the following mods with apache :
 
-* `proxy`
-* `proxy_http`
-* `proxy_wstunnel`
+- `proxy`
+- `proxy_http`
+- `proxy_wstunnel`
 
 `sudo a2enmod **modname**`
 
-Edit Apache mod_ssl configuration file to have this:
+#### A simple example
 
-> For this example the proxy is running on a server with this address `192.168.0.176`, while the cells is running on another server using `192.168.0.172` under the port `8080`.
+> For this example, we are using a very simple setup. The proxy is running on a server with this IP `192.168.0.176`, while Pydio Cells is running on another server with IP `192.168.0.172` and listening at port `8080`.
+
+Edit Apache mod_ssl configuration file to have this:
 
 ```conf
 Listen 8080
@@ -74,14 +76,10 @@ Listen 8080
 </VirtualHost>
 ```
 
-_Please advise, this is a sample config working for a simple setup_
-
 ### Important points
 
 Please note:
 
-- The **AllowEncodedSlashes** enabled, may be necessary if not activated globally in apache (to API calls like `/a/meta/bulk/path%2F%to%2Ffolder`)
-
-- When I configure Cells, even on another port, I actually **make sure to bind it directly to the cells.example.com** as well (like Apache). This is necessary for the presigned URL used with S3 API for uploads and downloads (they used signed headers and a mismatch between received Host headers may break the signature). Another option is to still bind Cells using a local IP, then in the Admin Settings, under Configs Backend, use the field “Replace Host Header for S3 Signature” and use the internal IP here.
-
-- `nocanon` is required after the **ProxyPass** to be able to download files that contains special characters such as commas/parthensis. 
+- The **AllowEncodedSlashes** enabled, may be necessary if not activated globally in Apache. It enables API calls like `/a/meta/bulk/path%2F%to%2Ffolder`.
+- When configuring Cells, even on another port, **make sure to bind it directly to the cells.example.com** as well (like Apache). This is necessary for the presigned URL used with S3 API for uploads and downloads (they used signed headers and a mismatch between received Host headers may break the signature). Another option is to still bind Cells using a local IP, then in the Admin Settings, under Configs Backend, use the field “Replace Host Header for S3 Signature” and use the internal IP here.
+- `nocanon` is required after the **ProxyPass** to be able to download files that contains special characters such as commas/parthensis.

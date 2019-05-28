@@ -56,6 +56,7 @@ Then for Elasticsearch edit `/etc/elasticsearch/elasticsearch.yml` and edit:
 ```yaml
 `network.host: <address>`
 ```
+
 to the address where your elastic is running.
 
 after all of the modifications lets start the services,
@@ -138,4 +139,3 @@ sudo filebeat test output
 sudo filebeat setup
 sudo systemctl start filebeat
 ```
-
