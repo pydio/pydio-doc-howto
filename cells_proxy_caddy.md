@@ -1,38 +1,34 @@
-In this how to, we are going to take a look at the Caddy webserver and how it can be configured as a reverse proxy.
+In this tutorial, we explain how to use a Caddy webserver as reverse proxy in front of a Pydio Cells installation.
 
 [:image-popup:/devops/caddy-black.png]
 
-Caddy is a lightweight webserver coded in go, it is also the server embedded with pydio cells that exposes the services.
-For more details and to download, visit the [Caddy website](https://caddyserver.com).
+Caddy is a lightweight webserver coded in Go language. It is embedded in Pydio Cells to serve as a gateway and expose the various services.
+For more details and to download, please visit the [Caddy website](https://caddyserver.com).
 
-The example below shows the configuration of a proxy that serves the `demo.pydio.com` url and redirects to a Pydio Cells.
+In this example, we have a Pydio Cells running with following URLs, **on the same machine** as the Caddy reverse proxy:
 
-For instance you have a Pydio Cells running on `internal url = 0.0.0.0:8080 and external_url = https://demo.pydio.com` (you can notice that the external_url is also the proxy url).
+- Internal (bind) URL: `share.example.com:8080`
+- External (public) URL `https://share.example.com` - you can notice that the external URL is also the proxy URL.
+
+The caddy file of the reverse proxy loooks like:
 
 ```conf
+https://share.example.com {
 
-https://demo.pydio.com {
   log stdout
   timeouts 0
   
   # if you want to use tls with self signed, etc... refer to the documentation for more details
-  # tls /etc/certs/pydio.crt /etc/certs/pydio.key
+  # tls /etc/certs/example.com.crt /etc/certs/example.com.key
 
   # And the rest to pydio
   proxy / localhost:8080 {
-    insecure_skip_verify
     transparent
     websocket
   }
+
 }
 ```
-
-_This first example is a Caddy reverse-proxy running on the same machine as Cells._
-
-For this case using the Caddyfile above, you must use one of the following values for the **internal URL**:
-
-* `http://0.0.0.0:8080`
-* `http://demo.pydio.com`
 
 Detail about some directives:
 
