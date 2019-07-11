@@ -46,7 +46,7 @@ For Kibana you must edit `/etc/kibana/kibana.yml`:
 
 * Change:
 
- ```yaml
+```yaml
  server.host: "address"
  elasticsearch.hosts: ["http(s)://address(or domain name):port"].
 ```
