@@ -54,7 +54,7 @@ For Kibana you must edit `/etc/kibana/kibana.yml`:
 Then for Elasticsearch edit `/etc/elasticsearch/elasticsearch.yml` and edit:
 
 ```yaml
-`network.host: <address>`
+network.host: <address>
 ```
 
 to the address where your elastic is running.
@@ -76,20 +76,23 @@ sudo systemctl enable kibana
 ### Logstash and/or beats to fetch metrics
 
 For this part you can use logstash as a standalone or use a lightweight version called **Beats**.
-**Logstash** has builtin all type of metrics whereas **Beats** that depends on the type that you are going to use,of course you can use many beats at the same time.
-For instance: 
+**Logstash** has builtin all type of metrics whereas **Beats** depends on the type that you are going to use,of course you can use many beats at the same time.
 
-* Filebeats: which focuses solely on fetching from a log file (like a `tail -f <file>`)
+Examples of beats:
 
-* Metricbeats: can retrieve metrics (such as CPU, RAM, ....) from services or even application such as one in go (you will have to add some code to let the beat retrieve metrics from your application).
+* Filebeat: which focuses solely on fetching from a log file (like a `tail -f <file>`)
+
+* Metricbeat: can retrieve metrics (such as CPU, RAM, ....) from services or even application such as one in go (you will have to add some code to let the beat retrieve metrics from your application).
 
 * And many more.
+
+In our case we just want to fetch logs from one instance of Cells so we are going to use **Filebeat** (a beat specialized in fetching files, in this case a log file written in JSON)
 
 ### Basic configuration for Cells
 
 First set a filebeat on the machine running Cells,
 
-for debian/ubuntu machines use the following:
+For debian/ubuntu machines use the following:
 
 ```bash
 curl -L -O https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-6.6.1-amd64.deb
@@ -103,7 +106,7 @@ curl -L -O https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-6.6.1-
 sudo rpm -vi filebeat-6.6.1-x86_64.rpm
 ```
 
-once installed edit the `/etc/filebeat/filebeat.yml`, and add the following,
+once installed edit the `/etc/filebeat/filebeat.yml`, and change the following lines according to your setup,
 
 ```yaml
 #-------------------------- Elasticsearch output ------------------------------
@@ -117,7 +120,7 @@ once installed edit the `/etc/filebeat/filebeat.yml`, and add the following,
     host: "ip:port"
 ```
 
-now for the logs,
+Now for the logs part add/edit the following settings,
 
 ```yaml
 #=========================== Filebeat inputs =============================
@@ -125,17 +128,28 @@ now for the logs,
     paths:
      - /home/cells/.config/pydio/cells/logs/cells.log
 
-     json.keys_under_root: true
-     json.overwrite_keys: false
-     json.add_error_key: true
+    json.keys_under_root: true
+    json.overwrite_keys: false
+    json.add_error_key: true
 ```
 
-now lets test the config and start the beat,
+_What it does is read the json file(cells.log) and parse it so that elastic + kibana can use the data_
 
-```bash
+Now lets test the config and start the beat,
+
+```
 sudo filebeat test config
 sudo filebeat test output
+```
 
+You can use the test commands to make sure that everything is good, that the beat can reach kibana and elastic and that your `filebeat.yaml` is correct.
+
+
+You can setup and start your filebeat.
+
+```bash
 sudo filebeat setup
 sudo systemctl start filebeat
 ```
+
+(do not forget to use `systemctl enable filebeat` once your set to have it start automatically at each start)
