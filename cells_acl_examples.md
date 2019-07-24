@@ -1,5 +1,7 @@
 # ACL use cases 
 
+This how-to will display some real life use cases of the ACL feature.
+
 ## IP Restriction
 
 ### Deny access to a workspace to a list of IP
