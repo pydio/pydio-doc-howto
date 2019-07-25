@@ -9,17 +9,17 @@ At the bottom of this page you can find a glossary of all the possible values fo
 This is an example on how to restrict access to a **_workspace_** to a list of specific IP,
 you could apply this rule to Cells, Share links and so on.
 
-- Create a New Policy (you can put a **Name** and **Description** of your choice) (as seen in screenshot number 1-2)
+- Create a New Policy (**Policy Type**: `Context-based ACLs` you can put a **Name** and a **Description** of your choice)
 
 [:image-popup:/cells/acls_example/1.png]
 
 [:image-popup:/cells/acls_example/2.png]
 
-- Then put default rights (They are mandatory otherwise other users will not have access. It will give **read/write** to everyone, but with the next rule we are going to filter them to a specific condition in your case IP) (screenshot 3)
+- Then put default rights (They are mandatory otherwise other users will not have access. It will give **read/write** to everyone, but with the next rule we are going to filter them to a specific condition in your case IP)
 
 [:image-popup:/cells/acls_example/3.png]
 
-- Now we are going to define the _IP restriction rule_, let's add a policy (as seen in screenshot 4)
+- Now we are going to define the _IP restriction rule_, let's add a policy
 
 [:image-popup:/cells/acls_example/4.png]
 
@@ -27,18 +27,18 @@ you could apply this rule to Cells, Share links and so on.
 
 [:image-popup:/cells/acls_example/5.png]
 
-- Now add a condition and choose `RemoteAddress` (as seen in screenshot 6)
+- Now add a condition and choose `RemoteAddress` 
 
 [:image-popup:/cells/acls_example/6.png]
 
-- Then write the condition (it's using JSON) (screenshot number 7)
+- Then write the condition (it's using JSON)
 
 
 [:image-popup:/cells/acls_example/7.png]
 
 So basically we want every IP that matches the list to be denied access (read and write as it is defined).
 
-- Now let's apply this rule (you can choose, **user**, **group** or **role**. (In this example I chose a **group**, screenshot number 8)
+- Now let's apply this rule (you can choose, **user**, **group** or **role**. (In this example we chose a **group**)
 
 [:image-popup:/cells/acls_example/8.png]
 
@@ -46,7 +46,7 @@ So basically we want every IP that matches the list to be denied access (read an
 
 [:image-popup:/cells/acls_example/9.png]
 
-- Once the rule is selected save the changes (screenshot number 10)
+- Once the rule is selected save the changes
 
 [:image-popup:/cells/acls_example/10.png]
 
@@ -57,7 +57,7 @@ So basically we want every IP that matches the list to be denied access (read an
 
 ### Allow access only to a specific IPs/range
 
-- Create a New Policy
+- Create a New Policy (Policy Type: `Context-based ACLs`)
 - Create the first rule that will **Allow Access** to specific **IP addresses** or a **range**
 
 Allow:
