@@ -1,8 +1,8 @@
 This how-to will display some real life use cases of the ACL feature.
 
-## IP Restriction
+## IP Restrictions
 
-### Deny access to a workspace to a list of IP
+### Deny Access to a workspace to a list of IP
 
 This is an example on how to restrict access to a **_workspace_** to a list of specific IP,
 you could apply this rule to Cells, Share links and so on.
@@ -50,3 +50,38 @@ So basically we want every IP that matches the list to be denied access (read an
 
 
 **You could also do the opposite of this rule and only give access to a list of IP by using `StringNotMatchCondition`**
+
+
+
+### Allow access only to a specific IPs/range
+
+- Create a New Policy
+- Create the first rule that will **Allow Access** to specific **IP addresses** or a **range**
+
+Allow:
+
+```json
+{
+  "type": "StringMatchCondition",
+  "options": {
+    "matches": "192.168.2.*"
+  }
+}
+```
+
+_In this case we want every IP belonging to the sub network 192.168.2.0 to have R/W Access_
+_You an add multiple IP/ranges by separating the with a pipe `192.168.0.*|192.168.3.2|etc....`_
+
+- Now define the **Deny Access** rule.
+Deny:
+
+```json
+{
+  "type": "StringMatchCondition",
+  "options": {
+    "matches": "0.0.0.0/24"
+  }
+}
+```
+
+_This rule is just written as a default, Access will be denied to anyone but the addresses set with the first rule_
