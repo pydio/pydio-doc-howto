@@ -118,7 +118,7 @@ server {
   ssl_certificate_key www.example.com.key;
   ssl_protocols       TLSv1 TLSv1.1 TLSv1.2;
   ssl_ciphers         HIGH:!aNULL:!MD5;
-	client_body_timeout 600s;
+	keepalive_timeout 600s;
   
     location / {
 		grpc_pass grpcs://192.168.0.1:33060;
@@ -191,7 +191,7 @@ server {
   ssl_certificate_key www.example.com.key;
   ssl_protocols       TLSv1 TLSv1.1 TLSv1.2;
   ssl_ciphers         HIGH:!aNULL:!MD5;
-  client_body_timeout 600s;
+  keepalive_timeout 600s;
 	
     location / {
 		grpc_pass grpcs://192.168.0.1:33060;
