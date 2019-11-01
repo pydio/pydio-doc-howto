@@ -4,7 +4,7 @@ At the bottom of this page you can find a glossary of all the possible values fo
 
 ## IP Restrictions
 
-### Deny Access to a workspace to a list of IP
+### Deny Access on a workspace to a list of IP
 
 This is an example on how to restrict access to a **_workspace_** to a list of specific IP,
 you could apply this rule to Cells, Share links and so on.
@@ -100,28 +100,28 @@ _This rule is just written as a default, Access will be denied to anyone but the
 ## ACLs values:
 
 Actions:
-| Action | Effect | Example|
-|--------- |------- | ------- |
-| Read | read a resource | for instance with a workspace it means that it's displayed in the list and readable |
-| Write | write a resource | for instance with a workspace you can upload resources or modify existing resources |
+| Action | Effect           | Example                                                                             |
+| ------ | ---------------- | ----------------------------------------------------------------------------------- |
+| Read   | read a resource  | for instance with a workspace it means that it's displayed in the list and readable |
+| Write  | write a resource | for instance with a workspace you can upload resources or modify existing resources |
 
 Query Context:
-| Query| Effect| Description |
-| ------- | ------- | ------- |
-| Remote Address| The client's remote address | this context is about the remote ip that requests access to the resource (usually a client)
-| Request Method | REST Methods | the context will be about a REST method such as (PUT, GET, DELETE, etc....)
-| Request URI | A Pydio Cell's endpoint | the context is about Cells Endpoints |
-| Http Protocol | | this context will be about the http protocol (http/https) |
-| UserAgent | The agent type that requests | this context is about the UserAgent such as (browsers, mobile apps, etc...)
+| Query          | Effect                       | Description                                                                                 |
+| -------------- | ---------------------------- | ------------------------------------------------------------------------------------------- |
+| Remote Address | The client's remote address  | this context is about the remote ip that requests access to the resource (usually a client) |
+| Request Method | REST Methods                 | the context will be about a REST method such as (PUT, GET, DELETE, etc....)                 |
+| Request URI    | A Pydio Cell's endpoint      | the context is about Cells Endpoints                                                        |
+| Http Protocol  |                              | this context will be about the http protocol (http/https)                                   |
+| UserAgent      | The agent type that requests | this context is about the UserAgent such as (browsers, mobile apps, etc...)                 |
 
 
 
 Conditions:
-|Type   |Options   | Example  |  Description |
-|-----------------------|------------------|-----------------------|----- |
-| StringMatchCondition| `"matches`  | `"matches": "192.168.0.1"` | condition is true if there is a match|
-| StringNotMatchCondition  | `"matches`  | `"matches": "192.168.2.1"`  | condition is true if there is no match|
-| DateAfterCondition  | `"matches"` | `"matches": "2018-02-28T23:59+0100"` | condition is true if date is after the one defined in the match |
-| WithinPeriodCondition| `"matches"` |`"matches": "2018-02-01T00:00+0100/2018-04-01T00:00+0100"` | condition is true if date is within the range of match |
-| OfficeHoursCondition | `"matches"` | `"matches": "Monday-Friday/09:00/18:30"` | condition is true if date & time are within the match |
+| Type                    | Options     | Example                                                    | Description                                                     |
+| ----------------------- | ----------- | ---------------------------------------------------------- | --------------------------------------------------------------- |
+| StringMatchCondition    | `"matches`  | `"matches": "192.168.0.1"`                                 | condition is true if there is a match                           |
+| StringNotMatchCondition | `"matches`  | `"matches": "192.168.2.1"`                                 | condition is true if there is no match                          |
+| DateAfterCondition      | `"matches"` | `"matches": "2018-02-28T23:59+0100"`                       | condition is true if date is after the one defined in the match |
+| WithinPeriodCondition   | `"matches"` | `"matches": "2018-02-01T00:00+0100/2018-04-01T00:00+0100"` | condition is true if date is within the range of match          |
+| OfficeHoursCondition    | `"matches"` | `"matches": "Monday-Friday/09:00/18:30"`                   | condition is true if date & time are within the match           |
 
