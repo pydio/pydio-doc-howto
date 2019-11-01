@@ -2,9 +2,8 @@ title: "[P8] Optimizing Pydio Performances"
 icon: Troubleshooting
 abstract: "Here we will give you all the tips that you need to have an optimized running Pydio."
 language: und
-category: Pydio 8 installation
-tags:
-  performances
+category: Legacy 8 installation
+tags: performances
   optimization
   caching
   commandline
