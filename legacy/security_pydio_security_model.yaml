@@ -1,4 +1,4 @@
-title: "[P8] Pydio security model"
+title: "Pydio security model"
 abstract: "Storing all your organization information in a SaaS-based Box service can prove to turn into a nightmare: are the provider’s servers located in a country that is compliant with your juridiction? Is the service provider trust-worthy? Can he actually read the data? And eventually let third-party read them (like NSA…)? And what if a trainee has opened a 'box' last year, and no one can close it anymore? Will she still see all the documents forever??"
 language: und
 category: Pydio 8

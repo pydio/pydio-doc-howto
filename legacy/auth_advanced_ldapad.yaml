@@ -1,4 +1,4 @@
-title: "[P8] Advanced Authentication with LDAP/AD"
+title: "Advanced Authentication with LDAP/AD"
 icon: Login
 abstract: "In this guide we will look at the specifics that Pydio offers when you're authenticating with an LDAP/AD server and give you examples to make it easier for you to use it."
 language: und
