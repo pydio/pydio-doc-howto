@@ -1,5 +1,5 @@
 title: "Running Cells behind a Caddy reverse proxy"
 abstract: "How to run Cells behind a configured Caddy reverse proxy"
 language: und
-category: Devops
+category: Deployment
 tags:

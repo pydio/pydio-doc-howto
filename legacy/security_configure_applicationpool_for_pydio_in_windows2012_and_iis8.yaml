@@ -1,6 +1,6 @@
 title: "[P8] Configure ApplicationPool for Pydio in Windows2012 & IIS8 [Update Pydio 6]"
 language: und
-category: Security
+category: Pydio 8
 abstract: "In earlier version of IIS 8, it has sometimes been difficult to isolate web application pool from each other. If multiple web application pool are configured to run as the same identify (for example, Network Service), then code running inside one web application pool would be able to access to resources of others. In this How-to, we will try to configure Pydio to run inside an Application Pool."
 tags:
   application pool

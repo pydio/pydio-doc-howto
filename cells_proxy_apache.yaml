@@ -1,5 +1,5 @@
 title: "Running Cells behind an Apache reverse proxy"
 abstract: "How to run Cells behind an Apache reverse proxy"
 language: und
-category: Devops
+category: Deployment
 tags:

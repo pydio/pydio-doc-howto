@@ -1,5 +1,5 @@
 title: "Running your Cells Docker container behind a reverse proxy"
 abstract: "How to run a cells Docker container behind a reverse proxy"
 language: und
-category: Devops
+category: Deployment
 tags: docker

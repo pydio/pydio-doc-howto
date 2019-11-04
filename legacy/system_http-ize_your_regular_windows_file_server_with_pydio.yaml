@@ -2,7 +2,7 @@ title: "[P8] Http-ize your regular Windows file server with Pydio"
 icon: setting-gear-window-control-panel
 abstract: "Take a regular Windows file server (or any NAS that understands SMB or CIFS). Deploy Pydio. Map your Pydio workspaces to folders and shares on your Windows file server, and let Pydio retrieve user accounts and groups from your Active Directory. Wat you get is that all those files are now instantly available to users with nothing but a web browser and an internet connection, from a laptop, a tablet, or a smartphone. With all your original NTFS Security Access Control Lists still in effect. That’s what “Put your data in orbit’ means to me."
 language: und
-category: Legacy
+category: Pydio 8
 tags: active directory
   contributed
   ntfs
