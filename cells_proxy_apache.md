@@ -1,8 +1,8 @@
 In this tutorial, we shortly present a basic setup to use an Apache webserver as reverse proxy in front of a Pydio Cells installation.
 
-_Cells Sync will not be able to work with apache2, apache is currently not completly supporting gRPC._
+**_Cells Sync will not be able to work with apache2, apache is currently not completly supporting gRPC._**
 
-> You can still use apache for the webUI, but if you wish to use Cells Snc you must also run another reverse proxy solely for the sync (read chapter at the end).
+>> You can still use apache for the webUI, but if you wish to use Cells **Sync** you must also run another reverse proxy solely for the sync (read chapter at the end).
 
 ### Specific Pydio Cells Configuration
 
