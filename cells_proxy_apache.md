@@ -1,5 +1,9 @@
 In this tutorial, we shortly present a basic setup to use an Apache webserver as reverse proxy in front of a Pydio Cells installation.
 
+_Cells Sync will not be able to work with apache2, apache is currently not completly supporting gRPC._
+
+> You can still use apache for the webUI, but if you wish to use Cells Snc you must also run another reverse proxy solely for the sync (read chapter at the end).
+
 ### Specific Pydio Cells Configuration
 
 During the installation process, instead of the default settings, enter a configuration similar to this:
@@ -31,16 +35,16 @@ You must enable the following mods with apache :
 
 #### A simple example
 
-> For this example, we are using a very simple setup. The proxy is running on a server with this IP `192.168.0.176`, while Pydio Cells is running on another server with IP `192.168.0.172` and listening at port `8080`.
+> For this example, we are using a very simple setup. The proxy is running on a server with this IP `192.168.0.176` (or domain cells.example.com), while Pydio Cells is running on another server with IP `192.168.0.172` and listening at port `8080`.
 
 Edit Apache mod_ssl configuration file to have this:
 
-```conf
+```apache
 Listen 8080
 <VirtualHost *:8080>
 
-  ServerName demo.fr
-  ServerAdmin demo.fr
+  ServerName cells.example.com
+  ServerAdmin cells.example.com
   AllowEncodedSlashes On
   RewriteEngine On
   #SSLProxyEngine On
@@ -83,3 +87,55 @@ Please note:
 - The **AllowEncodedSlashes** enabled, may be necessary if not activated globally in Apache. It enables API calls like `/a/meta/bulk/path%2F%to%2Ffolder`.
 - When configuring Cells, even on another port, **make sure to bind it directly to the cells.example.com** as well (like Apache). This is necessary for the presigned URL used with S3 API for uploads and downloads (they used signed headers and a mismatch between received Host headers may break the signature). Another option is to still bind Cells using a local IP, then in the Admin Settings, under Configs Backend, use the field “Replace Host Header for S3 Signature” and use the internal IP here.
 - `nocanon` is required after the **ProxyPass** to be able to download files that contains special characters such as commas/parthensis.
+
+
+
+### Cells Sync
+
+Unfortunately apache does not seem to completely support gRPC therefore you will require the use of another reverse proxy for the gRPC part (tied to the Cells Sync desktop application).
+
+- Your apache reverse proxy is running with SSL.
+- You are running Cells with SSL.
+- You have set the port with the following env variable `PYDIO_GRPC_EXTERNAL=33060`.
+  
+> Note: you can use whatever value you wish for the port
+
+#### Caddy webserver
+
+You can run caddy with the following configuration:
+
+```config
+cells.example.com:33060 {
+	tls /etc/letsencrypt/cells/fullchain.pem /etc/letsencrypt/cells/privkey.pem
+	log stdout
+	errors stdout
+
+	proxy / https://192.168.0.172:33060 {
+		websocket
+		insecure_skip_verify
+	}
+}
+```
+
+#### Nginx
+
+You can run nginx with the following configuration, which will allow you to connect with grpc and use the Sync desktop application.
+
+```nginx
+server {
+	listen 33060 ssl http2;
+	listen [::]:33060 ssl http2;
+  ssl_certificate     www.example.com.crt;
+  ssl_certificate_key www.example.com.key;
+  ssl_protocols       TLSv1 TLSv1.1 TLSv1.2;
+  ssl_ciphers         HIGH:!aNULL:!MD5;
+	keepalive_timeout 600s;
+  
+    location / {
+		grpc_pass grpcs://192.168.0.172:33060;
+	}
+  
+  error_log /var/log/nginx/proxy-grpc-error.log;
+  access_log /var/log/nginx/proxy-grpc-access.log;
+}
+```
