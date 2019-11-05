@@ -28,12 +28,12 @@ https://share.example.com {
 
   log stdout
   timeouts 0
+  tls /home/pydio/cert/share.example.crt /home/pydio/cert/share.example.key
   
-  proxy / localhost:8080 {
-    transparent
+  proxy / 192.168.0.13:8080 {
+    #transparent
     websocket
   }
-
 }
 ```
 
@@ -41,3 +41,26 @@ For the record:
 
 - **websocket**: enables realtime notifications. As Pydio Cells is highly asynchronous, this enables updating the UI once server jobs have been done (for instance, thumbnail generation after an upload, chats...)
 - **transparent**: transparently forwards HTTP headers to the Caddy that is embedded in Cells. This directive is compulsory for the `webdav` feature of Cells to run properly. It has yet a drawback: Cells must then use same FQDN for both Public and Bind URL. In more complex setups, and if you know what your are doing, you might add a prior proxy directive that only forward transparently the `/dav` sub tree.
+
+
+## Sync Client
+
+By default the Sync Client should work out of the box if your Cells is also running behind a Caddy reverse proxy.
+
+In the case that you wish to set a fixed port for the gRPC you must meet the following requirements:
+
+- Cells with SSL using Self-signed
+- GRPC port is set with the env variable `PYDIO_GRPC_EXTERNAL=33060`
+
+```conf
+https://share.example.com:33060 {
+	tls /path/to/cert.pem /path/to/key.pem
+	log stdout
+	errors stdout
+
+	proxy / https://192.168.0.13:33060 {
+		websocket
+		insecure_skip_verify
+	}
+}
+```

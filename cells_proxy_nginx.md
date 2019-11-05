@@ -112,17 +112,17 @@ Also make sure to put the **address/domain** on which your **Cells Server** is r
 
 ```nginx
 server {
-	listen 33060 ssl http2;
-	listen [::]:33060 ssl http2;
+  listen 33060 ssl http2;
+  listen [::]:33060 ssl http2;
   ssl_certificate     www.example.com.crt;
   ssl_certificate_key www.example.com.key;
   ssl_protocols       TLSv1 TLSv1.1 TLSv1.2;
   ssl_ciphers         HIGH:!aNULL:!MD5;
-	keepalive_timeout 600s;
+  keepalive_timeout 600s;
   
-    location / {
-		grpc_pass grpcs://192.168.0.1:33060;
-	}
+  location / {
+    grpc_pass grpcs://192.168.0.1:33060;
+  }
   
   error_log /var/log/nginx/proxy-grpc-error.log;
   access_log /var/log/nginx/proxy-grpc-access.log;
@@ -143,24 +143,24 @@ Make sure to substitute the values of the **certificates** and **ip/domains**.
 
 ```nginx
 server {
-        client_max_body_size 200M;
-        server_name example.pydio.com;
+    client_max_body_size 200M;
+    server_name example.pydio.com;
 
-        location / {
-                proxy_buffering off;
-                proxy_pass https://192.168.0.1$request_uri;
-                #proxy_pass_request_headers on;
-                #proxy_set_header Host $host;
-                proxy_set_header X-Real-IP $remote_addr;
-        }
+    location / {
+            proxy_buffering off;
+            proxy_pass https://192.168.0.1$request_uri;
+            #proxy_pass_request_headers on;
+            #proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+    }
 
-        location /ws {
-                proxy_buffering off;
-                proxy_pass https://192.168.0.1;
-                proxy_set_header Upgrade $http_upgrade;
-                proxy_set_header Connection "upgrade";
-                proxy_read_timeout 86400;
-        }
+    location /ws {
+            proxy_buffering off;
+            proxy_pass https://192.168.0.1;
+            proxy_set_header Upgrade $http_upgrade;
+            proxy_set_header Connection "upgrade";
+            proxy_read_timeout 86400;
+    }
 
     error_log /var/log/nginx/cells-proxy-error.log;
     access_log /var/log/nginx/cells-proxy-access.log;
