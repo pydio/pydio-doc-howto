@@ -2,7 +2,7 @@ In this tutorial, we shortly present a basic setup to use an Apache webserver as
 
 **_Cells Sync will not be able to work with apache2, apache is currently not completly supporting gRPC._**
 
->> You can still use apache for the webUI, but if you wish to use Cells **Sync** you must also run another reverse proxy solely for the sync (read chapter at the end).
+>> You can still use apache for the webUI, but if you wish to use **Cells Sync** you must also run another reverse proxy solely for the sync (**read chapter at the end**).
 
 ### Specific Pydio Cells Configuration
 
@@ -94,11 +94,10 @@ Please note:
 
 Unfortunately apache does not seem to completely support gRPC therefore you will require the use of another reverse proxy for the gRPC part (tied to the Cells Sync desktop application).
 
-- Your apache reverse proxy is running with SSL.
-- You are running Cells with SSL.
+- You are running Cells with SSL (can be self_signed).
 - You have set the port with the following env variable `PYDIO_GRPC_EXTERNAL=33060`.
   
-> Note: you can use whatever value you wish for the port
+> Note: you can use whatever value you wish for the port.
 
 #### Caddy webserver
 
