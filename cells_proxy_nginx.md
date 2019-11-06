@@ -202,3 +202,8 @@ server {
 }
 ```
 
+--------------------------------------------------------------------------------------------------------
+_See Also_
+
+[Running Cells Behind a reverse proxy](en/docs/cells/v2/run-cells-behind-proxy)
+

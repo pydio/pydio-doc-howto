@@ -362,3 +362,8 @@ To access cells you can directly go to `http(s)://xyz.example.com`
 In the case of Traefik (SSL ON) and Cells (SSL OFF) there is a bit of an issue because Traefik does HTTPS requests on cells.
 
 * Looking for a backend redirect, seems that when you try to login it requests Cells with the following url `https://xxxx/auth/dex/token` but cells expects `http://xxxx/auth/dex/token`.
+
+--------------------------------------------------------------------------------------------------------
+_See Also_
+
+[Running Cells Behind a reverse proxy](en/docs/cells/v2/run-cells-behind-proxy)

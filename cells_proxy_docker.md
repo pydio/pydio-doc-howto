@@ -60,3 +60,9 @@ Then create configuration file for apache proxy (if used as it is , it will work
 ```
 
 > you can apply the same set of rules for nginx, caddy etc... .
+
+
+--------------------------------------------------------------------------------------------------------
+_See Also_
+
+[Running Cells Behind a reverse proxy](en/docs/cells/v2/run-cells-behind-proxy)
