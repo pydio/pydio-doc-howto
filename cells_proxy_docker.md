@@ -9,12 +9,14 @@ Here's what CELLS_BIND and CELLS_EXTERNAL mean to give a you a general understan
 
 ```
 CELLS_BIND : address where the application http server is bound to. It MUST contain a server name and a port.
+
 CELLS_EXTERNAL : url the end user will use to connect to the application.
+
 Example:
 If you want your application to run on the localhost at port 8080 and use the url mycells.mypydio.com, then set CELLS_BIND to localhost:8080 and CELLS_EXTERNAL to mycells.mypydio.com
 ```
 
-**If you wish to use the 0.0.0.0 address you must respect this rule, cells_bind has to be exactly like this `cells_bind=0.0.0.0:<port>` and `cells_external=<domain name,address>:<port>`, the *port* is mandatory in both otherwise you will have a grey screen stuck in the loading**
+*Side Note: The Sync Client requires an extra port that you will have to expose, [Read this article](/en/docs/kb/client-applications/setup-cells-server-cellssync)*
 
 To illustrate the concept above an example is provided (this example show a reverse proxy on the same server but in the case of a different server, the `cells_external` value must be the one ).
 
