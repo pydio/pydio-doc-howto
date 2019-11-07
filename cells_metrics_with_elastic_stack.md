@@ -10,18 +10,18 @@ There is a new component, **Beats** which is somewhat a lightweight _logstash_ t
 
 ### Install Kibana and Elasticsearch on the server that is going to process the data
 
-Actually you could install them all in different machines for resources management but for our example Kibana and Elasticsearch are going to run on 1 server.
+Actually you could install them all in different machines for resource management but for our example Kibana and Elasticsearch are going to run on 1 server.
 
-* Firstly, let's make sure that you have **Java 8** by running `java -version`, otherwise to install java 8, use the following commands (for this example openjdk is used but you can use Oracle's Java).
+* First, let's make sure that you have **Java 8** by running `java -version`, otherwise to install java 8, use the following commands (for this example openjdk is used but you can use Oracle's Java).
 
 ```bash
 sudo apt install openjdk-8-jdk-headless
 sudo apt install openjdk-8-jre-headless
 ```
 
-then add the elastic repository,
+- Then add the elastic repository,
 
->debian users might need this: `sudo apt-get install apt-transport-https`
+ - **Debian** users might need this software `sudo apt-get install apt-transport-https`
 
 ```bash
 wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -
@@ -40,16 +40,17 @@ sudo apt install kibana
 
 Once both installations are complete some settings have to be changed in the configuration.
 
-> You might require root rights to edit the config files.
+_You might require root rights to edit the config files._
 
 For Kibana you must edit `/etc/kibana/kibana.yml`:
 
-* Change:
+* Change the address/port :
 
 ```yaml
  server.host: "address"
  elasticsearch.hosts: ["http(s)://address(or domain name):port"].
 ```
+- **elasticsearch.hosts** should have the same address than your kibana and the port will depend on your next steps.
 
 Then for Elasticsearch edit `/etc/elasticsearch/elasticsearch.yml` and edit:
 
@@ -57,9 +58,9 @@ Then for Elasticsearch edit `/etc/elasticsearch/elasticsearch.yml` and edit:
 network.host: <address>
 ```
 
-to the address where your elastic is running.
+To the address where your elastic is running.
 
-after all of the modifications lets start the services,
+Once the modifications are done, start the services,
 
 ```bash
 sudo systemctl start elasticsearch
@@ -92,21 +93,14 @@ In our case we just want to fetch logs from one instance of Cells so we are goin
 
 First set a filebeat on the machine running Cells,
 
-For debian/ubuntu machines use the following:
+For **Debian/Ubuntu** machines use the following:
 
 ```bash
 curl -L -O https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-6.6.1-amd64.deb
 sudo dpkg -i filebeat-6.6.1-amd64.deb
 ```
 
-centos
-
-```bash
-curl -L -O https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-6.6.1-x86_64.rpm
-sudo rpm -vi filebeat-6.6.1-x86_64.rpm
-```
-
-once installed edit the `/etc/filebeat/filebeat.yml`, and change the following lines according to your setup,
+Once it's installed edit the `/etc/filebeat/filebeat.yml`, and change the following lines according to your setup,
 
 ```yaml
 #-------------------------- Elasticsearch output ------------------------------
