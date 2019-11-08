@@ -1,3 +1,5 @@
+This how-to shows you how to let users authenticate to Cells Enterprise using the Azure Active Directory Fedaration Service identity platform on Microsoft Azure.
+
 ### Register cells application in Azure
 Please visit [this article](https://docs.microsoft.com/en-us/graph/auth-register-app-v2) to register new application on azure.
 - The redirect URI (or reply URL) for cells application is always in format: https://server.cells.domain/auth/dex/callback

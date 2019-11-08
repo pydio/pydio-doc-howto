@@ -1,7 +1,6 @@
-This is an example of connecting Pydio Cells with an open-source saml server. SimpleSAMLphp is written in native PHP that deals with authentication. For more information, please visit [this link](https://simplesamlphp.org/)
+This is an example of connecting Cells Enterprise with an open-source saml server. SimpleSAMLphp is written in native PHP that deals with authentication. For more information, please visit [this link](https://simplesamlphp.org/)
 
 ## Install and configure SimpleSAMLphp server
-
 It's possible to configure SimpleSAMLPhp to serve as a Service Provider or as Idetity Provider. In this how-to, we are going to setup a Identity Provider which provider services to Cells - a service provider.
 
 Following the docs of simplesamlphp, you can easily download source code and setup a web server on a linux box. For demonstration only, a simple authsource is set in simplesamlphp by copying the sample accompanied source code to config/authsources.php. 

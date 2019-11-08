@@ -1,4 +1,4 @@
-This how-to shows you how to let users authenticate to Cells using their GitHub credentials.
+This how-to shows you how to let users authenticate to Cells Enterprise using their GitHub credentials.
 
 ## Create a Github Application
 

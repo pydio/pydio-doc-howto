@@ -1,3 +1,5 @@
+This how-to shows you how to let users authenticate to Cells Enterprise using the Azure Active Directory Fedaration Service platform deployed on-premises.
+
 ## Install and configure ADFS service on windows server 2012
 
 This how-to assumes that you have had already a domain and ADFS server. If you haven't installed ADFS server yet, please visit [this link](https://docs.microsoft.com/en-us/windows-server/identity/ad-fs/deployment/windows-server-2012-ad-fs-deployment-guide) for more information. In our test environment, we have a windows server 2012 running in "win.pyd.io" domain. After installation new AD FS role, the service has SSO URL is: https://win.pyd.io/adfs/ls/

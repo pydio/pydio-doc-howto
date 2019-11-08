@@ -1,4 +1,4 @@
-This how-to shows you how to let users authenticate to Cells using the AWS Cognito identity platform. Amazon Cognito lets you add user sign-up, sign-in, and access control to your web and mobile apps quickly and easily. 
+This how-to shows you how to let users authenticate to Cells Enterprise using the AWS Cognito identity platform. Amazon Cognito lets you add user sign-up, sign-in, and access control to your web and mobile apps quickly and easily. 
 
 ## Pre-requisites
 
