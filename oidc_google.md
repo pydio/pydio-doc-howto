@@ -1,4 +1,5 @@
-# Add a Google Connector
+This how-to shows you how to let users authenticate to Cells using their Google credentials using the OIDC protocol.
+
 
 ## Create a Google Application for OIDC
 

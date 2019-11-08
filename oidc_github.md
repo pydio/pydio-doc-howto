@@ -1,4 +1,4 @@
-# Add a Github connector
+This how-to shows you how to let users authenticate to Cells using their GitHub credentials.
 
 ## Create a Github Application
 
