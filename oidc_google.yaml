@@ -2,3 +2,9 @@ title: "Using Google as an Identity Provider"
 abstract: "[Cells Enterprise] Using Google as an Identity Provider"
 language: und
 category: Identity Management
+tags:
+  - authentication
+  - cells
+  - google
+  - oauth
+  - openid

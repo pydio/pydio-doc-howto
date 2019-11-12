@@ -2,4 +2,10 @@ title: "Running Cells as a service with Supervisor"
 abstract: "How to run Cells as a service using supervisor"
 language: und
 category: Deployment
-tags: supervisor
+tags:
+  - cells
+  - centos
+  - configuration
+  - ubuntu
+  - supervisor
+  - systemd

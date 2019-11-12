@@ -2,3 +2,9 @@ title: "Using SimpleSAML PHP server as an Identity Provider"
 abstract: "[Cells Enterprise] Using SimpleSAML PHP server as an Identity Provider"
 language: und
 category: Identity Management
+tags:
+  - authentication
+  - cells
+  - enterprise edition
+  - identity provider
+  - saml

@@ -2,3 +2,10 @@ title: "Using On-Premise ADFS server as an Identity Provider"
 abstract: "[Cells Enterprise] Using On-Premise ADFS server as an Identity Provider"
 language: und
 category: Identity Management
+tags:
+  - active directory
+  - authentication
+  - azure
+  - cells
+  - enterprise edition
+  - saml

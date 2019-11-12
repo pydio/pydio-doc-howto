@@ -2,4 +2,8 @@ title: "Setup Cells Server for CellsSync"
 abstract: "Tips and tricks for a correct configuration of your Cells server to connect the CellsSync client."
 language: und
 category: Client Applications
-tags: sync
+tags:
+  - cells
+  - grpc
+  - openid
+  - sync

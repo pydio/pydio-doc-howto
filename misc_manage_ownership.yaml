@@ -3,3 +3,5 @@ abstract: "How to manage resource ownership in Cells"
 language: und
 category: Access Control
 tags:
+  - cells
+  - share

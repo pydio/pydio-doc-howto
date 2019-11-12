@@ -3,3 +3,10 @@ abstract: "Enable metrics with prometheus and grafana"
 language: und
 category: Deployment
 tags:
+  - cells
+  - configuration
+  - dataviz
+  - enterprise edition
+  - grafana
+  - metrics
+  - prometheus
