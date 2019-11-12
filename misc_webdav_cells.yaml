@@ -3,4 +3,5 @@ abstract: "How to configure and use Webdav clients."
 language: und
 category: Client Applications
 tags:
-  webdav
+  - cells
+  - webdav

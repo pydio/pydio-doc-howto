@@ -3,3 +3,5 @@ abstract: "How to use the new Cells cli tool to perform actions on a Cells insta
 language: und
 category: Client Applications
 tags:
+  - cells
+  - cli

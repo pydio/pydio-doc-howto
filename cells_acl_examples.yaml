@@ -3,3 +3,6 @@ abstract: "Use cases for ACL rules"
 language: und
 category: Access Control
 tags:
+  - acl
+  - cells
+  - policy

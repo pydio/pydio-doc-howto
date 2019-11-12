@@ -3,3 +3,8 @@ abstract: "Enable and fetch metrics with the Elastic stack"
 language: und
 category: Deployment
 tags:
+  - cells
+  - dataviz
+  - elasticstack
+  - logs
+  - metrics

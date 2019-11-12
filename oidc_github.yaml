@@ -2,3 +2,9 @@ title: "Using Github as an Identity Provider"
 abstract: "[Cells Enterprise] Using Github as an Identity Provider"
 language: und
 category: Identity Management
+tags:
+  - authentication
+  - cells
+  - enterprise edition
+  - github
+  - oauth

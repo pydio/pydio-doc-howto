@@ -2,4 +2,10 @@ title: "Running Cells behind a Nginx reverse proxy"
 abstract: "How to run Cells behind a Nginx reverse proxy"
 language: und
 category: Deployment
-tags: nginx
+tags:
+  - cells
+  - configuration
+  - grpc
+  - nginx
+  - reverse-proxy
+  - sync

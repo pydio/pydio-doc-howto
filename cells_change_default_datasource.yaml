@@ -3,3 +3,6 @@ abstract: "How to to change the default filesytem datasources to another type of
 language: und
 category: Storage
 tags:
+  - cells
+  - datasources
+  - s3
