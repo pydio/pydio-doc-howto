@@ -1,17 +1,24 @@
-You can change the default datasources with another storage, but you will need to execute those exact steps to make it work.
+In a fresh install of Pydio Cells, the application creates 3 datasources (DS) that are used to store internal and technical data, namely:
 
-### Create the datasources and required buckets.
+- **pydiods1**: stores thumbnails
+- **personal**: contains "My Files"-like workspaces for each user
+- **cellsdata**: is used to create _cells_ when no root node has been defined upon creation
 
-First create the datasources that you wish to use, for our example we are going to use a remote S3 datasource.
-Let's replicate the exact datasources that where by default, but on our S3 remote storage.
+By default, these are created under `<CELLS_WORKING_DIR>/data/` but you can change this default location, even to switch to another storage.
 
-Basically create the required buckets and create the s3 connection to each one of them depending on your datasource. (for each datasource, use a different bucket)
+In the following example, we describe the exact steps you must execute to move all those default DSs to S3.
 
-**The 3 following buckets must be created on your storage** ():
+### Create the datasources and required buckets
 
-* **thumbnail** (is used to store the thumbnails).
-* **versions** (is used for the versioning).
-* **binaries** .
+First we replicate the 3 default DSs on our S3 remote storage.
+
+We basically create the required buckets - you must use a different bucket for each DS - and add a S3 connection for each one of them.
+
+**The 3 following buckets must be created on your storage**:
+
+- **thumbnails** (is used to store the thumbnails).
+- **versions** (is used for the versioning).
+- **binaries** .
 
 ### Create the New datasources
 
@@ -67,11 +74,10 @@ For the personal-files you must choose the template path and not the datasource 
 For common files you can change the datasource to to the new one.
 For instance by default it uses `pydiods1`, change it to `datasourceNew` ( refer to the array at the begining to see the default ds matching it )
 
-
 ### Final STEP
 
 You can now delete the default datasources if you wish not to use them.
 
 ### Troubleshooting
 
-* if you don't have thumbnails refer to the 1st paragraph about the mandatory buckets, you might have forgotten to create them.
+- if you don't have thumbnails refer to the 1st paragraph about the mandatory buckets, you might have forgotten to create them.
