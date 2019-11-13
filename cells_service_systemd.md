@@ -1,8 +1,8 @@
-You can use systemd as a way to run cells as a service, it will provide you advantages such as automatically restarting your cells after failure.
+You can use systemd to run cells as a service, it brings features such as automatic restart of your instance after failure or server reboot.
 
-_Note: this configuration assume you have done a vanilla setup following our installation guides. Adapt to your specific setup if necessary._
+_Note: this configuration assumes that you have done a vanilla setup following our installation guides. Adapt to your specific setup if necessary._
 
-Create new `/etc/systemd/system/cells.service` file with following content:
+Create a new `/etc/systemd/system/cells.service` file with following content:
 
 ```conf
 [Unit]
@@ -43,7 +43,11 @@ sudo systemctl enable cells
 sudo systemctl start cells
 ```
 
-Logs can then be found in `/home/pydio/.config/pydio/cells/logs/cells.log`.
+By default, logs can then be found in `<CELLS_WORKING_DIR>/logs/` folder, typically, on Linux:
+
+```sh
+tail -200f /home/pydio/.config/pydio/cells/logs/cells.log
+```
 
 #### Alternative configuration
 
@@ -57,3 +61,4 @@ The output of the service can then be tailed with this command:
 
 ```sh
 sudo journalctl -f -u cells
+```
