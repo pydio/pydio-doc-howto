@@ -4,21 +4,106 @@ In a fresh install of Pydio Cells, the application creates 3 default datasources
 - **personal**: contains "My Files"-like workspaces for each user
 - **cellsdata**: is used to create _cells_ when no root node has been defined upon creation
 
-By default, these are created under `<CELLS_WORKING_DIR>/data/`. Furthermore, 3 others datasources are implicitely created to store internal and technical data:
+By default, these are created under `<CELLS_WORKING_DIR>/data/`.
+
+Furthermore, there are three S3 buckets that are used to store internal and technical data:
 
 - **thumbs**: stores the thumbnails
 - **versions**: stores the old versions of the files, when the versioning is enabled on a given DS
-- **binaries**: service docstore, stores various things, FI: avatars, custom background...
+- **binaries**: service docstore, stores various things, for instance: avatars, custom background...
 
-In the default direct-to-disk setup, these 3 DSs are in fact distinct buckets exposed by the `minio` object service of the default `pydiods1` DS: you can see the corresponding folders created as siblings of the `pydiods1` folder, under `<CELLS_WORKING_DIR>/data/`.
+By default, these 3 buckets are siblings of the `pydiods1` folder that can be found under `<CELLS_WORKING_DIR>/data/`. This is defined in the main config: for each one of these _technical buckets_ we specify a name and a DS. Under the hood, the system retrieves the object service that is linked to the specified DS and thus retrieves S3 connection information ( (more info on this here)[TODO] ).
 
-If you want to change this layout, this is possible, but not straightforward; you have to understand what is hapenning and follow exactly the below steps. We plan on enhancing this in a future version soon.
+In the default setup, these buckets are created during installation process. In an S3 setup, you must first insure the buckets have been created.
 
-So let us move all these 6 DSs to amazon S3.
+If you want to change the default layout, this is possible, but not straightforward; you have to understand what is hapenning and follow exactly the below steps. We plan on enhancing this in a future version soon.
+
+## Change default location still using local file system
+
+### Are you sure?
+
+Please, first take a step back and ask yourself if the various configuration parameters offered by the application are not enough to reach your goal. Typically, if you want to change default location of all those object to somewhere else on your local file system, you migth just have to set the `CELLS_DATA_DIR` environment variable (that is by default set to `<CELLS_WORKING_DIR>/data/`) before launching the installation process.  
+You will then have a fully working instance in no time.
+
+If you want to have a more specific layout, go on reading.
+
+### My Files and Cells Data
+
+It is quite easy to tweak these:
+
+#### Enterprise Distribution
+
+You just have to edit the default template path by going to:
+`Admin console >> show advanced parameters >> Left column menu >> Data management >> Template Path`
+
+If you have created new datasources, you might just then impact the default template paths to use you newly created DS, for instance:
+
+```conf
+# Cells
+Path = DataSources.cellsdatanew + "/" + User.Name;
+# My Files
+Path = DataSources.personalnew + "/" + User.Name;
+```
+
+_To use auto-completion: first move your cursor after the dot, then press `CTRL + SPACE`_
+
+If you want to mutualise the DS, you might also implement a more complex layout. For instance, you might do the following:
+
+- create a new datasource (let say `dynamicws`)
+- create a temporary workspace that point to it and create 2 folders `personal` and `cellsdata` in it
+- delete the temporary workspace
+- impact the template path to have:
+
+```conf
+# Cells
+Path = DataSources.dynamicws + "/cellsdata/" + User.Name;
+# Personal Files
+Path = DataSources.dynamicws + "/personal/" + User.Name;
+```
+
+#### Home distribution
+
+As you cannot edit template paths, the only solution you have is to delete the existing default `cellsdata` and `personal` DSs and recreate them where it fits you most. You do not have to change anything else then.
+
+### Common files
+
+This is just a default workspace with Read/Write permissions for everyone. You can easily edit the workspace to point to another datasource.
+
+### Technical buckets
+
+The trick here is the way the buckets connection info are computed. It was our implementer choice to say:
+
+- we will use a raw s3 bucket to store and retrieve our internal technical stuff (typically thumbnails)  
+- these buckets do not need to be real datasources (they do not need neither index nor sync mechanism)
+- yet, as each defined datasource has an `object` service that might expose more than one bucket, let use one of these
+- so let's define a default datasource, retrieve its object service and assume it also exposes the additionnal buckets we need.
+
+In a fresh vanilla install, the default datasource is `pydiods1` that exposes the `<CELLS_WORKING_DIR>/data/pydiods1` folder of your file system. The underlying object service exposes **all** then folders that are in`<CELLS_WORKING_DIR>/data/` as S3 buckets. So we just create the `thumbs`, `versions`, and `binaries` folders during installation.
+
+If you were to change this, you can:
+
+- create a new datasource that points towards the desired path (for instance `defaultds`)
+- adapt your `pydio.json` file to have something like:
+
+```json
+"defaults": {
+    "database": "...",
+    "datasource": "defaultds",
+    "url": "https://pydio.example.com",
+    "urlInternal": "https://pydio.example.com:443"
+  },
+```
+
+- save and restart the app.
+
+## Switch to Amawon S3
+
+You can also tune your configuration to rather have all your Datasources and Bucket on S3. We present here a simple setup that introduces well the steps you have to go through. Feel free to then adapt to your specific use case.
 
 ### Create the required buckets
 
-First, we have to create 6 buckets in our S3 remote storage.
+The main difference here is that you (still) have to manually create your buckets in your S3 administration console before creating the DSs in Cells.
+
 Note that buckets names in AWS have to be globally unique, so you cannot use the names they have in the local vanilla setup. Let us use for instance:
 
 - com-example-cells-personal
@@ -28,9 +113,7 @@ Note that buckets names in AWS have to be globally unique, so you cannot use the
 - com-example-cells-versions
 - com-example-cells-binaries
 
-Note that due to their implicit declaration (they retrieved their API key and secret from the pydiods1 DS), the thumb, versions and binaries must be buckets of the **same** storage than the ds that is defined as default DS (by default pydiods1): _they are just additional bucket in the same s3 storage as the main default DS_. Otherwise you will have to tweak the config even a little bit more.
-
-Note also that in Cells ED, you can also create only one bucket for cellsdata, personnal files and Commnfile, and rather use a sub folders to setup the default common Files folder and the 2 template paths.
+Note that due to their implicit declaration (see above) via the default DS, the thumb, versions and binaries must be buckets of the **same** storage than the ds that is defined as default DS. Otherwise you will have to tweak the config even a little bit more.
 
 ### Create the new datasources
 
@@ -119,7 +202,7 @@ to rather have (using the names of our example, adpt to your use case):
 
 You should be now fully setup. Just restart the app and perform a few tests. If everything works fine, you can now delete the default datasources that you do not use anymore.
 
-### Troubleshooting
+## Troubleshooting
 
 Note that the above procedure does not include migration of existing data, after restart you will then typically have lost all existing thumbnails that will be blank.
 
