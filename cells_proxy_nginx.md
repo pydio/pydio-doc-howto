@@ -49,7 +49,7 @@ server {
 
         location / {
                 proxy_buffering off;
-                proxy_pass https://192.168.0.1$request_uri;
+                proxy_pass https://192.168.0.12:8080$request_uri;
                 #proxy_pass_request_headers on;
                 #proxy_set_header Host $host;
                 proxy_set_header X-Real-IP $remote_addr;
@@ -57,7 +57,7 @@ server {
 
         location /ws {
                 proxy_buffering off;
-                proxy_pass https://192.168.0.1;
+                proxy_pass https://192.168.0.12:8080;
                 proxy_set_header Upgrade $http_upgrade;
                 proxy_set_header Connection "upgrade";
                 proxy_read_timeout 86400;
@@ -66,8 +66,8 @@ server {
     error_log /var/log/nginx/cells-proxy-error.log;
     access_log /var/log/nginx/cells-proxy-access.log;
 
-    listen [::]:443 ssl http2; 
-    listen 443 ssl http2;
+    listen [::]:443 ssl http; 
+    listen 443 ssl http;
     ssl_certificate     www.example.com.crt;
     ssl_certificate_key www.example.com.key;
     ssl_protocols       TLSv1 TLSv1.1 TLSv1.2;
@@ -79,8 +79,8 @@ server {
         return 301 https://$host$request_uri;
     } 
 
-    listen 80 http2;
-    listen [::]:80 http2;
+    listen 80 http;
+    listen [::]:80 http;
     server_name example.pydio.com;
     return 404;
 }
@@ -121,7 +121,7 @@ server {
   keepalive_timeout 600s;
   
   location / {
-    grpc_pass grpcs://192.168.0.1:33060;
+    grpc_pass grpcs://192.168.0.12:33060;
   }
   
   error_log /var/log/nginx/proxy-grpc-error.log;
@@ -148,7 +148,7 @@ server {
 
     location / {
             proxy_buffering off;
-            proxy_pass https://192.168.0.1$request_uri;
+            proxy_pass https://192.168.0.12:8080$request_uri;
             #proxy_pass_request_headers on;
             #proxy_set_header Host $host;
             proxy_set_header X-Real-IP $remote_addr;
@@ -156,7 +156,7 @@ server {
 
     location /ws {
             proxy_buffering off;
-            proxy_pass https://192.168.0.1;
+            proxy_pass https://192.168.0.12:8080;
             proxy_set_header Upgrade $http_upgrade;
             proxy_set_header Connection "upgrade";
             proxy_read_timeout 86400;
@@ -165,8 +165,8 @@ server {
     error_log /var/log/nginx/cells-proxy-error.log;
     access_log /var/log/nginx/cells-proxy-access.log;
 
-    listen [::]:443 ssl http2; 
-    listen 443 ssl http2;
+    listen [::]:443 ssl http; 
+    listen 443 ssl http;
     ssl_certificate     www.example.com.crt;
     ssl_certificate_key www.example.com.key;
     ssl_protocols       TLSv1 TLSv1.1 TLSv1.2;
@@ -178,8 +178,8 @@ server {
         return 301 https://$host$request_uri;
     } 
 
-    listen 80 http2;
-    listen [::]:80 http2;
+    listen 80 http;
+    listen [::]:80 http;
     server_name example.pydio.com;
     return 404;
 }
@@ -194,7 +194,7 @@ server {
   keepalive_timeout 600s;
 	
     location / {
-		grpc_pass grpcs://192.168.0.1:33060;
+		grpc_pass grpcs://192.168.0.12:33060;
 	}
   
   error_log /var/log/nginx/proxy-grpc-error.log;
