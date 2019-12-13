@@ -8,7 +8,7 @@ References:
 
 > Assuming that elasticsearch + kibana are running on a server with public address or domain.
 
-A quick simple how-to to run elastic + kibana. 
+A quick simple how-to to run elastic + kibana containers. 
 
 The docker method is the easiest, you do not need to install java or/and other dependencies.
 
@@ -22,7 +22,7 @@ To run a simple elasticsearch node:
 
 To verify that the node is running you can use the following command `curl localhost:9200` or remotely `curl <ip or domain>:9200`.
 
-The answer will look like this :
+The response will look like this :
 
 ```json
 ➜  ~ curl localhost:9200
@@ -45,11 +45,7 @@ The answer will look like this :
 }
 ```
 
-
-
-> For production you should read the article on elastic to secure your installation with a password, [see](https://www.elastic.co/guide/en/elasticsearch/reference/current/configuring-security.html).
-
-
+*For production you should read the article on elastic to secure your installation with a password, [see](https://www.elastic.co/guide/en/elasticsearch/reference/current/configuring-security.html).*
 
 ### Kibana
 
@@ -64,17 +60,13 @@ For instance to run kibana in this case:
 - `docker run --link elastic:elasticsearch -p 5601:5601 kibana:7.5.0` 
 - `elastic` being the container name defined on the first step.
 
-
-
 > For production Kibana should also be password protected [see](https://www.elastic.co/guide/en/kibana/7.5/using-kibana-with-security.html) .
 
-
-
-### Filebeats
+### Filebeat
 
 See: https://www.elastic.co/guide/en/beats/filebeat/current/filebeat-input-log.html#filebeat-input-log
 
-Now lets add a filebeats which send the logs to elasticsearch and then displayed on Kibana.
+Now lets add a filebeat which send the logs to elasticsearch and then displayed on Kibana.
 
 [:image:cells/elastic-stack/kibana-add-logging.png]
 
@@ -118,8 +110,6 @@ setup.kibana:
   #space.id:
 ```
 
-
-
 **Elasticsearch:**
 
 ```yaml
@@ -134,13 +124,16 @@ output.elasticsearch:
   #password: "changeme"
 ```
 
-(if you are using TLS uncomment **protocol**, and if you are password protected uncomment **username** & **password**)
-
-
+*(if you are using TLS uncomment **protocol**, and if you are password protected uncomment **username** & **password**)*
 
 **Targeted log file:** (the default comments were removed)
 
 In our case we want to fetch the **cells.logs** (json format) and send them to elasticsearch.
+
+Basic sample configuration that fetches the logs from **cells.log** file and send them to elastic.
+
+Also make sure to enable the **Environment=PYDIO_LOGS_LEVEL=production**.
+See [this article](https://pydio.com/en/docs/cells/v2/systems-logs) on how to enable the logs level.
 
 ```yaml
 #=========================== Filebeat inputs =============================
