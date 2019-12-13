@@ -1,149 +1,161 @@
-In this how to, we are going to see how you can retrieve logs, system informations and more by setting up the ELK stack along Cells.
+References:
 
-### Elastic stack
+- https://www.elastic.co/guide/en/elasticsearch/reference/current/install-elasticsearch.html#install-elasticsearch
+- https://www.elastic.co/guide/en/beats/filebeat/current/keystore.html
 
-"ELK" is the acronym for three open source projects: Elasticsearch, Logstash, and Kibana. Elasticsearch is a search and analytics engine. **Logstash** is a server‑side data processing pipeline that ingests data from multiple sources simultaneously, transforms it, and then sends it to a "stash" like **Elasticsearch**. **Kibana** lets users visualize data with charts and graphs in Elasticsearch.
 
-Now with a new component the stack is most commonly referred as _Elastic Stack_.
+## Docker Method
 
-There is a new component, **Beats** which is somewhat a lightweight _logstash_ that has multiple variants for instance, Filebeat which is focused on files, logs, Metricbeat is focused on sending system and service statistics.
+> Assuming that elasticsearch + kibana are running on a server with public address or domain.
 
-### Install Kibana and Elasticsearch on the server that is going to process the data
+A quick simple how-to to run elastic + kibana. 
 
-Actually you could install them all in different machines for resource management but for our example Kibana and Elasticsearch are going to run on 1 server.
+The docker method is the easiest, you do not need to install java or/and other dependencies.
 
-* First, let's make sure that you have **Java 8** by running `java -version`, otherwise to install java 8, use the following commands (for this example openjdk is used but you can use Oracle's Java).
+### Elasticsearch
 
-```bash
-sudo apt install openjdk-8-jdk-headless
-sudo apt install openjdk-8-jre-headless
+See: https://www.elastic.co/guide/en/elasticsearch/reference/7.5/docker.html
+
+To run a simple elasticsearch node:
+
+`docker run -it -d --name elastic -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" docker.elastic.co/elasticsearch/elasticsearch:7.5.0`
+
+To verify that the node is running you can use the following command `curl localhost:9200` or remotely `curl <ip or domain>:9200`.
+
+The answer will look like this :
+
+```json
+➜  ~ curl localhost:9200
+{
+  "name" : "be7ccc3cf76b",
+  "cluster_name" : "docker-cluster",
+  "cluster_uuid" : "sRBLMmdkRjWdWVyfC0qVoQ",
+  "version" : {
+    "number" : "7.5.0",
+    "build_flavor" : "default",
+    "build_type" : "docker",
+    "build_hash" : "e9ccaed468e2fac2275a3761849cbee64b39519f",
+    "build_date" : "2019-11-26T01:06:52.518245Z",
+    "build_snapshot" : false,
+    "lucene_version" : "8.3.0",
+    "minimum_wire_compatibility_version" : "6.8.0",
+    "minimum_index_compatibility_version" : "6.0.0-beta1"
+  },
+  "tagline" : "You Know, for Search"
+}
 ```
 
-- Then add the elastic repository,
 
- - **Debian** users might need this software `sudo apt-get install apt-transport-https`
 
-```bash
-wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -
+> For production you should read the article on elastic to secure your installation with a password, [see](https://www.elastic.co/guide/en/elasticsearch/reference/current/configuring-security.html).
 
-echo "deb https://artifacts.elastic.co/packages/6.x/apt stable main" | sudo tee -a /etc/apt/sources.list.d/elastic-6.x.list
 
-sudo apt update
-```
 
-* Now you are ready to install Kibana and Elasticsearch, let's proceed;
+### Kibana
 
-```bash
-sudo apt install elasticsearch
-sudo apt install kibana
-```
+See: https://www.elastic.co/guide/en/kibana/7.5/docker.html
 
-Once both installations are complete some settings have to be changed in the configuration.
+To run kibana, use the following command (also make sure to provide either the name or container ID of your Elasticsearch container).
 
-_You might require root rights to edit the config files._
+`docker run --link YOUR_ELASTICSEARCH_CONTAINER_NAME_OR_ID:elasticsearch -p 5601:5601 kibana:7.5.0`
 
-For Kibana you must edit `/etc/kibana/kibana.yml`:
+For instance to run kibana in this case:
 
-* Change the address/port :
+- `docker run --link elastic:elasticsearch -p 5601:5601 kibana:7.5.0` 
+- `elastic` being the container name defined on the first step.
+
+
+
+> For production Kibana should also be password protected [see](https://www.elastic.co/guide/en/kibana/7.5/using-kibana-with-security.html) .
+
+
+
+### Filebeats
+
+See: https://www.elastic.co/guide/en/beats/filebeat/current/filebeat-input-log.html#filebeat-input-log
+
+Now lets add a filebeats which send the logs to elasticsearch and then displayed on Kibana.
+
+[:image:cells/elastic-stack/kibana-add-logging.png]
+
+1. If you do not have the **"Add Data to Kibana"** menu displayed click on the icon (top-left)
+
+2. Then to add a log source **"Add log data"**
+
+3. A list of sources will be displayed
+
+4. Select **"Logstash logs"**
+
+5. Make sure to select the right operating system (see screenshot below)
+
+> For the examples below we are assuming that you are running on a debian based system.
+
+[:image:cells/elastic-stack/filebeat-os-selection.png]
+
+1. Follow the indicated steps
+   1. **Download and install Filebeat**:  copy paste the commands which will install filebeat on your system
+   2. **Edit the configuration**: edit with your prefered editor `/etc/filebeat/filebeat.yml` (depending on your case it might require admin access).
+      Add Elasticsearch and Kibana hosts.
+
+**Kibana:**
 
 ```yaml
- server.host: "address"
- elasticsearch.hosts: ["http(s)://address(or domain name):port"].
-```
-- **elasticsearch.hosts** should have the same address than your kibana and the port will depend on your next steps.
+#============================== Kibana =====================================
 
-Then for Elasticsearch edit `/etc/elasticsearch/elasticsearch.yml` and edit:
+# Starting with Beats version 6.0.0, the dashboards are loaded via the Kibana API.
+# This requires a Kibana endpoint configuration.
+setup.kibana:
 
-```yaml
-network.host: <address>
-```
+  # Kibana Host
+  # Scheme and port can be left out and will be set to the default (http and 5601)
+  # In case you specify and additional path, the scheme is required: http://localhost:5601/path
+  # IPv6 addresses should always be defined as: https://[2001:db8::1]:5601
+  host: "my-elastic-stack.net:5601"
 
-To the address where your elastic is running.
-
-Once the modifications are done, start the services,
-
-```bash
-sudo systemctl start elasticsearch
-sudo systemctl start kibana
+  # Kibana Space ID
+  # ID of the Kibana Space into which the dashboards should be loaded. By default,
+  # the Default Space will be used.
+  #space.id:
 ```
 
-(if you want them to start automatically after a manual restart or if your server fails.)
 
-```bash
-sudo systemctl enable elasticsearch
-sudo systemctl enable kibana
-```
 
-### Logstash and/or beats to fetch metrics
-
-For this part you can use logstash as a standalone or use a lightweight version called **Beats**.
-**Logstash** has builtin all type of metrics whereas **Beats** depends on the type that you are going to use,of course you can use many beats at the same time.
-
-Examples of beats:
-
-* Filebeat: which focuses solely on fetching from a log file (like a `tail -f <file>`)
-
-* Metricbeat: can retrieve metrics (such as CPU, RAM, ....) from services or even application such as one in go (you will have to add some code to let the beat retrieve metrics from your application).
-
-* And many more.
-
-In our case we just want to fetch logs from one instance of Cells so we are going to use **Filebeat** (a beat specialized in fetching files, in this case a log file written in JSON)
-
-### Basic configuration for Cells
-
-First set a filebeat on the machine running Cells,
-
-For **Debian/Ubuntu** machines use the following:
-
-```bash
-curl -L -O https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-6.6.1-amd64.deb
-sudo dpkg -i filebeat-6.6.1-amd64.deb
-```
-
-Once it's installed edit the `/etc/filebeat/filebeat.yml`, and change the following lines according to your setup,
+**Elasticsearch:**
 
 ```yaml
 #-------------------------- Elasticsearch output ------------------------------
-    hosts: ["ip:port"]
+output.elasticsearch:
+  # Array of hosts to connect to.
+  hosts: ["my-elastic-stack.net:9200"]
 
-    protocol: "http/s"
-    username: "elastic"
-    password: "changeme"
-
-#============================== Kibana =====================================
-    host: "ip:port"
+  # Optional protocol and basic auth credentials.
+  #protocol: "https"
+  #username: "elastic"
+  #password: "changeme"
 ```
 
-Now for the logs part add/edit the following settings,
+(if you are using TLS uncomment **protocol**, and if you are password protected uncomment **username** & **password**)
+
+
+
+**Targeted log file:** (the default comments were removed)
+
+In our case we want to fetch the **cells.logs** (json format) and send them to elasticsearch.
 
 ```yaml
 #=========================== Filebeat inputs =============================
-    enabled: true
-    paths:
-     - /home/cells/.config/pydio/cells/logs/cells.log
 
-    json.keys_under_root: true
-    json.overwrite_keys: false
-    json.add_error_key: true
+filebeat.inputs:
+
+- type: log
+  enabled: true
+  # Tags will help you filter the logs
+  tags: ["cells", "my-cells.com"]
+  # Paths that should be crawled and fetched. Glob based paths.
+  paths:
+    - /home/pydio/.config/pydio/cells/logs/cells.log
+  json.keys_under_root: true
+  json.overwrite_keys: false
+  json.add_error_key: true
+  json.ignore_decoding_error: true
 ```
-
-_What it does is read the json file(cells.log) and parse it so that elastic + kibana can use the data_
-
-Now lets test the config and start the beat,
-
-```
-sudo filebeat test config
-sudo filebeat test output
-```
-
-You can use the test commands to make sure that everything is good, that the beat can reach kibana and elastic and that your `filebeat.yaml` is correct.
-
-
-You can setup and start your filebeat.
-
-```bash
-sudo filebeat setup
-sudo systemctl start filebeat
-```
-
-(do not forget to use `systemctl enable filebeat` once your set to have it start automatically at each start)
