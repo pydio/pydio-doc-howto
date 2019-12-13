@@ -4,13 +4,12 @@ References:
 - https://www.elastic.co/guide/en/beats/filebeat/current/keystore.html
 
 
-## Docker Method
-
-> Assuming that elasticsearch + kibana are running on a server with public address or domain.
-
-A quick simple how-to to run elastic + kibana containers. 
+## Docker Way
 
 The docker method is the easiest, you do not need to install java or/and other dependencies.
+
+A quick simple how-to to run elastic and kibana docker containers.
+In this how-to it is assumed  that elasticsearch and kibana containers are both running on a the same server with public address or domain (to be accessed externally).
 
 ### Elasticsearch
 
@@ -20,7 +19,7 @@ To run a simple elasticsearch node:
 
 `docker run -it -d --name elastic -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" docker.elastic.co/elasticsearch/elasticsearch:7.5.0`
 
-To verify that the node is running you can use the following command `curl localhost:9200` or remotely `curl <ip or domain>:9200`.
+To verify that the node is running you can use the following command `curl localhost:9200` or remotely `curl <ip-or-domain>:9200`.
 
 The response will look like this :
 
