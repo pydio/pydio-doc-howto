@@ -151,3 +151,23 @@ filebeat.inputs:
   json.add_error_key: true
   json.ignore_decoding_error: true
 ```
+
+### Displaying Cells logs on Kibana
+
+On Kibana you can create your own dashboards and display only the relevant information that you wish to.
+
+For this example we are only going to see the easy way to retrieve and save a dashboard.
+
+On the left menu bar click on the compass icon (Discover).
+
+You will be presented with an interface with a lots of fields, you must focus on the following (see screenshot below).
+
+[:image:cells/elastic-stack/kibana-logs.png]
+
+
+1. Selected fields: those are the information that you want to display.
+2. Available fields: those are all the data fields that the filebeat retrieves (also adding additional fields such as timestamps)
+
+In the following example we decided to display the log level, the logger (which service is sending the message) and the msg (message).
+
+You can also filter by date, time (the top right bar), then you can save this preset to use it later for, **visualization** or to create a custom **dashboard**.
