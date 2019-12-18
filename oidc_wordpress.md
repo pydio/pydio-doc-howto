@@ -48,12 +48,13 @@ On Pydio Cells Home edition you must manually add to your **pydio.json**, the oa
 }
 ```
 
-You must add it inside the `staticClients` array.
+You must add it inside the `staticClients` array (located inside your **pydio.json** file).
 
-``` json     
-    "staticClients": [
-        // It must be placed here
-      ]
+**pydio.json:**
+``` json
+"staticClients": [
+    // It must be placed here
+]
 ```
 
 ## Configure the OAuth2 client on WordPress
