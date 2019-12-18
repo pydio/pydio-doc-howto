@@ -5,7 +5,7 @@ Resources :
 - https://wordpress.org/plugins/miniorange-login-with-eve-online-google-facebook/
 - https://pydio.com/en/docs/cells/v2/cells-identity-provider
 
-### Create a OAUTH2 client for WordPress on Pydio Cells
+### Create an OAuth2 client for WordPress on Pydio Cells
 
 On the left-bar menu, go to **Authentication** > **OAUTH2/OIDC** (top left) > **+ OAUTH2 Client** to create a new client.
 
@@ -23,7 +23,7 @@ You must provide the following information:
 
 
 
-### Configure OAuth2 client on WordPress
+### Configure the OAuth2 client on WordPress
 
 Download and install the following plugin on WordPress:
 
@@ -32,7 +32,6 @@ Download and install the following plugin on WordPress:
 
 
 Then proceed on the Plugins settings (left bar menu), click on **miniOrange OAuth**,
-
 you are now invited to configure your OAuth Provider,
 
 |                           |                                                   |
