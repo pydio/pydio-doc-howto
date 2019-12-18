@@ -51,4 +51,4 @@ keep it open as it is required later for the mapping.
 
 Browse to **Attribute/Role mapping** and put inside the **Username** field the previously retrieved Attribute, `name` (see screenshot above).
 
-[:image-popup:cells/authentication/sso_with_oauth2/wordpress/wordpress_oauth_3.png]
+[:image-popup:cells/authentication/sso_with_oauth2/wordpress/wordpress_oauth_2.png]
