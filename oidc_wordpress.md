@@ -1,5 +1,3 @@
-# Enable SSO on WordPress with Cells as the identity provider
-
 Resources :
 
 - https://wordpress.org/plugins/miniorange-login-with-eve-online-google-facebook/
