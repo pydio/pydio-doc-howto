@@ -44,7 +44,7 @@ you are now invited to configure your OAuth Provider,
 [:image-popup:cells/authentication/sso_with_oauth2/wordpress/wordpress_oauth_1.png]
 
 Then hit the **Test Configuration button**, once you have the test-configuration (presented in an Array),
-keep it open as it is required later for the mapping.
+keep it open as it is required later for the mapping, and proceed to **Save**.
 
 [:image-popup:cells/authentication/sso_with_oauth2/wordpress/wordpress_oauth_3.png]
 
