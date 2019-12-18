@@ -15,14 +15,24 @@ $ cd $GOPATH/github.com/pydio/cells-client
 $ make dev
 ```
 
-You should have a `cec` binary available
+You should have a `cec` binary available, make it executable with `chmod u+x cec`.
+
+Put it in your path or add a symlink to the binary location, typically:
+`sudo ln -s /<path-to-bin>/cec /usr/local/bin/cec`
+
+This last step is **required** if you want to configure the completion helper (see [cec completion](https://pydio.com/en/docs/developer-guide/cec-completion)).
+
+Otherwise, you can also do `./cec ls` directly (in such case, adapt the suggested commands to run the examples).
+
+You can verify that `cec` is correctly installed and configured by launching any command, for instance:
+`cec version`
 
 ### Configuration
 
 You must first configure the client to connect to the server. 
 
 ```
-$ ./cec configure
+$ cec configure
 ```
 
 You will be prompted with the following informations : 
@@ -65,7 +75,7 @@ Other commands are available for listing datasources, users, roles, etc... but i
 **1/ Listing the content of the personal-files workspace**
 
 ```shell
-$ ./cec ls personal-files
+$ cec ls personal-files
 ```
 
 it will display an array of this form:
@@ -91,7 +101,7 @@ it will display an array of this form:
 **2/ Showing details about a file**
 
 ```shell
-$ ./cec ls personal-files/P5021040.jpg -d
+$ cec ls personal-files/P5021040.jpg -d
 Listing: 1 results for personal-files/P5021040.jpg
 ```
 
@@ -105,7 +115,7 @@ it will display an array of this form:
 **3/ Uploading a file to server**
 
 ```sh
-$ ./cec cp ./README.md cells://common-files/
+$ cec cp ./README.md cells://common-files/
 Copying ./README.md to cells://common-files/
  ## Waiting for file to be indexed...
  ## File correctly indexed
@@ -114,7 +124,7 @@ Copying ./README.md to cells://common-files/
 **4/ Download a file from server**
 
 ```sh
-$ ./cec cp cells://personal-files/IMG_9723.JPG ./
+$ cec cp cells://personal-files/IMG_9723.JPG ./
 Copying cells://personal-files/IMG_9723.JPG to ./
 Written 822601 bytes to file
 ```
