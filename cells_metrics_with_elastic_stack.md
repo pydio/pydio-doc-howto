@@ -165,8 +165,8 @@ You will be presented with an interface with a lots of fields, you must focus on
 [:image:cells/elastic-stack/kibana-logs.png]
 
 
-1. Selected fields: those are the information that you want to display.
-2. Available fields: those are all the data fields that the filebeat retrieves (also adding additional fields such as timestamps)
+1. **Selected fields**: those are the information that you want to display.
+2. **Available fields**: those are all the data fields that the filebeat retrieves (also adding additional fields such as timestamps)
 
 In the following example we decided to display the log level, the logger (which service is sending the message) and the msg (message).
 
