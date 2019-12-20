@@ -32,7 +32,7 @@ WantedBy=multi-user.target
 If you are running Pydio Cells in a production environment, you probably want to enable production logging:
 
 ```conf
-# Add en environment variable in the [Service] section
+# Add an environment variable in the [Service] section
 Environment=PYDIO_LOGS_LEVEL=production
 ```
 
