@@ -1,4 +1,4 @@
-You can use supervisor to run your pydio cells instance as a service, supervisor will provide for instance a way to auto restart your cells when you restart your server or when there is a failure and so on.
+You can use supervisor to run your Pydio Cells instance as a service. Among others, supervisor relaunches the service after a machine reboot or when there is a failure.
 
 ### Requirements
 
@@ -22,8 +22,8 @@ You must then declare the path to your binary **cells** file in a supervisor con
 
 ```conf
 [program:cells]
-command=/home/<path-to-binary> start
-directory=/home/<folder-of-the-binary>       ; directory to cwd to before exec (def no cwd)
+command=<path-to-binary> start
+directory=<path-to-cells-working-dir>       ; directory to cwd to before exec (def no cwd)
 ;umask=022                                   ; umask for process (default None)
 ;priority=999                                ; the relative start priority (default 999)
 autostart=true                               ; start at supervisord start (default: true)
@@ -38,12 +38,12 @@ stopasgroup=false                            ; send stop signal to the UNIX proc
 user=<user-launching-cells>                  ; setuid to this UNIX account to run the program
 
 redirect_stderr=true                         ; redirect proc stderr to stdout (default false)
-stdout_logfile=/home/<user-launching-cells>/.config/pydio/cells/logs/cells.log
+stdout_logfile=<path-to-cells-working-dir>/logs/cells.log
 stdout_logfile_maxbytes=1MB                  ; max # logfile bytes b4 rotation (default 50MB)
 stdout_logfile_backups=10                    ; # of stdout logfile backups (default 10)
 stdout_capture_maxbytes=1MB                  ; number of bytes in 'capturemode' (default 0)
 ;stdout_events_enabled=false                 ; emit events on stdout writes (default false)
-stderr_logfile=/home/<user-launching-cells>/.config/pydio/cells/logs/cells_err.log        ; stderr log path, NONE for none; default AUTO
+stderr_logfile=<path-to-cells-working-dir>/logs/cells_err.log        ; stderr log path, NONE for none; default AUTO
 ;stderr_logfile_maxbytes=1MB                 ; max # logfile bytes b4 rotation (default 50MB)
 ;stderr_logfile_backups=10                   ; # of stderr logfile backups (default 10)
 ;stderr_capture_maxbytes=1MB                 ; number of bytes in 'capturemode' (default 0)
@@ -101,9 +101,9 @@ You now have Pydio Cells running as a daemon and auto-restarting after server re
 
 ### For CentOS
 
-On a RHEL/CentOS systems, this is a config sample that will run cells as a service.
+On a RHEL/CentOS system and assuming you have followed our [recommended best practices](/en/docs/cells/v2/os-specific-guides) during installation, here is a config sample that will run Cells as a service.
 
-This configuration is based on a system that has a **pydio** Unix account. Please refer to [this tutorial](/en/docs/cells/v1/centosrhel-systems) or adapt to your custom setup if necessary.
+This configuration is based on a system that has, among others, a **pydio** Unix account. Please adapt to your custom setup if necessary.
 
 - Install supervisor: `sudo yum install supervisor`
 - Create a new file `/etc/supervisord.d/cells.ini` with following content:

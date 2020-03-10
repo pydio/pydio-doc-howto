@@ -1,6 +1,15 @@
-You can use systemd to run cells as a service, it brings features such as automatic restart of your instance after failure or server reboot.
+When deployed in production environment, we generally advise to run Pydio Cells as a systemd service.
 
-_Note: this configuration assumes that you have done a vanilla setup following our installation guides. Adapt to your specific setup if necessary._
+This configuration assumes that you have followed our recommended best practices during installation process, see our [detailed installation guides](/en/docs/cells/v2/os-specific-guides). Adapt to your specific setup if necessary.
+
+Thus you have:
+
+- the downloaded binary at `/home/pydio/cells`
+- the `pydio` user has **only** `sudo` permission to execute the setcap command. Typically on Linux, do:
+
+```sh 
+echo "pydio        ALL=(ALL)       NOPASSWD: /sbin/setcap 'cap_net_bind_service=+ep' /home/pydio/cells" | sudo tee -a /etc/sudoers.d/pydio
+```
 
 Create a new `/etc/systemd/system/cells.service` file with following content:
 
@@ -11,12 +20,14 @@ Documentation=https://pydio.com
 Wants=network-online.target
 After=network-online.target
 AssertFileIsExecutable=/home/pydio/cells
+
 [Service]
-WorkingDirectory=/home/pydio/.config/
+WorkingDirectory=/tmp/cells
 User=pydio
 Group=pydio
 PermissionsStartOnly=true
-ExecStart=/bin/bash -c 'exec /home/pydio/cells start &>> /home/pydio/.config/pydio/cells/logs/cells.log'
+ExecStartPre=/usr/bin/sudo /sbin/setcap 'cap_net_bind_service=+ep' /home/pydio/cells
+ExecStart=/home/pydio/cells start
 Restart=on-failure
 StandardOutput=journal
 StandardError=inherit
@@ -25,15 +36,12 @@ TimeoutStopSec=5
 KillSignal=INT
 SendSIGKILL=yes
 SuccessExitStatus=0
+
+# Add environment variables
+Environment=PYDIO_LOGS_LEVEL=production
+
 [Install]
 WantedBy=multi-user.target
-```
-
-If you are running Pydio Cells in a production environment, you probably want to enable production logging:
-
-```conf
-# Add an environment variable in the [Service] section
-Environment=PYDIO_LOGS_LEVEL=production
 ```
 
 Then, enable and start the service:
@@ -46,19 +54,5 @@ sudo systemctl start cells
 By default, logs can then be found in `<CELLS_WORKING_DIR>/logs/` folder, typically, on Linux:
 
 ```sh
-tail -200f /home/pydio/.config/pydio/cells/logs/cells.log
-```
-
-#### Alternative configuration
-
-If you prefer having the logs integrated in the standard `journalctl` service, you can replace the `ExecStart` directive from the above file with:
-
-```conf
-ExecStart=/home/pydio/cells start
-```
-
-The output of the service can then be tailed with this command:
-
-```sh
-sudo journalctl -f -u cells
+tail -200f /home/pydio/.config/pydio/cells/logs/pydio.log
 ```
