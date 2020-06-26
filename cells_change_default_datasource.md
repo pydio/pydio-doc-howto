@@ -1,31 +1,43 @@
-In a fresh install of Pydio Cells, the application creates 3 default datasources, namely:
+During the installation process, the application creates 3 default datasources. Namely:
 
-- **pydiods1**: default data source for shared files: the `Common Files` workspace that exists at startup points here
-- **personal**: contains "My Files"-like workspaces for each user
-- **cellsdata**: is used to create _cells_ when no root node has been defined upon creation
+- **pydiods1**: the default datasource for shared files. The `Common Files` workspace (that exists at startup) points here.
+- **personal**: contains "My Files"-like workspaces for each user.
+- **cellsdata**: is used to create _cells_ when no root node has been defined upon creation.
 
-By default, these are created under `<CELLS_WORKING_DIR>/data/`.
+**By default, these datasources are local FS based and the corresponding folders are created under `<CELLS_DATA_DIR>`**
 
-Furthermore, there are three S3 buckets that are used to store internal and technical data:
+`<CELLS_DATA_DIR>` is defined as `<CELLS_WORKING_DIR>/data/` if not explicitely overridden.
 
-- **thumbs**: stores the thumbnails
-- **versions**: stores the old versions of the files, when the versioning is enabled on a given DS
-- **binaries**: service docstore, stores various things, for instance: avatars, custom background...
+Furthermore, the application also create three S3 buckets that are used to store internal and technical data:
 
-By default, these 3 buckets are siblings of the `pydiods1` folder that can be found under `<CELLS_WORKING_DIR>/data/`. This is defined in the main config: for each one of these _technical buckets_ we specify a name and a DS. Under the hood, the system retrieves the object service that is linked to the specified DS and thus retrieves S3 connection information ( (more info on this here)[TODO] ).
+- **thumbs**: stores the thumbnails.
+- **versions**: stores the old versions of the files, when the versioning is enabled on a given DS.
+- **binaries**: service docstore. It stores various things, like e.g. avatars, custom backgrounds, etc.
 
-In the default setup, these buckets are created during installation process. In an S3 setup, you must first insure the buckets have been created.
+In the default setup, these 3 buckets are folders that are siblings of the `pydiods1` folder and can be also found under `<CELLS_DATA_DIR>`. These folders are created during the installation process.
 
-If you want to change the default layout, this is possible, but not straightforward; you have to understand what is hapenning and follow exactly the below steps. We plan on enhancing this in a future version soon.
+More generally speaking, the system uses the _object service_ that is linked to the _default datasource_ to create these buckets, see `defaults.datasource` attribute in the `pydio.json` configuration file. The system uses this object service to retrieve connection information: where to find and how to connect to the technical buckets.
 
-## Change default location still using local file system
+As from version **2.1** of Pydio Cells, if you want to change the default layout for both default DSs and technical buckets, we strongly advise to do so during the installation process: in the last page of the installation wizard, under "Advanced Configuration", you can choose another location for the default local FS based datasources or switch to S3-based default datasources.  
+This process is quite straight forward and self-explaining.
 
-### Are you sure?
+## Validate datasources are correctly configured
 
-Please, first take a step back and ask yourself if the various configuration parameters offered by the application are not enough to reach your goal. Typically, if you want to change default location of all those object to somewhere else on your local file system, you migth just have to set the `CELLS_DATA_DIR` environment variable (that is by default set to `<CELLS_WORKING_DIR>/data/`) before launching the installation process.  
-You will then have a fully working instance in no time.
+In order to double check everything is working correctly, you might perform following checks:
 
-If you want to have a more specific layout, go on reading.
+- Change your account avatar: it insures the `binaries` implicit DS runs OK
+- Upload an image: this checks the `thumbs` implicit DS
+- Turn versioning on for a workspace and modify a file: this validates `versions` implicit DS
+- Create a Cell with no root folder
+- Add a few files in both `My Files` and `Common Files` folder: you can then double check that the crorresponding buckets for instance in your S3 account contain the expected tree structure.
+
+## Legacy (version < v2.1) - Change default location still using local file system
+
+The update process in Pydio Cells is quite robust and easy to run. We strongly advise that you use the latest version (see above).
+
+Yet, if you are stuck with an older version, we still leave here this legacy procedure as a hint for you to change the default layout.
+
+It can be quite tricky and could lead to an unstable system, so you have to understand what is hapenning and follow exactly the below steps.
 
 ### My Files and Cells Data
 
@@ -96,7 +108,9 @@ If you were to change this, you can:
 
 - save and restart the app.
 
-## Switch to Amawon S3
+## Legacy (version < v2.1) - Switch to Amazon S3
+
+_One more time you should really use a recent version and do this during installation process rather than following the below procedure **at you own risks**_ 
 
 You can also tune your configuration to rather have all your Datasources and Bucket on S3. We present here a simple setup that introduces well the steps you have to go through. Feel free to then adapt to your specific use case.
 
@@ -154,11 +168,9 @@ Thus said, let's proceed to the next step by editing this file:
 
 [:image-popup:/devops/change_default_ds.png]
 
-Modify the higlighted part (by default it uses the default datasource `pydiods1`) to your new datasource, in our example `s3common`.
+Modify the higlighted part, `defaults.datasource` attribute value, that is `pydiods1` by default, to your new datasource, in our example `s3common`.
 
-You must then also update the following properties in the `services` section to use the bucket names you have created for thumbs, versions and binaries implicit DSs:
-
-Change these:
+Also update the following properties in the `services` section to use the bucket names you have created for the _implicit_ DSs (thumbs, versions and binaries):
 
 ```json
 ...
@@ -178,7 +190,7 @@ Change these:
  },
  ```
 
-to rather have (using the names of our example, adpt to your use case):
+must become (using _our_ names, adapt to your specific context):
 
 ```json
 ...
