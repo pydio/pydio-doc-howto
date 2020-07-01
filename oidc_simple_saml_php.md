@@ -47,9 +47,7 @@ Use the following configuration example to create a new connector :
   - Entity issuer: ```https://<your_cells_url_here>```
   - SSO issuer: ```https://<your_saml_url>/saml2/idp/metadata.php```
 
-[:image-popup:connectors/connector_simplesaml_01.png]
-
-
+[:image:connectors/connector_simplesaml_01.png]
 
 ## Excerpts from local testing configuration
 
