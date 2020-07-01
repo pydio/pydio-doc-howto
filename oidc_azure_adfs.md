@@ -17,15 +17,15 @@ Navigate to the Admin Console > Authentication > OAUTH2 / OIDC
 Use the following configuration example to create a new connector :
 
 ### Connector Options
-- Connector type : Microsoft
-- Id: <your_id_here>
-- Name: <your_name_here> (the name will appear to the end user in the Login dialog box)
+- Connector type : ```Microsoft```
+- Id: ```<your_id_here>```
+- Name: ```<your_name_here>``` (the name will appear to the end user in the Login dialog box)
 
 ### Microsoft Options
 - Credentials:
-  - Client ID: <your_client_id> (created in the precedent step)
-  - Client Secret: <your_client_secret> (created in the precedent step)
+  - Client ID: ```<your_client_id>``` (created in the precedent step)
+  - Client Secret: ```<your_client_secret>``` (created in the precedent step)
 - Redirect URI: (**generated - use it to register cells with the Microsoft Identity platform**)
-- Tenant: <your_tenant_id> (created in the precedent step)
+- Tenant: ```<your_tenant_id>``` (created in the precedent step)
 
 [:image:connectors/connector_azure_01.png]

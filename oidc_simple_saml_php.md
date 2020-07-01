@@ -19,7 +19,7 @@ metadata/saml20-sp-remote.php
  */
 $metadata['https://cells.lab.py/auth/dex/callback'] = [
     'AssertionConsumerService' => '<your_callback_url>',
-    'SingleLogoutService' => '<your_logout_url>',
+    'SingleLogoutService' => '<your_logout_url>,
 ];
 ```
 
@@ -27,25 +27,25 @@ $metadata['https://cells.lab.py/auth/dex/callback'] = [
 
 ## Add a SimpleSAMLphp connector in Cells
 
-Navigate to the Admin Console > Authentication > OAUTH2 / OIDC
+Navigate to the Admin Console &gt; Authentication &gt; OAUTH2 / OIDC
 
 Use the following configuration example to create a new connector :
 
 ### Connector Options
-- Connector type : SAML
-- Id: <your_id_here>
-- Name: <your_name_here> (the name will appear to the end user in the Login dialog)
+- Connector type : ```SAML```
+- Id: ```your_id_here```
+- Name: ```your_name_here``` (the name will appear to the end user in the Login dialog)
 
 ### SAML Options
-- SSO URL user for POST Value: https://<your_saml_url_here>/saml2/idp/SSOService.php
-- CA to use when validating the signature of the SAML response : <your_certificate_path_on_the_cells_server>
+- SSO URL user for POST Value: ```https://<your_saml_url_here>/saml2/idp/SSOService.php```
+- CA to use when validating the signature of the SAML response : ```<your_certificate_path_on_the_cells_server>```
 - Callback URL : (**generated - use it to register cells as a relying party trust in adfs**)
 - Name of the attributes to map in the ID Token Claims: (this will depend on your configuration - see excerpts below)
-  - Username: uid
-  - Email: email
+  - Username: ```uid```
+  - Email: ```email```
 - Manually specify issuers value:
-  - Entity issuer: https://<your_cells_url_here>
-  - SSO issuer: https://<your_saml_url>/saml2/idp/metadata.php
+  - Entity issuer: ```https://<your_cells_url_here>```
+  - SSO issuer: ```https://<your_saml_url>/saml2/idp/metadata.php```
 
 [:image-popup:connectors/connector_simplesaml_01.png]
 
