@@ -18,7 +18,7 @@ Go to `General Settings > App Clients` menu to create a new app client. Choose a
 
 Once it is created, use "Show Details" button to display the **App client id** and **App Client secret** fields : these values will be required when configuring the connector on the Cells side.
 
-Now go to `App Integration > App client settings` in the left-hand menu. Make sure that your new App client is enabled for all Identity Providers, and set up the Callback URL pointing to `https://local.pydio/auth/dex/callback`, and logout URL to `https://local.pydio/logout`.
+Now go to `App Integration > App client settings` in the left-hand menu. Make sure that your new App client is enabled for all Identity Providers, and set up the Callback URL pointing to `https://local.pydio/auth/login/callback`, and logout URL to `https://local.pydio/logout`.
 
 Under the OAuth2.0 section, check the boxes as shown on the image below.
 
@@ -40,7 +40,7 @@ Here you will need the connection data gathered at the previous step :
 
  * Canonical URL of the provider : use https://cognito-idp.{REGION_ID}.amazonaws.com/{POOL_ID}. That should look like https://cognito-idp.eu-west-2.amazonaws.com/eu-west-2_KcLwCelr7
  * Connector Authentication Values: use the Client ID / Client Secret of the Cognito Client App.
- * Redirection URL, use `https://local.pydio/auth/dex/callback`. Make sure that it exactly matches the Callback URL used in the cognito configuration.
+ * Redirection URL, use `https://local.pydio/auth/login/callback`. Make sure that it exactly matches the Callback URL used in the cognito configuration.
  
  [:image:connectors/cognito-06-cells-connector-urls.png]
  

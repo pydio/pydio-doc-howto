@@ -48,7 +48,7 @@ And set the following fields:
 Last step, name your app (make sure to remember your **ID** and **Secret**) :
 
 - **Authorized JavaScript origins:** Add your Pydio Cells url.
-- **Authorized redirect URIs**: add a redirect url such as `https://my-cells.com/auth/login/google/callback`, add at the end of your Pydio Cells URL **/auth/dex/callback** (this is the endpoint).
+- **Authorized redirect URIs**: add a redirect url such as `https://my-cells.com/auth/login/google/callback`, add at the end of your Pydio Cells URL **/auth/login/callback** (this is the endpoint).
   
 [:image:cells/authentication/sso_with_oauth2/google/create_client_id_2.png]
 

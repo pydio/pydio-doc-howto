@@ -8,7 +8,7 @@ Create a New OAuth Application on **Github**,
 
 - **Application name:** Name your application
 - **Homepage URL:** Your pydio Cells URL (main page)
-- **Authorization callback URL:** http(s)://your-pydio**/auth/dex/callback** (the endpoint is the immutable part)
+- **Authorization callback URL:** http(s)://your-pydio**/auth/login/callback** (the endpoint is the immutable part)
 
 [:image:cells/authentication/sso_with_oauth2/github/github_create_app_2.png]
 

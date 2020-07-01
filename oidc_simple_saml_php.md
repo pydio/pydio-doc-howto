@@ -17,7 +17,7 @@ metadata/saml20-sp-remote.php
 /*
  * Example SimpleSAMLphp SAML 2.0 SP
  */
-$metadata['https://cells.lab.py/auth/dex/callback'] = [
+$metadata['https://cells.lab.py/auth/login/callback'] = [
     'AssertionConsumerService' => '<your_callback_url>',
     'SingleLogoutService' => '<your_logout_url>,
 ];
