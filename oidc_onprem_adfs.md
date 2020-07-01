@@ -24,7 +24,7 @@ It can also be configured afterwards in the Identifiers tab of the Relying Party
 
 [:image:connectors/connector_onpremiseadfs04.png]
 
-## Add an ADFS connector in Cells
+## Add ADFS connector in Cells
 
 Navigate to the Admin Console &gt; Authentication &gt; OAUTH2 / OIDC
 

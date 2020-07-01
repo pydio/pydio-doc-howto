@@ -7,10 +7,7 @@ Please visit [this article](https://docs.microsoft.com/en-us/graph/auth-register
 
 *:warning: The callback url (or redirect uri) is generated in the step below. The format of the url may vary depending on the version of Cells so please refer to your admin console.*
 
-## Add new connector in Cells
-When you finished the registration new app in Azure, go to the admin console of Cells to add a new connector: type "Microsoft"
-
-## Add an Microsoft Identity connector in Cells
+## Add a Microsoft Identity connector in Cells
 
 Navigate to the Admin Console > Authentication > OAUTH2 / OIDC
 
