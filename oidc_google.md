@@ -8,10 +8,10 @@
 
 Default values
 
-| name            | value                                             |
-| --------------- | ------------------------------------------------- |
-| Issuer/Provider | https://accounts.google.com                       |
-| redirect_uri    | https://your-cells.com/auth/login/google/callback |
+| name            | value                                               |
+| --------------- | --------------------------------------------------- |
+| Issuer/Provider | `https://accounts.google.com`                       |
+| redirect_uri    | `https://your-cells.com/auth/login/google/callback` |
 
 ## Step 1
 
