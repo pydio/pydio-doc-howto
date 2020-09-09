@@ -1,6 +1,6 @@
 This tutorial quickly introduce how to set up and run [Prometheus](https://prometheus.io) and [Grafana](https://grafana.com) to gather and display metrics for your Pydio Cells instance.
 
-_Please note that it is an Enterprise Distribution only feature._
+_Please note that this feature is only available in the Enterprise Distribution._
 
 ### Enabling metrics
 

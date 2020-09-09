@@ -7,11 +7,6 @@ Thus you have:
 - defined `CELLS_WORKING_DIR` as `/var/cells`
 - the downloaded binary at `/opt/pydio/bin/cells`
 - a `pydio` user that has correct rights on `/opt/pydio` (read and execute) and `/var/cells`
-- the `pydio` user has **only** `sudo` permission to execute the setcap command. Typically on Linux, do:
-
-```sh
-echo "pydio        ALL=(ALL)       NOPASSWD: /sbin/setcap 'cap_net_bind_service=+ep' /opt/pydio/bin/cells" | sudo tee -a /etc/sudoers.d/pydio
-```
 
 Create a new `/etc/systemd/system/cells.service` file with following content:
 
@@ -24,11 +19,12 @@ After=network-online.target
 AssertFileIsExecutable=/opt/pydio/bin/cells
 
 [Service]
-WorkingDirectory=/tmp/cells
 User=pydio
 Group=pydio
+WorkingDirectory=/home/pydio
 PermissionsStartOnly=true
-ExecStartPre=/usr/bin/sudo /sbin/setcap 'cap_net_bind_service=+ep' /opt/pydio/bin/cells
+
+AmbientCapabilities=CAP_NET_BIND_SERVICE
 ExecStart=/opt/pydio/bin/cells start
 Restart=on-failure
 StandardOutput=journal
@@ -41,8 +37,8 @@ SuccessExitStatus=0
 
 # Add environment variables
 Environment=PYDIO_LOGS_LEVEL=production
-Environment=CELLS_WORKING_DIR=/var/cells
 Environment=PYDIO_ENABLE_METRICS=false
+Environment=CELLS_WORKING_DIR=/var/cells
 
 [Install]
 WantedBy=multi-user.target
@@ -78,11 +74,9 @@ In the above file, we also overwrite the default systemd configuration for the w
 ```conf
 ...
 [Service]
-WorkingDirectory=/tmp/cells
+WorkingDirectory=/home/pydio
 ...
 ```
-
-Thus the _current directory_ for the various processes that are launched by the app is `/tmp/cells`, that we find safer than the default location that is usually the home directory of the user that runs the app.
 
 Please note that this directory **must exist and be writable** before launching the application.
 

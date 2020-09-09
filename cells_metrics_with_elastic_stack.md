@@ -3,8 +3,7 @@ References:
 - https://www.elastic.co/guide/en/elasticsearch/reference/current/install-elasticsearch.html#install-elasticsearch
 - https://www.elastic.co/guide/en/beats/filebeat/current/keystore.html
 
-
-## Docker Way
+## With Docker
 
 The docker method is the easiest, you do not need to install java or/and other dependencies.
 

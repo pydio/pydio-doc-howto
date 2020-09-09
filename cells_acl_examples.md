@@ -27,7 +27,7 @@ You can also apply this rule to Cells, Share links and so on.
 
 [:image-popup:/cells/acls_example/5.png]
 
-- Add a condition and choose `RemoteAddress`: 
+- Add a condition and choose `RemoteAddress`:
 
 [:image-popup:/cells/acls_example/6.png]
 
@@ -49,19 +49,18 @@ You can also apply this rule to Cells, Share links and so on.
 
 [:image-popup:/cells/acls_example/10.png]
 
-
 ### Allow access for a specific IP range
 
 You could also do the opposite and only give access to a list of IP by using `StringNotMatchCondition`.
 
-_IMPORTANT: Security policies as provided by Pydio Cells are both "Deny By Default" and "First Deny Wins". It means than when no policy is defined, the resources is not available. It also means that if we have 2 rules that are applied to the same resource for the same subject, if one gives access and the other forbids it, the **resource is not available**_.
+_IMPORTANT: Security policies, as provided by Pydio Cells, are both "Deny By Default" and "First Deny Wins". It means that, when no policy is defined, the resources are not available. It also means that if we have 2 rules that are applied to the same resource for the same subject, if one gives access and the other forbids it, the **resource is not available**_.
 
 Thus to allow access, you only have to define **one** rule that explicitely gives the access for the required IP range. So:
 
 - Create a New Policy (Policy Type: `Context-based ACLs`)
 - Create a rule that **allows access** to specific **IP addresses** or a **range**.
 
-Corresponding JSON can then be something like: 
+Corresponding JSON can then be something like:
 
 ```json
 {
@@ -72,7 +71,7 @@ Corresponding JSON can then be something like:
 }
 ```
 
-_Note that you can also add multiple _string conditions_ by separating them with a pipe `|` character. For instance:
+Note that you can also add multiple _string conditions_ by separating them with a pipe `|` character. For instance:
 
 `192.168.0.*|192.168.3.2|...`
 
@@ -80,13 +79,11 @@ _Note that you can also add multiple _string conditions_ by separating them with
 
 ## Date/Time Restrictions
 
-
-
 ## REST method Restrictions
 
 -->
 
-## ACLs values:
+## ACLs values
 
 ### Actions
 
@@ -115,4 +112,4 @@ _Note that you can also add multiple _string conditions_ by separating them with
 | WithinPeriodCondition   | `"matches"` | `"matches": "2018-02-01T00:00+0100/2018-04-01T00:00+0100"` | condition is true if date is within the range of match          |
 | OfficeHoursCondition    | `"matches"` | `"matches": "Monday-Friday/09:00/18:30"`                   | condition is true if date & time are within the match           |
 
-_Note: under the hood, Cells uses we internally use [LADON](https://github.com/ory/ladon), you might find  it useful to refer to their documentation, typically on [conditions](https://github.com/ory/ladon#conditions) to gain a deeper understanding of what you can do and how_ 
+_Note: under the hood, Cells uses we internally use [LADON](https://github.com/ory/ladon), you might find  it useful to refer to their documentation, typically on [conditions](https://github.com/ory/ladon#conditions) to gain a deeper understanding of what you can do and how_.
