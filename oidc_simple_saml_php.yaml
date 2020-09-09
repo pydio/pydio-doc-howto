@@ -1,5 +1,5 @@
-title: "Using SimpleSAML PHP server as an Identity Provider"
-abstract: "[Cells Enterprise] Using SimpleSAML PHP server as an Identity Provider"
+title: "Connect to Pydio Cells via SimpleSAML PHP"
+abstract: "[Cells Enterprise] Connect to Pydio Cells via SimpleSAML PHP"
 language: und
 category: Identity Management
 tags:

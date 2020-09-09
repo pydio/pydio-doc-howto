@@ -1,22 +1,28 @@
-This how-to shows you how to let users authenticate to Cells Enterprise using the Azure Active Directory Fedaration Service identity platform on Microsoft Azure.
+## About Microsoft Identity Platform
 
-### Register cells application in Azure
-Please visit [this article](https://docs.microsoft.com/en-us/graph/auth-register-app-v2) to register new application on azure.
-- The redirect URI (or reply URL) for cells application is always in format: https://server.cells.domain/auth/dex/callback
-- You should create a new "client secret" in "Certificates and secrets" of new registed application
-  [:image-popup:connectors/connector_azure_08.png]
+Microsoft Identity Platform offers registration and configuration of applications that sign in all Microsoft Identities and get tokens to call Microsoft APIs like Microsoft Graph or other APIs. It consists of a fully compliant OAuth2 and OpenID Connect standard-compliant authentication service. It is an evolution of the Azure Active Directory (Azure AD) developer platform.
 
-When finished, takes a note on following information:
-- Directory (tenent) ID
-- Client Secret
-- The OpenID Connect metadata document ([document link](https://login.microsoftonline.com/tenentId/v2.0)). 
-  
-  In Cells, the metadata url is automatically added ".well-known/openid-confuguration" at the end. It looks like: https://login.micosoftonline.com/[tenant_id]/v2.0
-   [:image-popup:connectors/connector_azure_07.png]  
+### Register cells application with the Microsoft Identity Platform
+Please visit [this article](https://docs.microsoft.com/en-us/graph/auth-register-app-v2) to register a new application.
 
-## Add new connector in Cells
-When you finished the registration new app in Azure, go to the admin console of Cells to add a new connector: type "Microsoft"
-  [:image-popup:connectors/connector_azure_01.png]
+*:warning: The callback url (or redirect uri) is generated in the step below. The format of the url may vary depending on the version of Cells so please refer to your admin console.*
 
-  [:image-popup:connectors/connector_azure_01.png]
+## Add a Microsoft Identity connector in Cells
 
+Navigate to the Admin Console > Authentication > OAUTH2 / OIDC
+
+Use the following configuration example to create a new connector :
+
+### Connector Options
+- Connector type : ```Microsoft```
+- Id: ```<your_id_here>```
+- Name: ```<your_name_here>``` (the name will appear to the end user in the Login dialog box)
+
+### Microsoft Options
+- Credentials:
+  - Client ID: ```<your_client_id>``` (created in the precedent step)
+  - Client Secret: ```<your_client_secret>``` (created in the precedent step)
+- Redirect URI: (**generated - use it to register cells with the Microsoft Identity platform**)
+- Tenant: ```<your_tenant_id>``` (created in the precedent step)
+
+[:image:connectors/connector_azure_01.png]
