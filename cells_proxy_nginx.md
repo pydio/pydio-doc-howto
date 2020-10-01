@@ -47,6 +47,10 @@ server {
         client_max_body_size 200M;
         server_name example.pydio.com;
 
+        proxy_send_timeout   600;
+        proxy_read_timeout   600;
+        proxy_request_buffering off;
+
         location / {
                 proxy_buffering off;
                 proxy_pass https://192.168.0.12:8080$request_uri;
