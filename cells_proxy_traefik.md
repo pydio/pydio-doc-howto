@@ -19,7 +19,6 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     command:
       - --providers.docker
-      - --log.level=DEBUG
       - --api
       - --entrypoints.web.address=:80
     labels:
