@@ -9,19 +9,23 @@ In this tutorial, we shortly present a basic setup to use an Apache webserver as
 During the installation process, instead of the default settings, enter a configuration similar to this:
 
 ```conf
-Internal URL: cells.example.com:7070
-External Host: http://cells.example.com
+Bind URL: cells.example.com:7070
+External URL: https://cells.example.com
 ```
 
-- Internal Host: address where the application http server is bound to. It MUST contain a server name and a port.
-- External host: url the end user will use to connect to the application, (in this case the external is the reverse proxy, because it will be used to access Cells)
+To configure the external URL on cells, run the following command:
+
+```
+./cells configure sites
+```
+
+- Bind URL: interface and port on which Cells server is bound. It MUST contain a server name and a port.
+- External URL: the end user will use to connect to the application, (in this case the external is the reverse proxy, because it will be used to access Cells)
 - Protocol: if you are using SSL, the external host must be starting with `https://` (you don't need to specify the port)
 - Example:
-  If you want your application to run on the localhost at port 8080 with SSL 
-  and use the url `mycells.mypydio.com`,
-  then set CELLS_INTERNAL to `localhost:8080` and CELLS_EXTERNAL to `https://mycells.mypydio.com`.
 
-**If you wish to use the 0.0.0.0 address you must respect this rule, cells_bind has to be exactly like this `cells_internal=0.0.0.0:<port>` and `cells_external=<domain name or IP address>:<port>`, the *port* is mandatory in both otherwise you will have a grey screen stuck in the loading**
+Assuming that your reverse proxy is running alongside Cells, on localhost on port 8080. 
+then set the bind address to `localhost:8080` and external address to `https://mycells.mypydio.com`.
 
 ### Configure Apache
 
@@ -87,17 +91,17 @@ Please note:
 - The **AllowEncodedSlashes** enabled, may be necessary if not activated globally in Apache. It enables API calls like `/a/meta/bulk/path%2F%to%2Ffolder`.
 - When configuring Cells, even on another port, **make sure to bind it directly to the cells.example.com** as well (like Apache). This is necessary for the presigned URL used with S3 API for uploads and downloads (they used signed headers and a mismatch between received Host headers may break the signature). Another option is to still bind Cells using a local IP, then in the Admin Settings, under Configs Backend, use the field “Replace Host Header for S3 Signature” and use the internal IP here.
 - `nocanon` is required after the **ProxyPass** to be able to download files that contains special characters such as commas/parthensis.
-
+- **websocket** make sure to proxy the websocket depending on your protocol (ws, or wss).
 
 
 ### Cells Sync
 
-Unfortunately apache does not seem to completely support gRPC therefore you will require the use of another reverse proxy for the gRPC part (tied to the Cells Sync desktop application).
+Unfortunately apache does not seem to completely support gRPC therefore you probably will need to use another software to reverse proxy the gRPC part (tied to the Cells Sync desktop application).
 
 - You are running Cells with SSL (can be self_signed).
 - You have set the port with the following env variable `PYDIO_GRPC_EXTERNAL=33060`.
   
-> Note: you can use whatever value you wish for the port.
+> Note: the port defined for the gRPC can use any value.
 
 #### Caddy webserver
 

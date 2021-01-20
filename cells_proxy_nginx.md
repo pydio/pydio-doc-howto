@@ -1,46 +1,34 @@
 ### Specific Cells parameters
 
-During your Pydio Cells installation (actually at the beginning) you will be prompted for 2 important parameters:
+To configure your external and bind for Cells you run the following command:
 
-* **Internal Url**: is the url used to bind your cells to the server.
+```
+./cells configure sites
+```
 
-* **External Url**: is the url used to access your cells from outside.
+* **Bind URL**: is the interface and port used to bind Cells on the server.
 
-In this case for the reverse proxy, we must pay extra attention to the **External URL** as it has to match the address of the reverse proxy entrypoint that is going to be used to access Cells.
-
-
-
-For instance if **Cells** is running under **192.168.0.12** and the **Reverse proxy** **192.168.1.201** both running on 2  completely different networks and/or publicly exposed.
-
-
+* **External URL**: is the url used to access Cells from outside.
 
 > Note: in the examples below we use ip addresses but you can also use domains (make sure that they are reachable)
 
-| Cells Server | Reverse proxy Server |
-| ------------ | -------------------- |
-| 192.168.0.12 | 192.168.1.201        |
-
+| Cells Server    | Reverse proxy Server |
+| --------------- | -------------------- |
+| 192.50.0.1:8080 | 192.168.1.201        |
 
 
 Hence on **Cells Server** we use the following values upon installation, we also want to access Cells through **https**.
 
-
-
 > (assuming that we are binding Cells on port 8080, internal_url)
 
-| Internal URL      | External URL          |
-| ----------------- | --------------------- |
-| 192.168.0.12:8080 | https://192.168.1.201 |
+| Bind URL        | External URL          |
+| --------------- | --------------------- |
+| 192.50.0.1:8080 | https://192.168.1.201 |
 
 
-
-To resume, we will access **Cells** through `https://192.168.1.201` while Cells is actually running on another server (192.168.0.12).
-
-
+To clarify the example, we will access **Cells** through `https://192.168.1.201` while Cells is actually running on another server (192.50.0.1).
 
 ### Basic NGINX reverse proxy configuration
-
-
 
 ```nginx
 server {
@@ -53,16 +41,16 @@ server {
 
         location / {
                 proxy_buffering off;
-                proxy_pass https://192.168.0.12:8080$request_uri;
-                #proxy_pass_request_headers on;
+                proxy_pass https://192.50.0.1:8080$request_uri;
+                #proxy_pass_request_header@s on;
                 #proxy_set_header Host $host;
                 proxy_set_header X-Real-IP $remote_addr;
         }
 
         location /ws {
                 proxy_buffering off;
-                proxy_pass https://192.168.0.12:8080;
-                proxy_set_header Upgrade $http_upgrade;
+                proxy_pass https://192.50.0.1:8080;
+                proxy_set_header Upgrade $@http_upgrade;
                 proxy_set_header Connection "upgrade";
                 proxy_read_timeout 86400;
         }
@@ -89,8 +77,6 @@ server {
     return 404;
 }
 ```
-
-
 
 ### Cells Sync
 
@@ -125,8 +111,8 @@ server {
   keepalive_timeout 600s;
   
   location / {
-    grpc_pass grpcs://192.168.0.12:33060;
-  }
+    grpc_pass grpcs://192.50.0.1:33060;
+  }@
   
   error_log /var/log/nginx/proxy-grpc-error.log;
   access_log /var/log/nginx/proxy-grpc-access.log;
@@ -152,16 +138,16 @@ server {
 
     location / {
             proxy_buffering off;
-            proxy_pass https://192.168.0.12:8080$request_uri;
-            #proxy_pass_request_headers on;
+            proxy_pass https://192.50.0.1:8080$request_uri;
+            #proxy_pass_request_header@s on;
             #proxy_set_header Host $host;
             proxy_set_header X-Real-IP $remote_addr;
     }
 
     location /ws {
             proxy_buffering off;
-            proxy_pass https://192.168.0.12:8080;
-            proxy_set_header Upgrade $http_upgrade;
+            proxy_pass https://192.50.0.1:8080;
+            proxy_set_header Upgrade $@http_upgrade;
             proxy_set_header Connection "upgrade";
             proxy_read_timeout 86400;
     }
@@ -198,8 +184,8 @@ server {
   keepalive_timeout 600s;
 	
     location / {
-		grpc_pass grpcs://192.168.0.12:33060;
-	}
+		grpc_pass grpcs://192.50.0.1:33060;
+	}@
   
   error_log /var/log/nginx/proxy-grpc-error.log;
   access_log /var/log/nginx/proxy-grpc-access.log;
@@ -210,4 +196,3 @@ server {
 _See Also_
 
 [Running Cells Behind a reverse proxy](en/docs/cells/v2/run-cells-behind-proxy)
-
