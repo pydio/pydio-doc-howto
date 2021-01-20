@@ -1,7 +1,5 @@
 In this tutorial, we explain how to use a Caddy webserver as reverse proxy in front of a Pydio Cells installation.
 
-[:image-popup:/devops/caddy-black.png]
-
 Caddy is a lightweight webserver coded in Go language. It is embedded in Pydio Cells to serve as a gateway and expose the various services.
 For more details and to download, please visit the [Caddy website](https://caddyserver.com).
 
