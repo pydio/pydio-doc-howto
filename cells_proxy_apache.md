@@ -1,6 +1,6 @@
 In this tutorial, we shortly present a basic setup to use an Apache webserver as reverse proxy in front of a Pydio Cells installation.
 
-**_Cells Sync will not be able to work with apache2, apache is currently not completly supporting gRPC._**
+**_Cells Sync will not be able to work with apache2, apache is currently not completely supporting gRPC._**
 
 >> You can still use apache for the webUI, but if you wish to use **Cells Sync** you must also run another reverse proxy solely for the sync (**read chapter at the end**).
 
@@ -9,7 +9,7 @@ In this tutorial, we shortly present a basic setup to use an Apache webserver as
 During the installation process, instead of the default settings, enter a configuration similar to this:
 
 ```conf
-Bind URL: cells.example.com:7070
+Bind Address: cells.example.com:7070
 External URL: https://cells.example.com
 ```
 
@@ -19,7 +19,7 @@ To configure the external URL on cells, run the following command:
 ./cells configure sites
 ```
 
-- Bind URL: interface and port on which Cells server is bound. It MUST contain a server name and a port.
+- Bind Address: interface and port on which Cells server is bound. It MUST contain a server name and a port.
 - External URL: the end user will use to connect to the application, (in this case the external is the reverse proxy, because it will be used to access Cells)
 - Protocol: if you are using SSL, the external host must be starting with `https://` (you don't need to specify the port)
 - Example:
@@ -90,7 +90,7 @@ Please note:
 
 - The **AllowEncodedSlashes** enabled, may be necessary if not activated globally in Apache. It enables API calls like `/a/meta/bulk/path%2F%to%2Ffolder`.
 - When configuring Cells, even on another port, **make sure to bind it directly to the cells.example.com** as well (like Apache). This is necessary for the presigned URL used with S3 API for uploads and downloads (they used signed headers and a mismatch between received Host headers may break the signature). Another option is to still bind Cells using a local IP, then in the Admin Settings, under Configs Backend, use the field “Replace Host Header for S3 Signature” and use the internal IP here.
-- `nocanon` is required after the **ProxyPass** to be able to download files that contains special characters such as commas/parthensis.
+- `nocanon` is required after the **ProxyPass** to be able to download files that contains special characters such as commas/quotes.
 - **websocket** make sure to proxy the websocket depending on your protocol (ws, or wss).
 
 
