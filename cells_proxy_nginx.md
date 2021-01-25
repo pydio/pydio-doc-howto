@@ -6,22 +6,17 @@ To configure your external and bind for Cells you run the following command:
 ./cells configure sites
 ```
 
-* **Bind URL**: is the interface and port used to bind Cells on the server.
+* **Bind Address**: is the interface and port used to bind Cells on the server.
 
 * **External URL**: is the url used to access Cells from outside.
 
 > Note: in the examples below we use ip addresses but you can also use domains (make sure that they are reachable)
 
-| Cells Server    | Reverse proxy Server |
-| --------------- | -------------------- |
-| 192.50.0.1:8080 | 192.168.1.201        |
-
-
 Hence on **Cells Server** we use the following values upon installation, we also want to access Cells through **https**.
 
-> (assuming that we are binding Cells on port 8080, internal_url)
+> (assuming that we are binding Cells on the following ip 192.50.0.1 and port 8080)
 
-| Bind URL        | External URL          |
+| Bind Address        | External URL          |
 | --------------- | --------------------- |
 | 192.50.0.1:8080 | https://192.168.1.201 |
 
