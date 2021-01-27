@@ -1,6 +1,6 @@
 _This guide describes the steps required to have Pydio Cells running on macOS_.
 
-[:image:2_running_cells_in_production/logos-os/logo-mac.png]
+[:image:logos-os/logo-mac.png]
 
 ## Requirements
 
