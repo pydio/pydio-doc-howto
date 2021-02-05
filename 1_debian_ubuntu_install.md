@@ -146,7 +146,8 @@ cells start
 
 And try to connect and login at `https://<YOUR PUBLIC IP>:8080`
 
-**Note**: At this stage, we start the server in _foreground_ mode. It is important that you always **stop** the server using the `CTRL + C` shortcut before calling the `start` command again.
+**Note**:  
+At this stage, we start the server in **foreground** mode. It is important that you **always stop** the server using the `CTRL + C` shortcut before calling the `start` command again.
 
 ### Declare site and generate Let's Encrypt Certificate
 
@@ -242,7 +243,9 @@ After a few seconds, you should also be able to connect to your web site at `htt
 
 In this tutorial, we use [UncomplicatedFirewall (UFW)](https://wiki.ubuntu.com/UncomplicatedFirewall).
 
-**Note**: just after firewall install, it is a good idea to temporary  **disable** the firewall service: thus, if you make a mistake while configuring it and loose your SSH access, you only have to reboot your server to _turn it off_.
+**Note**:  
+Just after firewall install, it is a good idea to temporary  **disable** the firewall service:  
+if you make a mistake while configuring it and loose your SSH access, you only have to reboot your server to _turn it off_.
 
 ```sh
 sudo apt install ufw
