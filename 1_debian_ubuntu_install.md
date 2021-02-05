@@ -43,7 +43,7 @@ sudo chmod 0755 /etc/profile.d/cells-env.sh
 
 #### Verification
 
-Log-in as pydio user and insure ENV variable are correctly set:
+Log-in as `pydio` user and insure ENV variable are correctly set:
 
 ```sh
 sysadmin@server:~$ sudo su - pydio 
@@ -111,7 +111,7 @@ sudo ln -s /opt/pydio/bin/cells /usr/local/bin/cells
 
 #### Verification
 
-As pydio user, call the version command:
+As `pydio` user, call the `version` command:
 
 ```sh
 sudo su - pydio 
@@ -122,14 +122,14 @@ cells version
 
 ### Configure the server
 
-As `pydio` user, call the configure command:
+As `pydio` user, call the `configure` command:
 
 ```sh
 sudo su - pydio 
 cells configure
 ```
 
-If you choose `Browser install` at the first prompt, you can access the configuration wizard at `https://<YOUR PUBLIC IP>:8080` after accepting the self-signed certificate. (Insure the port 8080 is free and not blocked by the firewall).
+If you choose `Browser install` at the first prompt, you can access the configuration wizard at `https://<YOUR PUBLIC IP>:8080` after accepting the self-signed certificate. (Insure the port `8080` is free and not blocked by a firewall).
 
 You can also finalise the configuration from the command line by answering the few questions.
 
@@ -285,7 +285,7 @@ Warning: no private IP detected for binding broker. Will bind to <YOUR PUBLIC IP
 
 #### Explication
 
-Internally, Cells is implemented with a microservice oriented architecture: each simple feature is implemented as an independant brick that exposes a set of internal APIs inside Cells.
+Internally, Pydio Cells is implemented with a microservice oriented architecture: each simple feature is implemented as an independant brick that exposes a set of internal APIs inside Cells.
 
 All microservices communicate together via gRPC, a HTML2 based protocol. It is important that this communication happens on a private network for better security.
 
@@ -293,7 +293,7 @@ On single instance servers, this is done by using a private IP of the server.
 
 #### How to fix
 
-Simply declare a private virtual interface. For instance if your main interface is called `eno1`, simply add this at the end of the `/etc/network/interfaces` file (after a proper backup):
+Simply declare a private virtual interface. For instance, if your main interface is called `eno1`, simply add this at the end of the `/etc/network/interfaces` file (after a proper backup):
 
 ```conf
 # virtual IP on eno1
