@@ -1,7 +1,5 @@
 
-## Introduction
-
-Although configuring Pydio Cells for [a simple test](./quick-start) on a Debian-like server is straight-forward, this guide gathers stronly-opinated choices and best practices to guide you through the steps required to prepare a server that is production-ready and reasonnably secured.
+_Although configuring Pydio Cells for [a simple test](./quick-start) on a Debian-like server is straight-forward, this guide gathers stronly-opinated choices and best practices to guide you through the steps required to prepare a server that is production-ready and reasonnably secured._
 
 **Usecase**
 
@@ -11,7 +9,7 @@ Deploying a self-contained Pydio Cells instance on a web-facing Debian 10 server
 
 - **CPU/Memory**: 4GB RAM, 2 CPU
 - **Storage**: 100GB SSD hard drive: you may need more space to store more documents.
-- **Operating System**: 
+- **Operating System**:
   - Debian (8, 9, 10), Ubuntu (16, 18, 20), Raspbian (Jessie or Stretch).  
   - A user with sudo rights that can connect to the server via SSH (called `sysadmin` in this guide)
   - _Note: The present guide uses a Debian 10 (Buster) server.  You might have to adapt some commands if you use a different version or flavour._
