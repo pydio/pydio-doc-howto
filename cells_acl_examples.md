@@ -1,4 +1,4 @@
-This chapter presents some real-life use cases of the ACL feature. At the bottom of the page, you can find a more exhaustive glossary.
+This chapter presents some real-life use cases of the ACL feature. At the bottom of the page, you can find a more complete glossary.
 
 For a deeper understanding on how Security Policy work you might also refer [to the corresponding section of our administration guide](en/docs/cells/v2/security-policies).
 
@@ -55,7 +55,7 @@ You could also do the opposite and only give access to a list of IP by using `St
 
 _IMPORTANT: Security policies, as provided by Pydio Cells, are both "Deny By Default" and "First Deny Wins". It means that, when no policy is defined, the resources are not available. It also means that if we have 2 rules that are applied to the same resource for the same subject, if one gives access and the other forbids it, the **resource is not available**_.
 
-Thus to allow access, you only have to define **one** rule that explicitely gives the access for the required IP range. So:
+Thus to allow access, you only have to define **one** rule that explicitely gives the access for the required IP range:
 
 - Create a New Policy (Policy Type: `Context-based ACLs`)
 - Create a rule that **allows access** to specific **IP addresses** or a **range**.

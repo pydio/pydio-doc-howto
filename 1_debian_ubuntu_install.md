@@ -1,176 +1,318 @@
 
-_This guide describes the steps required to have Pydio Cells running on Debian and Ubuntu_.
+Installing and configuring Pydio Cells on a _Debian_-like server is easy and straight forward. If you know what you are doing, you probably do not need this guide.
 
-[:image:logos-os/logo-debian.png]
+However, you can follow the steps below to prepare a server that is production ready and reasonnably secured. We have gathered strongly-opiniated choices and best practices based on our experience and feedback of our community.
 
-[:image:logos-os/logo-ubuntu.png]
+The present guide uses a Debian 10 (Buster) server, you might have to adapt some commands if you use a different version or flavour:  
+we regularly test with the latest LTS version of Debian and Ubuntu, but the AMD64 versions of these distributions are known to work: Debian (8, 9, 10), Ubuntu (16, 18, 20), Raspbian (Jessie or Stretch).
+
+## Mission statement
+
+You want to install a self-contained Pydio Cells instance on a webfacing Debian 10 server from scratch.
+
+The main website is exposed at `https://<your-fqdn>` using Let's Encrypt certificate.
+
+If you only want to _quick-test_ cells, please refer to the [Quick Start Page]() of the admin guide. The below steps are only useful if you want to setup a live server following best-practices.
 
 ## Requirements
 
-### OS requirements
+A Debian 10 amd64 server with:
 
-You need the 64-bit version of one of these Debian or Ubuntu versions:
+- 4GB RAM, 2 CPU
+- 100GB SSD hard drive: you will need more place to store more documents...
+- At least one NIC connected to the internet
+- A user with sudo rights that can connect to the server via SSH (called `sysadmin` in this guide)
 
-- Debian 10 (Buster) LTS
-- Debian 9 (Stretch) LTS / Raspbian Stretch
-- Debian 8 (Jessie) LTS / Raspbian Jessie
-- Ubuntu 20.04 (Focal Fossa)
-- Ubuntu 18.04 (Bionic Beaver)
-- Ubuntu 16.04 (Xenial Xerus)
+A registered domain that points toward the public IP of your server: if you already know your IP address, it is a good idea to already add a `A Record` in your provider DNS so that the record has been already propagated when we need it.
 
-#### Dedicated User
+## Installation
 
-It is highly recommended to run Pydio Cells with a dedicated user.
+### Dedicated user and file system layout
 
-In this guide, we use a dedicated user **pydio** and its home directory **/home/pydio**.
+We recommended to run Pydio Cells with a dedicated `pydio` user with **no sudo** permission.
 
-In order to create a new user and its home directory execute this command:
+As `sysadmin` user on your server:
 
 ```sh
-sudo useradd -m pydio
+# Create pydio user with a home directory
+sudo useradd -m -s /bin/bash pydio
+
+# Create necessary folders
+sudo mkdir -p /opt/pydio/bin /var/cells/certs
+sudo chown -R pydio: /opt/pydio /var/cells
+
+# Add system-wide ENV var
+sudo tee -a /etc/profile.d/cells-env.sh << EOF
+export CELLS_WORKING_DIR=/var/cells
+export CADDYPATH=/var/cells/certs
+EOF
+sudo chmod 0755 /etc/profile.d/cells-env.sh
 ```
 
-#### Installation location
-
-By default, Cells is installed in a subdirectory in the `home` folder of the user that performs the installation. For instance, using the `pydio` user, it is `/home/pydio/.config/pydio/cells`.
-
-This is not recommanded for production use: we rather recommand installing Cells in `/var/cells`.
-
-To do so, you should follow the below steps:
-
-- Define a `CELLS_WORKING_DIR` environment variable
-- Put your binary in a dedicated location, we recommand `/opt/pydio/bin/`
-- Create a symbolic link from a location that is in your `PATH` that points toward the downloaded binary
-
-Typically:
+#### Verification
 
 ```sh
-# as root user
-
-# Create correct locations
-mkdir -p /opt/pydio/bin /var/cells
-
-# Define a system wide environment variable
-tee -a /etc/profile.d/cells-env.sh << EOF
-#Defines the path to Cells' working dir.
-export CELLS_WORKING_DIR=/var/cells
-EOF
-
-# Retrieve the binary
-downloadUrl=https://download.pydio.com/latest/cells/release/{latest}/linux-amd64/cells
-# Or for the Enterprise Distribution
-downloadUrl=https://download.pydio.com/latest/cells-enterprise/release/{latest}/linux-amd64/cells-enterprise
-wget --output-document=/opt/pydio/bin/cells $downloadUrl
-
-# Put a sym link in the path
-ln -s /opt/pydio/bin/cells /usr/local/bin/cells
-
-# Insure permissions are correctly set
-chown -R pydio:pydio /var/cells /opt/pydio
-chmod 0755 /etc/profile.d/cells-env.sh
-chmod 0755 /opt/pydio/bin/cells
+# Log-in as pydio user and insure ENV variable are correctly set
+sysadmin@server:~$ sudo su - pydio 
+pydio@server:~$ echo $CELLS_WORKING_DIR
+/var/cells
+pydio@server:~$ exit
 ```
 
 ### Database
 
-Pydio Cells can be installed with both MySQL Server (5.7 or higher) or MariaDB (10.3 or higher).
-
-#### MySQL
-
-##### Repository
-
-```bash
-wget https://repo.mysql.com/mysql-apt-config_0.8.9-1_all.deb
-sudo dpkg -i mysql-apt-config_0.8.9-1_all.deb
-```
-
-To access the correct repository :
-
-- Select the `MySQL Server & Cluster` option and press `Enter`
-- Select the correct option (`mysql-5.7` or `mysql-8`) and press `Enter`
-- Back on the first list, select `Ok` and press `Enter`
-
-##### Installation
+In this guide, we rely on the default MariaDB that is shipped with Debian Buster:
 
 ```sh
-sudo apt update
-sudo apt install mysql-server
+# Install the server from the default repository
+sudo apt install mariadb-server
+# Run the script to secure your install
+sudo mysql_secure_installation
+
+# Open MySQL CLI to create your database and a dedicated user
+sudo mysql -u root -p
 ```
 
-#### MariaDB
+In the MySQL prompt (do not forget to change password for mysql `pydio` user):
 
-We advise to use MariaDB 10.4.  
-Please refer to the well maintained [official installation guide on the MariaDB website](https://downloads.mariadb.org/mariadb/repositories/#distro=Debian&version=10.4).
-
-> If you plan going live, you probably want to execute this convenient script to reduce your attack surface:  
-> `mysql_secure_installation`
-
-#### Post install configuration
-
-By default, a new database will be created by the system during the installation process. You only need a user with database management permissions.
-
-If you would rather do it manually, you may create a dedicated user and an empty database by executing the following SQL queries :
-
-```SQL
-CREATE USER 'pydio'@'localhost' IDENTIFIED BY '<your-password-here>';
+```mysql
 CREATE DATABASE cells;
+CREATE USER 'pydio'@'localhost' IDENTIFIED BY '<PUT YOUR PASSWORD HERE>';
 GRANT ALL PRIVILEGES ON cells.* to 'pydio'@'localhost';
 FLUSH PRIVILEGES;
+exit
 ```
-## Install Pydio Cells
+
+#### Verification
+
+Check the service is running and log in as `pydio` user to insure everything is OK:
 
 ```sh
-# As pydio user, downlaod the latest version
-wget https://download.pydio.com/latest/cells/release/{latest}/linux-amd64/cells
-chmod u+x cells
+sudo systemctl status mariadb
+mysql -u pydio -p
 ```
-Run the configuration :
+
+### Retrieve binary
 
 ```sh
+# As pydio user
+sudo su - pydio 
+
+# Download correct binary
+distribId=cells 
+# or for Cells Enterprise
+# distribId=cells-enterprise 
+wget -O /opt/pydio/bin/cells https://download.pydio.com/latest/${distribId}/release/{latest}/linux-amd64/${distribId}
+
+# Make it executable
+chmod a+x /opt/pydio/bin/cells
+exit
+
+# As sysadmin user 
+# Add permissions to bind to default HTTP ports
+sudo setcap 'cap_net_bind_service=+ep' /opt/pydio/bin/cells
+
+# Declare the cells commands system wide
+sudo ln -s /opt/pydio/bin/cells /usr/local/bin/cells
+```
+
+#### Verification
+
+As pydio user, call the version command:
+
+```sh
+sudo su - pydio 
+cells version
+```
+
+## Configuration
+
+### Configure the server
+
+As `pydio` user, call the configure command:
+
+```sh
+sudo su - pydio 
 cells configure
 ```
 
-Once the configuration is finished , start Cells with:
+If you choose `Browser install` at the first prompt, you can access the configuration wizard at `https://<YOUR PUBLIC IP>:8080` after accepting the self-signed certificate. (Insure the port 8080 is free and not blocked by the firewall).
 
-```
+You can also finalise the configuration from the command line by answering the few questions.
+
+#### Verification
+
+If you used the browser install, you should already be able to login as `admin` user and upload a file.
+
+If you have done the CLI install, first start the server:
+
+```sh
+sudo su - pydio 
 cells start
 ```
 
-By default, to access the webui use your domain or address under the port **8080** (for instance `https://domain:8080`).
+And try to connect and login at `https://<YOUR PUBLIC IP>:8080`
 
+**Note**: At this stage, we start the server in _foreground_ mode. It is important that you always **stop** the server using the `CTRL + C` shortcut before calling the `start` command again.
 
-To configure a different interface and port for cells, run:
+### Declare site and generate Let's Encrypt Certificate
 
+At this point, we assume that:
+
+- your `A record` has been propagated: verify with `ping <YOUR_FQDN>` from your local workstation
+- both port 80 and 443 are free and not blocked by any firewall `sudo netstat -tulpn`
+
+Create a site:
+
+```sh
+sudo su - pydio 
+cells configure site
 ```
-cells configure sites
+
+- Choose create a new site
+- Choose `443` as bind port
+- Enter your FQDN as your bind address
+- Choose "Automagically generate certificate with Let's Encrypt"
+- Enter your Email, Accept Let's Encrypt EULA
+- Redirect default `HTTP` port toward `HTTPS`  
+- Double check and save.
+
+#### Verification
+
+Restart your serveur:
+
+```sh
+sudo su - pydio 
+cells start
 ```
 
-**Running Cells as a service is a good way to ensure that you have your server running if an event such as a power failure or else happens.**
+You should now be able to connect to your web site at `https://<YOUR_FQDN>` with a valid certificate.
 
-Refer to our knowledge base for a comprehensive guide on how to setup your Cells instance as a service.
+Stop your server once again before performing the finalisation steps.
 
-- [Run cells as a service with **systemd**](/en/docs/kb/deployment/running-cells-service-systemd)
-- [Run cells as a service with **supervisor**](/en/docs/kb/deployment/running-cells-service-supervisor)
+## Finalisation
 
+### Run your server as a service with systemd
 
+Create a configuration file `sudo vi /etc/systemd/system/cells.service` and add this:
+
+```conf
+[Unit]
+Description=Pydio Cells
+Documentation=https://pydio.com
+Wants=network-online.target
+After=network-online.target
+AssertFileIsExecutable=/opt/pydio/bin/cells
+
+[Service]
+User=pydio
+Group=pydio
+PermissionsStartOnly=true
+AmbientCapabilities=CAP_NET_BIND_SERVICE
+ExecStart=/opt/pydio/bin/cells start
+Restart=on-failure
+StandardOutput=journal
+StandardError=inherit
+LimitNOFILE=65536
+TimeoutStopSec=5
+KillSignal=INT
+SendSIGKILL=yes
+SuccessExitStatus=0
+WorkingDirectory=/home/pydio
+
+# Add environment variables
+Environment=PYDIO_LOGS_LEVEL=production
+Environment=CELLS_WORKING_DIR=/var/cells
+
+[Install]
+WantedBy=multi-user.target
+```
+
+Reload systemd daemon, enable and start cells:
+
+```sh
+sudo systemctl daemon-reload
+sudo systemctl enable cells
+sudo systemctl restart cells
+```
+
+#### Verification
+
+```sh
+# you can check the system logs to insure everything seems OK
+journalctl -fu cells -S -1h
+```
+
+After a few seconds, you should also be able to connect to your web site at `https://<YOUR_FQDN>` with a valid certificate.
+
+### Add a firewall
+
+In this tutorial, we use [UncomplicatedFirewall (UFW)](https://wiki.ubuntu.com/UncomplicatedFirewall).
+
+**Note**: just after firewall install, it is a good idea to temporary  **disable** the firewall service: thus, if you make a mistake while configuring it and loose your SSH access, you only have to reboot your server to _turn it off_.
+
+```sh
+sudo apt install ufw
+sudo ufw allow ssh
+sudo ufw allow http
+sudo ufw allow https
+sudo systemctl start ufw
+sudo systemctl status ufw
+```
+
+If you can still connect to your web GUI and open a ssh connection, re-enable the service and you should be good to go.
 
 ## Troubleshooting
 
-Generally, you might want to have a look at the log file that is located in `$CELLS_WORKING_DIR/logs`.
+### Main tips
 
-### Database server issue
-
-_After start, the web page is unreachable and you see a bunch of errors starting with: `ERROR   pydio.grpc.meta   Failed to init DB provider   {"error": "Error 1071: Specified key was too long; max key length is 767 bytes handling data_meta_0.1.sql"}`_.
-
-You might have an unsupported version of the mysql server: you should use MySQL server version 5.7 or higher or MariaDB version 10.3 or higher.
-
-### Various
-
-_You see this error: `/lib/x86_64-linux-gnu/libc.so.6: version 'GLIBC_2.14' not found`_
-
-The version of libc6 is outdated. Run these commands to upgrade it.
+When started as a service, you can see the logs with various methods:
 
 ```sh
-sudo apt-get update
-sudo apt-get install libc6
+# Pydio file logs
+tail -200f /var/cells/logs/pydio.log
+# Some of the microservices have their own log files, check:
+ls -lsah /var/cells/logs/
+
+# Check systemd files
+journalctl -fu cells -S -1h
+```
+
+### No private IP Address
+
+#### Symptom
+
+When starting `cells`, you see this warning:
+
+```sh
+Warning: no private IP detected for binding broker. Will bind to <YOUR PUBLIC IP ADDRESS>, which may give public access to the broker.
+```
+
+#### Explication
+
+Internally, Cells is implemented with a microservice oriented architecture: each simple feature is implemented as an independant brick that exposes a set of internal APIs inside Cells.
+
+All microservices communicate together via gRPC, a HTML2 based protocol. It is important that this communication happens on a private network for better security.
+
+On single instance servers, this is done by using a private IP of the server.
+
+#### How to fix
+
+Simply declare a private virtual interface. For instance if your main interface is called `eno1`, simply add this at the end of the `/etc/network/interfaces` file (after a proper backup):
+
+```conf
+# virtual IP on eno1
+auto eno1:0
+iface eno1:0 inet static
+address 10.0.0.1
+netmask 255.255.255.0
+network 10.0.0.0
+broadcast 10.0.0.255
+```
+
+To test everything is OK:
+
+```sh
+sudo ifup eno1:0
+sudo ip address
 ```
