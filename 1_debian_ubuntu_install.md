@@ -1,29 +1,23 @@
 
-Installing and configuring Pydio Cells on a _Debian_-like server is easy and straight forward. If you know what you are doing, you probably do not need this guide.
+## Introduction
 
-However, you can follow the steps below to prepare a server that is production ready and reasonnably secured. We have gathered strongly-opiniated choices and best practices based on our experience and feedback of our community.
+Although configuring Pydio Cells for [a simple test](./quick-start) on a Debian-like server is straight-forward, this guide gathers stronly-opinated choices and best practices to guide you through the steps required to prepare a server that is production-ready and reasonnably secured.
 
-The present guide uses a Debian 10 (Buster) server, you might have to adapt some commands if you use a different version or flavour:  
-we regularly test with the latest LTS version of Debian and Ubuntu, but the AMD64 versions of these distributions are known to work: Debian (8, 9, 10), Ubuntu (16, 18, 20), Raspbian (Jessie or Stretch).
+**Usecase**
 
-## Mission statement
+Deploying a self-contained Pydio Cells instance on a web-facing Debian 10 server, exposed at `https://<your-fqdn>` using Let's Encrypt certificate.
 
-You want to install a self-contained Pydio Cells instance on a webfacing Debian 10 server from scratch.
+**Requirements**
 
-The main website is exposed at `https://<your-fqdn>` using Let's Encrypt certificate.
-
-If you only want to _quick-test_ cells, please refer to the [Quick Start Page]() of the admin guide. The below steps are only useful if you want to setup a live server following best-practices.
-
-## Requirements
-
-A Debian 10 amd64 server with:
-
-- 4GB RAM, 2 CPU
-- 100GB SSD hard drive: you will need more place to store more documents...
-- At least one NIC connected to the internet
-- A user with sudo rights that can connect to the server via SSH (called `sysadmin` in this guide)
-
-A registered domain that points toward the public IP of your server: if you already know your IP address, it is a good idea to already add a `A Record` in your provider DNS so that the record has been already propagated when we need it.
+- **CPU/Memory**: 4GB RAM, 2 CPU
+- **Storage**: 100GB SSD hard drive: you may need more space to store more documents.
+- **Operating System**: 
+  - Debian (8, 9, 10), Ubuntu (16, 18, 20), Raspbian (Jessie or Stretch).  
+  - A user with sudo rights that can connect to the server via SSH (called `sysadmin` in this guide)
+  - _Note: The present guide uses a Debian 10 (Buster) server.  You might have to adapt some commands if you use a different version or flavour._
+- **Networking**:
+  - One NIC connected to the internet
+  - A registered domain that points toward the public IP of your server: if you already know your IP address, it is a good idea to already add a `A Record` in your provider DNS so that the record has been already propagated when we need it.
 
 ## Installation
 
@@ -51,8 +45,9 @@ sudo chmod 0755 /etc/profile.d/cells-env.sh
 
 #### Verification
 
+Log-in as pydio user and insure ENV variable are correctly set:
+
 ```sh
-# Log-in as pydio user and insure ENV variable are correctly set
 sysadmin@server:~$ sudo su - pydio 
 pydio@server:~$ echo $CELLS_WORKING_DIR
 /var/cells
@@ -260,7 +255,9 @@ sudo systemctl start ufw
 sudo systemctl status ufw
 ```
 
-If you can still connect to your web GUI and open a ssh connection, re-enable the service and you should be good to go.
+If you can still connect to your web GUI and open a ssh connection, re-enable the service.
+
+**You are now good to go**. Happy file sharing!
 
 ## Troubleshooting
 
