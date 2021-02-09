@@ -1,5 +1,5 @@
 
-_This guide contains strongly opinionated choices and best practices. It will show you the steps required for a production-ready and reasonnably secured server. For a simple test on a Debian-like server, you can skim through [this page](./quick-start)
+_This guide contains strongly opinionated choices and best practices. It will show you the steps required for a production-ready and reasonnably secured server. For a simple test on a Debian-like server, you can skim through [this page](./quick-start) instead.
 
 **Usecase**
 
