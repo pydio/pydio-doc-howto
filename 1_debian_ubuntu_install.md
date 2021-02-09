@@ -1,9 +1,10 @@
 
-_This guide contains strongly opinionated choices and best practices. It will show you the steps required for a production-ready and reasonnably secured server. For a simple test on a Debian-like server, you can skim through [this page](./quick-start) instead.
+_This guide contains strongly opinionated choices and best practices. It will show you the steps required for a production-ready and reasonnably secured server. For a simple test on a Debian-like server, you can skim through [this page](./quick-start) instead_.
 
 **Usecase**
 
-Deploy a self-contained Pydio Cells instance on a web-facing Debian 10 server, exposed at `https://<your-fqdn>` using a Let's Encrypt certificate.
+Deploy a self-contained Pydio Cells instance on a web-facing Debian 10 server,  
+exposed at `https://<your-fqdn>` using a Let's Encrypt certificate.
 
 **Requirements**
 
@@ -11,7 +12,7 @@ Deploy a self-contained Pydio Cells instance on a web-facing Debian 10 server, e
 - **Storage**: 100GB SSD hard drive
 - **Operating System**:
   - Debian (8, 9, 10), Ubuntu (16, 18, 20), Raspbian (Jessie or Stretch).  
-  - A user with sudo rights that can connect to the server via SSH (called `sysadmin` in this guide)
+  - An admin user with sudo rights that can connect to the server via SSH
   - _Note: The present guide uses a Debian 10 (Buster) server.  You might have to adapt some commands if you use a different version or flavour._
 - **Networking**:
   - One Network Interface Controller connected to the internet
@@ -23,7 +24,7 @@ Deploy a self-contained Pydio Cells instance on a web-facing Debian 10 server, e
 
 We recommend to run Pydio Cells with a dedicated `pydio` user with **no sudo** permission.
 
-As `sysadmin` user on your server:
+As admin user on your server:
 
 ```sh
 # Create pydio user with a home directory
