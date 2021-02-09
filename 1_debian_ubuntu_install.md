@@ -14,7 +14,7 @@ Deploy a self-contained Pydio Cells instance on a web-facing Debian 10 server, e
   - A user with sudo rights that can connect to the server via SSH (called `sysadmin` in this guide)
   - _Note: The present guide uses a Debian 10 (Buster) server.  You might have to adapt some commands if you use a different version or flavour._
 - **Networking**:
-  - One NIC connected to the internet
+  - One Network Interface Controller connected to the internet
   - A registered domain that points toward the public IP of your server: if you already know your IP address, it is a good idea to already add a `A Record` in your provider DNS so that the record has been already propagated when we need it.
 
 ## Installation
