@@ -1,14 +1,14 @@
 
-_Although configuring Pydio Cells for [a simple test](./quick-start) on a Debian-like server is straight-forward, this guide gathers stronly-opinated choices and best practices to guide you through the steps required to prepare a server that is production-ready and reasonnably secured._
+_This guide contains strongly opinionated choices and best practices. It will show you the steps required for a production-ready and reasonnably secured server. For a simple test on a Debian-like server, you can skim through [this page](./quick-start)
 
 **Usecase**
 
-Deploying a self-contained Pydio Cells instance on a web-facing Debian 10 server, exposed at `https://<your-fqdn>` using Let's Encrypt certificate.
+Deploy a self-contained Pydio Cells instance on a web-facing Debian 10 server, exposed at `https://<your-fqdn>` using a Let's Encrypt certificate.
 
 **Requirements**
 
 - **CPU/Memory**: 4GB RAM, 2 CPU
-- **Storage**: 100GB SSD hard drive: you may need more space to store more documents.
+- **Storage**: 100GB SSD hard drive
 - **Operating System**:
   - Debian (8, 9, 10), Ubuntu (16, 18, 20), Raspbian (Jessie or Stretch).  
   - A user with sudo rights that can connect to the server via SSH (called `sysadmin` in this guide)
@@ -21,7 +21,7 @@ Deploying a self-contained Pydio Cells instance on a web-facing Debian 10 server
 
 ### Dedicated user and file system layout
 
-We recommended to run Pydio Cells with a dedicated `pydio` user with **no sudo** permission.
+We recommend to run Pydio Cells with a dedicated `pydio` user with **no sudo** permission.
 
 As `sysadmin` user on your server:
 
@@ -43,7 +43,7 @@ sudo chmod 0755 /etc/profile.d/cells-env.sh
 
 #### Verification
 
-Log-in as `pydio` user and insure ENV variable are correctly set:
+Login as user `pydio` and make sure that the environment variables are correctly set:
 
 ```sh
 sysadmin@server:~$ sudo su - pydio 
@@ -54,7 +54,7 @@ pydio@server:~$ exit
 
 ### Database
 
-In this guide, we rely on the default MariaDB that is shipped with Debian Buster:
+We use the default MariaDB package shipped with Debian Buster:
 
 ```sh
 # Install the server from the default repository
@@ -66,7 +66,7 @@ sudo mysql_secure_installation
 sudo mysql -u root -p
 ```
 
-In the MySQL prompt (do not forget to change password for mysql `pydio` user):
+Start a MySQL prompt and create the database and the dedicated `pydio` user.
 
 ```mysql
 CREATE DATABASE cells;
@@ -78,7 +78,7 @@ exit
 
 #### Verification
 
-Check the service is running and log in as `pydio` user to insure everything is OK:
+Check the service is running and that the user `pydio` is correctly created:
 
 ```sh
 sudo systemctl status mariadb
@@ -111,7 +111,7 @@ sudo ln -s /opt/pydio/bin/cells /usr/local/bin/cells
 
 #### Verification
 
-As `pydio` user, call the `version` command:
+Call the command `version` as user `pydio`:
 
 ```sh
 sudo su - pydio 
@@ -122,29 +122,29 @@ cells version
 
 ### Configure the server
 
-As `pydio` user, call the `configure` command:
+Call the command `configure` as user `pydio`:
 
 ```sh
 sudo su - pydio 
 cells configure
 ```
 
-If you choose `Browser install` at the first prompt, you can access the configuration wizard at `https://<YOUR PUBLIC IP>:8080` after accepting the self-signed certificate. (Insure the port `8080` is free and not blocked by a firewall).
+If you choose `Browser install` at the first prompt, you can access the configuration wizard at `https://<YOUR PUBLIC IP>:8080` after accepting the self-signed certificate. (Ensure the port `8080` is free and not blocked by a firewall).
 
-You can also finalise the configuration from the command line by answering the few questions.
+You can alternatively finalise the configuration from the command line by answering a few questions.
 
 #### Verification
 
-If you used the browser install, you should already be able to login as `admin` user and upload a file.
+If you used the browser install, you can login in the web browser as user `admin`
 
-If you have done the CLI install, first start the server:
+If you have done the CLI install, you first need to start the server:
 
 ```sh
 sudo su - pydio 
 cells start
 ```
 
-And try to connect and login at `https://<YOUR PUBLIC IP>:8080`
+Connect and login at `https://<YOUR PUBLIC IP>:8080`
 
 **Note**:  
 At this stage, we start the server in **foreground** mode. It is important that you **always stop** the server using the `CTRL + C` shortcut before calling the `start` command again.
@@ -163,24 +163,24 @@ sudo su - pydio
 cells configure site
 ```
 
-- Choose create a new site
-- Choose `443` as bind port
-- Enter your FQDN as your bind address
+- Choose "Create a new site"
+- Choose `443` as the port to bind to
+- Enter your FQDN as the address to bind to
 - Choose "Automagically generate certificate with Let's Encrypt"
 - Enter your Email, Accept Let's Encrypt EULA
-- Redirect default `HTTP` port toward `HTTPS`  
+- Redirect default `HTTP` port towards `HTTPS`  
 - Double check and save.
 
 #### Verification
 
-Restart your serveur:
+Restart your server:
 
 ```sh
 sudo su - pydio 
 cells start
 ```
 
-You should now be able to connect to your web site at `https://<YOUR_FQDN>` with a valid certificate.
+Connect to your web site at `https://<YOUR_FQDN>`. A valid certificate is now used.
 
 Stop your server once again before performing the finalisation steps.
 
@@ -188,7 +188,7 @@ Stop your server once again before performing the finalisation steps.
 
 ### Run your server as a service with systemd
 
-Create a configuration file `sudo vi /etc/systemd/system/cells.service` and add this:
+Create a configuration file `sudo vi /etc/systemd/system/cells.service` with the following:
 
 ```conf
 [Unit]
@@ -237,15 +237,14 @@ sudo systemctl restart cells
 journalctl -fu cells -S -1h
 ```
 
-After a few seconds, you should also be able to connect to your web site at `https://<YOUR_FQDN>` with a valid certificate.
+Connect to your certified web site at `https://<YOUR_FQDN>`.
 
 ### Add a firewall
 
 In this tutorial, we use [UncomplicatedFirewall (UFW)](https://wiki.ubuntu.com/UncomplicatedFirewall).
 
 **Note**:  
-Just after firewall install, it is a good idea to temporary  **disable** the firewall service:  
-if you make a mistake while configuring it and loose your SSH access, you only have to reboot your server to _turn it off_.
+Just after the firewall is installed, it is better to temporary  **disable** the firewall service. This way, if you make a mistake and loose your SSH access, you only have to reboot your server to _turn it off_.
 
 ```sh
 sudo apt install ufw
@@ -264,7 +263,7 @@ If you can still connect to your web GUI and open a ssh connection, re-enable th
 
 ### Main tips
 
-When started as a service, you can see the logs with various methods:
+With cells as a service, you can reach the logs in different ways:
 
 ```sh
 # Pydio file logs
