@@ -1,12 +1,12 @@
-When deployed in production environment, we generally advise to run Pydio Cells as a systemd service.
+When deployed in production environment, we generally advise to run Pydio Cells as a `systemd` service.
 
-This configuration assumes that you have followed our recommended best practices during installation process, see our [detailed installation guides](/en/docs/cells/v2/os-specific-guides). Adapt to your specific setup if necessary.
+This configuration assumes that you have followed our [recommended best practices](./en/docs/cells/v2/best-practices) during the installation process. Adapt to your specific setup if necessary.
 
 Thus you have:
 
 - defined `CELLS_WORKING_DIR` as `/var/cells`
 - the downloaded binary at `/opt/pydio/bin/cells`
-- a `pydio` user that has correct rights on `/opt/pydio` (read and execute) and `/var/cells`
+- a `pydio` user that has correct (read and execute) permissions on `/opt/pydio` and `/var/cells`.
 
 Create a new `/etc/systemd/system/cells.service` file with following content:
 
@@ -36,8 +36,8 @@ SendSIGKILL=yes
 SuccessExitStatus=0
 
 # Add environment variables
-Environment=PYDIO_LOGS_LEVEL=production
-Environment=PYDIO_ENABLE_METRICS=false
+Environment=CELLS_LOGS_LEVEL=production
+Environment=CELLS_ENABLE_METRICS=false
 Environment=CELLS_WORKING_DIR=/var/cells
 
 [Install]
@@ -58,7 +58,7 @@ sudo systemctl start cells
 With the above configuration, Pydio Cells logs in rolling text files of 10MB under `<CELLS_WORKING_DIR>/logs/` folder. Typically, on Linux:
 
 ```sh
-tail -200f /var/cells/logs/cells.log
+tail -200f /var/cells/logs/pydio.log
 ```
 
 It is worth noting that logs are also outputed to the systemd standard loging system so that you can also see them with e.g.:
