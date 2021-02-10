@@ -1,121 +1,285 @@
-_This guide describes the steps required to have Pydio Cells running on a CentOS/RHEL 7 or 8 server._
 
-[:image:logos-os/logo-centos.png]
+_This guide contains strongly opinionated choices and best practices. It will show you the steps required for a production-ready and reasonnably secured server. For a simple test on a RHEL-like server, you can skim through [this page](./quick-start) instead_.
 
-## Prerequisites
+**Usecase**
+
+Deploy a self-contained Pydio Cells instance on a web-facing CentOS 7 server,  
+exposed at `https://<your-fqdn>` using a Let's Encrypt certificate.
+
+**Requirements**
+
+- **CPU/Memory**: 4GB RAM, 2 CPU
+- **Storage**: 100GB SSD hard drive
+- **Operating System**:
+  - CentOS, RHEL, Scientific Linux (6, 7, 8).  
+  - An admin user with sudo rights that can connect to the server via SSH
+  - _Note: The present guide uses a CentOS 7 server. You might have to adapt some commands if you use a different version or flavour._
+- **Networking**:
+  - One Network Interface Controller connected to the internet
+  - A registered domain that points toward the public IP of your server: if you already know your IP address, it is a good idea to already add a `A Record` in your provider DNS so that the record has been already propagated when we need it.
+
+## Installation
+
+### Dedicated user and file system layout
+
+We recommend to run Pydio Cells with a dedicated `pydio` user with **no sudo** permission.
+
+As admin user on your server:
+
+```sh
+# Create pydio user with a home directory
+sudo useradd -m -s /bin/bash pydio
+
+# Create necessary folders
+sudo mkdir -p /opt/pydio/bin /var/cells/certs
+sudo chown -R pydio: /opt/pydio /var/cells
+
+# Add system-wide ENV var
+sudo tee -a /etc/profile.d/cells-env.sh << EOF
+export CELLS_WORKING_DIR=/var/cells
+export CADDYPATH=/var/cells/certs
+EOF
+sudo chmod 0755 /etc/profile.d/cells-env.sh
+```
+
+#### Verification
+
+Login as user `pydio` and make sure that the environment variables are correctly set:
+
+```sh
+sysadmin@server:~$ sudo su - pydio 
+pydio@server:~$ echo $CELLS_WORKING_DIR
+/var/cells
+pydio@server:~$ exit
+```
 
 ### Database
 
-The only hard requirement is a running MySQL database server. We recommend using MariaDB, version 10.4.
-
-#### MariaDB
-
-We currently use MariaDB 10.4, here is the [official installation guide on the MariaDB website](https://downloads.mariadb.org/mariadb/repositories/#distro=CentOS&version=10.4&distro_release=centos8-amd64--centos8).
-
-Double check that the system specifications are OK and follow the detailed instructions.
-
-After installation, you should enable and start the service:
+The default MariaDB package shipped with CentOS 7 is to old, so we install MariaDB repo to get version 10.4:
 
 ```sh
+# Add MariaDB 10.4 CentOS repository list
+# See http://downloads.mariadb.org/mariadb/repositories/
+sudo mkdir -p /etc/yum.repos.d
+sudo tee /etc/yum.repos.d/MariaDB.repo << EOF
+[mariadb]
+name = MariaDB
+baseurl = http://yum.mariadb.org/10.4/centos7-amd64
+gpgkey=https://yum.mariadb.org/RPM-GPG-KEY-MariaDB
+gpgcheck=1
+EOF
+
+# Install and start the server
+sudo yum install MariaDB-server
 sudo systemctl enable mariadb
 sudo systemctl start mariadb
+# Run the script to secure your install
+sudo mysql_secure_installation
+
+# Open MySQL CLI to create your database and a dedicated user
+sudo mysql -u root -p
 ```
 
-#### MySQL
+Start a MySQL prompt and create the database and the dedicated `pydio` user.
 
-Install MySQL official community release repository.
-
-```bash
-sudo rpm -i http://dev.mysql.com/get/mysql-community-release-el7-5.noarch.rpm
-sudo yum update
-
-# install mysql-community-server package
-sudo yum install mysql-community-server
-
-# Set mysqld to start after reboot
-sudo systemctl enable mysqld
-
-# start the service now
-sudo systemctl start mysqld
-```
-
-#### Post install configuration
-
-By default, a new database is created by the system during the installation process. You only need a user with database management permissions.
-
-If you would rather do it manually, you may create a dedicated user and an empty database by executing the following SQL queries :
-
-```SQL
-CREATE USER 'pydio'@'localhost' IDENTIFIED BY '<your-password-here>';
+```mysql
 CREATE DATABASE cells;
+CREATE USER 'pydio'@'localhost' IDENTIFIED BY 'cells';
 GRANT ALL PRIVILEGES ON cells.* to 'pydio'@'localhost';
 FLUSH PRIVILEGES;
+exit
 ```
 
-### SELinux
+#### Verification
 
-There is no available configuration of SELinux for Pydio Cells. Please make sure that SELinux is disabled or running in permissive mode.
-
-To temporary disable SELinux: `sudo setenforce 0`.
-
-You can also permanently disable SELinux in `/etc/selinux/config`.
-
-### Dedicated User
-
-It is recommended to use a dedicated non-admin user to run Pydio Cells.
-
-In this guide, we use **pydio** and its home directory **/home/pydio**.
-
-In order to create a new user and its home directory execute this command:
+Check the service is running and that the user `pydio` is correctly created:
 
 ```sh
-sudo useradd -m pydio
-sudo passwd pydio
+sudo systemctl status mariadb
+mysql -u pydio -p
 ```
 
-To switch to this user:
+### Retrieve binary
 
 ```sh
-su - pydio
+# As pydio user
+sudo su - pydio 
+
+# Download correct binary
+distribId=cells 
+# or for Cells Enterprise
+# distribId=cells-enterprise 
+wget -O /opt/pydio/bin/cells https://download.pydio.com/latest/${distribId}/release/{latest}/linux-amd64/${distribId}
+
+# Make it executable
+chmod a+x /opt/pydio/bin/cells
+exit
+
+# As sysadmin user 
+# Add permissions to bind to default HTTP ports
+sudo setcap 'cap_net_bind_service=+ep' /opt/pydio/bin/cells
+
+# Declare the cells commands system wide
+sudo ln -s /opt/pydio/bin/cells /usr/local/bin/cells
 ```
 
-## Install Pydio Cells
+#### Verification
+
+Call the command `version` as user `pydio`:
 
 ```sh
-# As pydio user, downlaod the latest version
-wget https://download.pydio.com/latest/cells/release/{latest}/linux-amd64/cells
-chmod u+x cells
+sudo su - pydio 
+cells version
 ```
 
-Run the installer:
+## Configuration
+
+### Configure the server
+
+Call the command `configure` as user `pydio`:
 
 ```sh
+sudo su - pydio 
 cells configure
 ```
 
+If you choose `Browser install` at the first prompt, you can access the configuration wizard at `https://<YOUR PUBLIC IP>:8080` after accepting the self-signed certificate. (Ensure the port `8080` is free and not blocked by a firewall).
 
-Once finished, start Cells with:
+You can alternatively finalise the configuration from the command line by answering a few questions.
 
-```
-./cells start
-```
+#### Verification
 
-and access the web ui through your domain or address under the port **8080** (for instance `https://domain.com:8080`).
+If you used the browser install, you can login in the web browser as user `admin`
 
+First insure your firewall does not block the port 8080:
 
-To configure a different interface and port for cells, run the following command.
-
-```
-cells config sites
+```sh
+sudo firewall-cmd --add-port=8080/tcp
 ```
 
-**Running Cells as a service is a good way to ensure that you have your server running if an event such as a power failure or else happens.**
+If you have done the CLI install, you first need to start the server:
 
-Refer to our knowledge base for a comprehensive guide on how to setup your Cells instance as a service.
+```sh
+sudo su - pydio 
+cells start
+```
 
-- [Run cells as a service with **systemd**](/en/docs/kb/deployment/running-cells-service-systemd)
-- [Run cells as a service with **supervisor**](/en/docs/kb/deployment/running-cells-service-supervisor)
+Connect and login at `https://<YOUR PUBLIC IP>:8080`
+
+**Note**:  
+At this stage, we start the server in **foreground** mode. It is important that you **always stop** the server using the `CTRL + C` shortcut before calling the `start` command again.
+
+### Declare site and generate Let's Encrypt Certificate
+
+At this point, we assume that:
+
+- your `A record` has been propagated: verify with `ping <YOUR_FQDN>` from your local workstation
+- both port 80 and 443 are free and not blocked by any firewall `sudo netstat -tulpn`
+
+Create a site:
+
+```sh
+sudo su - pydio 
+cells configure site
+```
+
+- Choose "Create a new site"
+- Choose `443` as the port to bind to
+- Enter your FQDN as the address to bind to
+- Choose "Automagically generate certificate with Let's Encrypt"
+- Enter your Email, Accept Let's Encrypt EULA
+- Redirect default `HTTP` port towards `HTTPS`  
+- Double check and save.
+
+#### Verification
+
+
+```sh
+# Open permanently standard HTTP ports on Firewall
+firewall-cmd --permanent --zone=public --add-service=http
+firewall-cmd --permanent --zone=public --add-service=https
+
+# Restart your server
+sudo su - pydio 
+cells start
+```
+
+Connect to your web site at `https://<YOUR_FQDN>`. A valid certificate is now used.
+
+Stop your server once again before performing the finalisation steps.
+
+## Finalisation
+
+### Run your server as a service with systemd
+
+Create a configuration file `sudo vi /etc/systemd/system/cells.service` with the following:
+
+```conf
+[Unit]
+Description=Pydio Cells
+Documentation=https://pydio.com
+Wants=network-online.target
+After=network-online.target
+AssertFileIsExecutable=/opt/pydio/bin/cells
+
+[Service]
+User=pydio
+Group=pydio
+PermissionsStartOnly=true
+AmbientCapabilities=CAP_NET_BIND_SERVICE
+ExecStart=/opt/pydio/bin/cells start
+Restart=on-failure
+StandardOutput=journal
+StandardError=inherit
+LimitNOFILE=65536
+TimeoutStopSec=5
+KillSignal=INT
+SendSIGKILL=yes
+SuccessExitStatus=0
+WorkingDirectory=/home/pydio
+
+# Add environment variables
+Environment=PYDIO_LOGS_LEVEL=production
+Environment=CELLS_WORKING_DIR=/var/cells
+
+[Install]
+WantedBy=multi-user.target
+```
+
+Reload systemd daemon, enable and start cells:
+
+```sh
+sudo systemctl daemon-reload
+sudo systemctl enable cells
+sudo systemctl restart cells
+```
+
+#### Verification
+
+```sh
+# you can check the system logs to insure everything seems OK
+sudo journalctl -fu cells -S -1h
+```
+
+Connect to your certified web site at `https://<YOUR_FQDN>`.
+
+**You are now good to go**. Happy file sharing!
+
 ## Troubleshooting
+
+### Main tips
+
+With cells as a service, you can reach the logs in different ways:
+
+```sh
+# Pydio file logs
+tail -200f /var/cells/logs/pydio.log
+# Some of the microservices have their own log files, check:
+ls -lsah /var/cells/logs/
+
+# Check systemd files
+journalctl -fu cells -S -1h
+```
 
 ### SELinux is enforced
 
