@@ -129,8 +129,8 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
       - MYSQL_DATABASE=cells
-      - MYSQL_USER=${MYSQL_PYDIO_USER_LOGIN}
-      - MYSQL_PASSWORD=${MYSQL_PYDIO_USER_PASSWORD}
+      - MYSQL_USER=${MYSQL_CELLS_USER_LOGIN}
+      - MYSQL_PASSWORD=${MYSQL_CELLS_USER_PASSWORD}
     command: [mysqld, --character-set-server=utf8mb4, --collation-server=utf8mb4_unicode_ci]
 
   # Pydio Cells app
@@ -151,7 +151,7 @@ services:
       - CELLS_DATA=/data
       - CELLS_BIND=${PUBLIC_FQDN}:443
       - CELLS_EXTERNAL=https://${PUBLIC_FQDN}
-      - PYDIO_ENABLE_METRICS=true
+      - CELLS_ENABLE_METRICS=true
     labels:
       - traefik.enable=true
       - traefik.http.services.cells.loadbalancer.server.scheme=https
@@ -195,8 +195,8 @@ CELLS_DOCKER_IMAGE=pydio/cells-enterprise:latest
 PUBLIC_FQDN=share.example.com
 TLS_MAIL_ADDRESS=tls@example.com
 MYSQL_ROOT_PASSWORD=cells
-MYSQL_PYDIO_USER_LOGIN=pydio
-MYSQL_PYDIO_USER_PASSWORD=cells
+MYSQL_CELLS_USER_LOGIN=pydio
+MYSQL_CELLS_USER_PASSWORD=cells
 ```
 
 ### A few more hints about the docker-compose file

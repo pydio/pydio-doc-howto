@@ -83,7 +83,7 @@ TLS and HTTP2 meaning that the reverse proxy and Cells must communicate with SSL
 
 Once that is done you must set a port for **grpc** in this example it's **33060**,
 
-to set it you have the folllowing env variable, `PYDIO_GRPC_EXTERNAL=33060`
+to set it you have the folllowing env variable, `CELLS_GRPC_EXTERNAL=33060`
 
 otherwise you can set it when running the binary with the following flag **--grpc_external**, for instance;
 

@@ -99,7 +99,7 @@ Please note:
 Unfortunately apache does not seem to completely support gRPC therefore you probably will need to use another software to reverse proxy the gRPC part (tied to the Cells Sync desktop application).
 
 - You are running Cells with SSL (can be self_signed).
-- You have set the port with the following env variable `PYDIO_GRPC_EXTERNAL=33060`.
+- You have set the port with the following env variable `CELLS_GRPC_EXTERNAL=33060`.
   
 > Note: the port defined for the gRPC can use any value.
 

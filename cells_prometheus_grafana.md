@@ -7,9 +7,9 @@ _Please note that this feature is only available in the Enterprise Distribution.
 The backend code is instrumented with gauges and counters. We use an interface for various metrics systems (uber-go/tally), using a no-op implementation by default.
 
 Using the `--enable_metrics` flag upon startup registers a Prometheus compatible collector instead of the no-op implementation.
-Same goal is achieved by using the `PYDIO_ENABLE_METRICS` environment variable, typically in your systemd file you can add:
+Same goal is achieved by using the `CELLS_ENABLE_METRICS` environment variable, typically in your systemd file you can add:
 
-`Environment=PYDIO_ENABLE_METRICS=true`
+`Environment=CELLS_ENABLE_METRICS=true`
 
 It basically achieves three things:
 

@@ -216,7 +216,7 @@ SuccessExitStatus=0
 WorkingDirectory=/home/pydio
 
 # Add environment variables
-Environment=PYDIO_LOGS_LEVEL=production
+Environment=CELLS_LOGS_LEVEL=production
 Environment=CELLS_WORKING_DIR=/var/cells
 
 [Install]

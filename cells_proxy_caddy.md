@@ -47,7 +47,7 @@ By default the Sync Client should work out of the box if your Cells is also runn
 If you want to set a fixed port for the gRPC protocol, you must meet the following requirements:
 
 - Cells with SSL using Self-signed
-- GRPC port is set with the env variable `PYDIO_GRPC_EXTERNAL=33060`
+- GRPC port is set with the env variable `CELLS_GRPC_EXTERNAL=33060`
 
 ```conf
 https://share.example.com:33060 {
