@@ -136,7 +136,7 @@ But if your server is down and _misses_ a week, the upload will fail the week af
 This is the recommended strategy for persitent mode on your local workstation.
 Calling `cec configure oauth` will guide you through a quick process to securely generate an ID token and a refresh Token.
 
-Under the hood, `cec` will watch the validity of the token. When necessary, it will issue a refresh request and stores the updated tokens in your keychain without you even noticing it.
+Under the hood, `cec` will watch the validity of the token. When necessary, it will issue a refresh request and stores the updated tokens in your keychain without you even noticing it. For the record, in Cells 2.2, the default validity period of the refresh token is 60 days.
 
 As tokens are represented as unique (random) complicated strings, this approach makes it difficult to steal your token by only looking at it, even if it ends up in clear text shown to third persons.
 
