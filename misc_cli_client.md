@@ -56,15 +56,15 @@ Once a valid user is available, there are 2 options:
 
 ### Persistent Mode
 
-Connection can also be configured and persisted locally on the client machine.
+Connection can be configured and persisted locally on the client machine.
 
-Calling the `cec configure` command offers various authentication mechanism. For persistent mode, we advise to use the default OAuth _Authorization Code_ flow.
+Calling the `cec configure` command offers various authentication mechanisms. For persistent mode, we advise to use the default OAuth _Authorization Code_ flow.
 
 ```sh
 cec configure oauth
 ```
 
-You will be guided through a few steps to configure and persist your connection: 
+You will be guided through a few steps to configure and persist your connection:
 
 - Enter your server address: the full URL to access your Cells instance, e.g.: `https://files.example.com/`
 - Choose OAuth2 process either by opening a browser or copy/pasting the URL in your browser to get a valid token
@@ -77,7 +77,6 @@ cec configure check-keyring
 ```
 
 Supported keyrings are MacOSX Keychain, Linux DBUS and Windows Credential Manager API.
-
 
 ### Non Persistent Mode
 
@@ -172,7 +171,7 @@ Written 822601 bytes to file
 
 There are 3 authentication methods to establish the connection:
 
-#### Personal Access Token
+### Personal Access Token
 
 A token can be generated on the server for a given user. It can be limited in time or you might choose the auto-refresh mode.
 
@@ -192,7 +191,7 @@ But if your server is down and _misses_ a week, the upload will fail the week af
 
 - To created a token, you must either have access to the server as privileged user or ask your sysadmin
 
-#### OAuth2 Credential Flows
+### OAuth2 Credential Flows
 
 This is the recommended strategy for persitent mode on your local workstation. Calling `cec configure oauth` will guide you through a quick process to securely generate an ID token and a refresh Token.
 
@@ -209,7 +208,7 @@ As tokens are represented as unique (random) complicated strings, this approach 
 
 - You must go through an interactive process configure your connection.
 
-#### Client Credential Flows
+### Client Credential Flows
 
 This legacy method is not recommended and might disapear in a future version.
 
@@ -223,7 +222,6 @@ This legacy method is not recommended and might disapear in a future version.
 
 - The user password ends up stored in clear text in case no keyring is present
 - The process will fail if your server relies on external user repository to manage authentication (typically LDAP or SSO).
-
 
 ## Appendix 2 - Command Completion
 
