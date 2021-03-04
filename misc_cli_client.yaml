@@ -1,8 +1,10 @@
-title: "Using the Cells command line tool"
-abstract: "How to use the new Cells cli tool to perform actions on a Cells instance"
+title: "Configuring and using the Cells Client"
+abstract: "How to use the 'cec' command to talk to your Cells server from the command line"
 language: und
 category: Client Applications
 tags:
   - cells
   - cli
   - cec
+  - cells-client
+  - client
