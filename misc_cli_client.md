@@ -24,23 +24,25 @@ Give execution permissions to the binary file, typically on Linux: `chmod u+x ce
 
 ### 3 - Add it to the PATH (optional)
 
- Add the command to your `PATH` environment variable, to makes it easy to call the command from anywhere in the system. On Linux, you can for instance add a symlink to the binary location (replace below with correct path):
+Add the command to your `PATH` environment variable, to makes it easy to call the command from anywhere in the system. On Linux, you can for instance add a symlink to the binary location (replace below with correct path):
 
 ```sh
 sudo ln -s /path/to/your/binary/cec /usr/local/bin/cec
 ```
 
+### 4 - Check for correct installation
+
 To verify that `cec` is correctly installed, simply run for instance:
 
 ```sh
-cec version
-# Output
+$ cec version
+# Should output something like below
 Cells Client
- Version:     2.1.0-rc1
- Built:     03 Mar 21 16:26 +0000
- Git commit:     4d09aa8e33fc60e65625e9f8435fd90b99c1b801
- OS/Arch:     linux/amd64
- Go version:     go1.15.5
+ Version:       2.1.0-rc1
+ Built:         03 Mar 21 16:26 +0000
+ Git commit:    4d09aa8e33fc60e65625e9f8435fd90b99c1b801
+ OS/Arch:       linux/amd64
+ Go version:    go1.15.5
 ```
 
 ## Connecting To Cells
@@ -49,7 +51,7 @@ Cells Client requires an authenticated connection to the target Cells server. Fo
 
 Once a valid user is available, there are 2 options:
 
-- Go through a configuration step and persists necessary information on the client machine (Persistent Mode)
+- Go through an interactive configuration and persist necessary information on the client machine (Persistent Mode)
 - Pass the necessary connection information at each call (Non Persistent Mode)
 
 ### Persistent Mode
@@ -62,7 +64,7 @@ Calling the `cec configure` command offers various authentication mechanism. For
 cec configure oauth
 ```
 
-You will be guided through a few steps to configure and persist your connection. Mainly:
+You will be guided through a few steps to configure and persist your connection: 
 
 - Enter your server address: the full URL to access your Cells instance, e.g.: `https://files.example.com/`
 - Choose OAuth2 process either by opening a browser or copy/pasting the URL in your browser to get a valid token
@@ -79,8 +81,7 @@ Supported keyrings are MacOSX Keychain, Linux DBUS and Windows Credential Manage
 
 ### Non Persistent Mode
 
-This is typically useful if you want to use the Cells Client in your CI/CD pipe or via cron jobs.  
-In such case, we strongly advise you to create a _Personal Access Token_ on the server and use this.
+This mode can be useful to use the Cells Client in a CI/CD pipe or via cron jobs. In such case, we strongly advise you to create a _Personal Access Token_ on the server and use this.
 
 To create a token that is valid for user `robot` for 90 days, log via SSH into your server as `pydio` (a.k.a. as the user that **runs** the `cells` service) and execute:
 
