@@ -180,7 +180,7 @@ Create a site:
 
 ```sh
 sudo su - pydio 
-cells configure site
+cells configure sites
 ```
 
 - Choose "Create a new site"
