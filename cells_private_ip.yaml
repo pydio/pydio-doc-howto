@@ -1,0 +1,8 @@
+title: "No private IP detected issue"
+abstract: "Cells microservices communicates between each others with a network which should be private."
+language: und
+category: Deployment
+tags:
+  - cells
+  - configuration
+  - grpc
