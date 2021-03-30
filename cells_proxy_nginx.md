@@ -75,7 +75,6 @@ otherwise you can set it when running the binary with the following flag **--grp
 `./cells start --grpc_external=33060`
 
 
-
 > In all those examples you can substitute the port 33060 by the port of your choice
 
 Also make sure to put the **address/domain** on which your **Cells Server** is running (refer to the arrays above) line **grpc_pass**.
