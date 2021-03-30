@@ -1,6 +1,6 @@
 When deployed in production environment, we generally advise to run Pydio Cells as a `systemd` service.
 
-This configuration assumes that you have followed our [recommended best practices](./en/docs/cells/v2/best-practices) during the installation process. Adapt to your specific setup if necessary.
+This configuration assumes that you have followed our [recommended best practices](../../cells/v2/best-practices) during the installation process. Adapt to your specific setup if necessary.
 
 Thus you have:
 

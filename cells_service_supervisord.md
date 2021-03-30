@@ -57,6 +57,7 @@ Configure supervisor to monitor this new program by using following command:
 ```sh
 sudo supervisorctl reread
 ```
+
 _Note: this triggers a reload of all `*.conf` files located within the `/etc/supervisor/conf.d` directory_
 
 Then enact the changes with:
@@ -101,7 +102,7 @@ You now have Pydio Cells running as a daemon and auto-restarting after server re
 
 ### For CentOS
 
-On a RHEL/CentOS system and assuming you have followed our [recommended best practices](/en/docs/cells/v2/os-specific-guides) during installation, here is a config sample that will run Cells as a service.
+On a RHEL/CentOS system and assuming you have followed our [recommended best practices](../../cells/v2/os-specific-guides) during installation, here is a config sample that will run Cells as a service.
 
 This configuration is based on a system that has, among others, a **pydio** Unix account. Please adapt to your custom setup if necessary.
 
