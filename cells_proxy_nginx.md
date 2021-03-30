@@ -8,70 +8,55 @@ To configure your external and bind for Cells you run the following command:
 
 * **Bind Address**: is the interface and port used to bind Cells on the server.
 
-* **External URL**: is the url used to access Cells from outside.
-
-> Note: in the examples below we use ip addresses but you can also use domains (make sure that they are reachable)
-
-Hence on **Cells Server** we use the following values upon installation, we also want to access Cells through **https**.
-
-> (assuming that we are binding Cells on the following ip 192.50.0.1 and port 8080)
-
-| Bind Address        | External URL          |
-| --------------- | --------------------- |
-| 192.50.0.1:8080 | https://192.168.1.201 |
-
-
-To clarify the example, we will access **Cells** through `https://192.168.1.201` while Cells is actually running on another server (192.50.0.1).
+* **External URL**: is the url used to access Cells from outside (in this case, the reverse proxy).
 
 ### Basic NGINX reverse proxy configuration
 
 ```nginx
 server {
-        client_max_body_size 200M;
-        server_name example.pydio.com;
+    server_name my-cells-server.com;
+    client_max_body_size 200M;
 
-        proxy_send_timeout   600;
-        proxy_read_timeout   600;
-        proxy_request_buffering off;
+    location / {
+        # include proxy_params;
+        proxy_pass http://localhost:8080;
+    }
 
-        location / {
-                proxy_buffering off;
-                proxy_pass https://192.50.0.1:8080$request_uri;
-                #proxy_pass_request_header@s on;
-                #proxy_set_header Host $host;
-                proxy_set_header X-Real-IP $remote_addr;
-        }
 
-        location /ws {
-                proxy_buffering off;
-                proxy_pass https://192.50.0.1:8080;
-                proxy_set_header Upgrade $@http_upgrade;
-                proxy_set_header Connection "upgrade";
-                proxy_read_timeout 86400;
-        }
+location /ws/ {
+    proxy_pass http://localhost:8080;
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection "Upgrade";
+}
 
     error_log /var/log/nginx/cells-proxy-error.log;
     access_log /var/log/nginx/cells-proxy-access.log;
 
-    listen [::]:443 ssl http; 
-    listen 443 ssl http;
-    ssl_certificate     www.example.com.crt;
-    ssl_certificate_key www.example.com.key;
-    ssl_protocols       TLSv1 TLSv1.1 TLSv1.2;
-    ssl_ciphers         HIGH:!aNULL:!MD5;
+    listen [::]:443 ssl ipv6only=on; # managed by Certbot
+    listen 443 ssl; # managed by Certbot
+    ssl_certificate /etc/letsencrypt/live/my-cells-server.com/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/my-cells-server.com/privkey.pem; # managed by Certbot
+    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+
 }
+
 
 server {
-    if ($host = example.pydio.com) {
+    if ($host = my-cells-server.com) {
         return 301 https://$host$request_uri;
-    } 
+        } # managed by Certbot
 
-    listen 80 http;
-    listen [::]:80 http;
-    server_name example.pydio.com;
-    return 404;
-}
+
+        listen 80;
+        listen [::]:80;
+        server_name my-cells-server.com;
+        return 404; # managed by Certbot
+    }
 ```
+
+> This config was updated with nginx version: nginx/1.14.2
 
 ### Cells Sync
 
@@ -83,7 +68,7 @@ TLS and HTTP2 meaning that the reverse proxy and Cells must communicate with SSL
 
 Once that is done you must set a port for **grpc** in this example it's **33060**,
 
-to set it you have the folllowing env variable, `CELLS_GRPC_EXTERNAL=33060`
+to set it you have the following env variable, `CELLS_GRPC_EXTERNAL=33060`
 
 otherwise you can set it when running the binary with the following flag **--grpc_external**, for instance;
 
@@ -91,7 +76,7 @@ otherwise you can set it when running the binary with the following flag **--grp
 
 
 
-> In all those examples you can subsitute the port 33060 by the port of your choice
+> In all those examples you can substitute the port 33060 by the port of your choice
 
 Also make sure to put the **address/domain** on which your **Cells Server** is running (refer to the arrays above) line **grpc_pass**.
 
@@ -106,8 +91,8 @@ server {
   keepalive_timeout 600s;
   
   location / {
-    grpc_pass grpcs://192.50.0.1:33060;
-  }@
+    grpc_pass grpcs://localhost:33060;
+  }
   
   error_log /var/log/nginx/proxy-grpc-error.log;
   access_log /var/log/nginx/proxy-grpc-access.log;
@@ -120,74 +105,7 @@ server {
 
 Make sure to substitute the values of the **certificates** and **ip/domains**.
 
-
-
-#### The complete configuration
-
-**cells.conf**
-
-```nginx
-server {
-    client_max_body_size 200M;
-    server_name example.pydio.com;
-
-    location / {
-            proxy_buffering off;
-            proxy_pass https://192.50.0.1:8080$request_uri;
-            #proxy_pass_request_header@s on;
-            #proxy_set_header Host $host;
-            proxy_set_header X-Real-IP $remote_addr;
-    }
-
-    location /ws {
-            proxy_buffering off;
-            proxy_pass https://192.50.0.1:8080;
-            proxy_set_header Upgrade $@http_upgrade;
-            proxy_set_header Connection "upgrade";
-            proxy_read_timeout 86400;
-    }
-
-    error_log /var/log/nginx/cells-proxy-error.log;
-    access_log /var/log/nginx/cells-proxy-access.log;
-
-    listen [::]:443 ssl http; 
-    listen 443 ssl http;
-    ssl_certificate     www.example.com.crt;
-    ssl_certificate_key www.example.com.key;
-    ssl_protocols       TLSv1 TLSv1.1 TLSv1.2;
-    ssl_ciphers         HIGH:!aNULL:!MD5;
-}
-
-server {
-    if ($host = example.pydio.com) {
-        return 301 https://$host$request_uri;
-    } 
-
-    listen 80 http;
-    listen [::]:80 http;
-    server_name example.pydio.com;
-    return 404;
-}
-
-server {
-	listen 33060 ssl http2;
-	listen [::]:33060 ssl http2;
-  ssl_certificate     www.example.com.crt;
-  ssl_certificate_key www.example.com.key;
-  ssl_protocols       TLSv1 TLSv1.1 TLSv1.2;
-  ssl_ciphers         HIGH:!aNULL:!MD5;
-  keepalive_timeout 600s;
-	
-    location / {
-		grpc_pass grpcs://192.50.0.1:33060;
-	}@
-  
-  error_log /var/log/nginx/proxy-grpc-error.log;
-  access_log /var/log/nginx/proxy-grpc-access.log;
-}
-```
-
 --------------------------------------------------------------------------------------------------------
 _See Also_
 
-[Running Cells Behind a reverse proxy](en/docs/cells/v2/run-cells-behind-proxy)
+[Running Cells Behind a reverse proxy](../../cells/v2/run-cells-behind-proxy)
