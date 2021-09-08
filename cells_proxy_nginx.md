@@ -10,6 +10,9 @@ To configure your external and bind for Cells you run the following command:
 
 * **External URL**: is the url used to access Cells from outside (in this case, the reverse proxy).
 
+
+> Make sure to have the **external URL** set to the URL that you use to access with your reverse proxy.
+
 ### Basic NGINX reverse proxy configuration
 
 To have the latest nginx version follow the official nginx documentation (https://nginx.org/en/linux_packages.html).
@@ -17,13 +20,18 @@ To have the latest nginx version follow the official nginx documentation (https:
 ```nginx
 server {
     server_name my-cells-server.com;
-    client_max_body_size 200M;
+    
+    # Allow any size file to be uploaded.
+    client_max_body_size 0;
+    # To disable buffering
+    proxy_buffering off;
 
     location / {
-        proxy_pass https://localhost:8080;
-        
-        # this line is required for cells-sync
-        # grpc_pass grpcs://localhost:8080;
+        # Specific to cells-sync
+        #if ($http_content_type = "application/grpc") {
+        #    grpc_pass grpcs://cells:8080;
+        #}
+        proxy_pass https://cells:8080;
     }
 
 
