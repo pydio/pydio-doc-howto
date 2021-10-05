@@ -36,7 +36,6 @@ SendSIGKILL=yes
 SuccessExitStatus=0
 
 # Add environment variables
-Environment=CELLS_LOGS_LEVEL=production
 Environment=CELLS_ENABLE_METRICS=false
 Environment=CELLS_WORKING_DIR=/var/cells
 
