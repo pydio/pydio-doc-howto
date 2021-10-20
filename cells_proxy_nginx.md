@@ -53,7 +53,6 @@ server {
     ssl_certificate_key /etc/letsencrypt/live/my-cells-server.com/privkey.pem;
     include /etc/letsencrypt/options-ssl-nginx.conf;
     ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
-
 }
 
 server {
@@ -71,14 +70,15 @@ server {
 
 > This config was updated with nginx version: nginx/1.20.0
 
+
 ### Cells Sync
 
 **Mandatory section for the Sync Client to work behind a Nginx reverse proxy.**
 
-If your Cells Server is running behind a Nginx reverse proxy you must meet 2 requirements and then add the config below to your main nginx reverse proxy configuration.
+If your Cells Server is running behind a Nginx reverse proxy you must meet atleast the following requirements.
 
-- You need TLS encryption between Cells and Nginx.
-- HTTP 2 need to be enabled like this `listen 443 ssl http2;`.
+- TLS encryption between Cells and Nginx.
+- HTTP 2 has to be enabled on Nginx with `http2` for instance `listen 443 ssl http2;`.
 
 #### Finale note
 
