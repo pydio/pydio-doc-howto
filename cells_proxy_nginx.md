@@ -68,7 +68,7 @@ server {
     }
 ```
 
-> This config was updated with nginx version: nginx/1.20.0
+> This config was updated with nginx version: **nginx/1.20.0**.
 
 
 ### Cells Sync
