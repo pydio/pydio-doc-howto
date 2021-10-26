@@ -55,7 +55,7 @@ pydio@server:~$ exit
 
 ### Database
 
-The default MariaDB package shipped with CentOS 7 is to old, so we install MariaDB repo to get version 10.4:
+The default MariaDB package shipped with CentOS 7 is too old, so we install MariaDB repo to get version 10.4:
 
 ```sh
 # Add MariaDB 10.4 CentOS repository list
@@ -268,7 +268,7 @@ Connect to your certified web site at `https://<YOUR_FQDN>`.
 
 ### Main tips
 
-With cells as a service, you can reach the logs in different ways:
+With Cells running as a service, you can access the logs in different ways:
 
 ```sh
 # Pydio file logs
