@@ -28,7 +28,7 @@ Another (and easier) way to go is to directly use the Docker images that can be 
 
 ### Configure Prometheus
 
-Edit `prometheus.yml` to add a new job in the `scrape_config section`, using the embeded `file_sd_configs` Prometheus discovery mechanism.
+Edit `prometheus.yml` to add a new job in the `scrape_config section`, using the embedded `file_sd_configs` Prometheus discovery mechanism.
 This tool allows Prometheus to watch for a specific JSon (or YAML) file and thus know where to load scraping targets.
 
 YAML section should look like (the first job is set by default by Prometheus to monitor itself):
@@ -38,15 +38,12 @@ YAML section should look like (the first job is set by default by Prometheus to 
 scrape_configs:
   # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
   - job_name: 'prometheus'
-
     # metrics_path defaults to '/metrics'
     # scheme defaults to 'http'.
-
     static_configs:
     - targets: ['localhost:9090']
 
   - job_name: 'cells'
-
     file_sd_configs:
       - files:
         - {PATH_TO_CELLS_CONFIG_FOLDER}/services/pydio.gateway.metrics/prom_clients.json
@@ -60,7 +57,7 @@ With Cells ED running, you can check that all processes are correctly detected b
 
 #### Grafana
 
-First Start Grafana. By default, it is accessible at port 3000. You can define your own specific port using the `GF_SERVER_HTTP_PORT` environement variable.
+First Start Grafana. By default, it is accessible at port 3000. You can define your own specific port using the `GF_SERVER_HTTP_PORT` environnement variable.
 
 Choose an admin/password and perform basic install steps.
 
@@ -69,7 +66,7 @@ Add a Prometheus DataSource in Grafana pointing to the Prometheus instance defin
 ### The Grafana Dashboard
 
 A [simple dashboard has been published on the Grafana website](https://grafana.com/dashboards/9817).  
-It can be simply imported with the Graphana UI by following steps:
+It can be simply imported with the Grafana UI by following steps:
 
 - In the left menu, select Dashboard > Import
 - In the "Grafana.com Dashboard" text field, enter the dashboard ID **9817**
@@ -77,3 +74,40 @@ It can be simply imported with the Graphana UI by following steps:
 The new dashboard should be available and show something like the image below.
 
 [:image-popup:/devops/Grafana-Dashboard.png]
+
+## Advanced Dashboard
+
+For power users that wish to monitor more about their server we also prepared a dashboard with additional gauges.
+
+This how-to will provide you with the required configuration to have this working with Grafana.
+
+### Prerequisites
+
+- [Node Exporter](https://github.com/prometheus/node_exporter)
+
+### System metrics
+
+Append this configuration to your `prometheus.yml` to enable prometheus to collect and scrape the metrics.
+
+```yaml
+  - job_name: 'node_exporter'
+    static_configs:
+    - targets: ['localhost:9100']
+```
+
+To run the `node_exporter`, it is advised to create a service file and use systemd, here is a simple template that can be used for that purpose.
+
+```conf
+[Unit]
+Description=Node Exporter
+After=network-online.target
+
+[Service]
+User=pydio
+Group=pydio
+Type=simple
+ExecStart=/usr/local/bin/node_exporter
+
+[Install]
+WantedBy=multi-user.target
+```
