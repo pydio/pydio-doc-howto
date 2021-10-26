@@ -1,6 +1,6 @@
-This tutorial quickly introduce how to set up and run [Prometheus](https://prometheus.io) and [Grafana](https://grafana.com) to gather and display metrics for your Pydio Cells instance.
+This tutorial introduces how to set up and run [Prometheus](https://prometheus.io) and [Grafana](https://grafana.com) to gather and display metrics for your Pydio Cells instance.
 
-_Please note that this feature is only available in the Enterprise Distribution._
+_Please note that this feature is only available in the Enterprise Distribution_.
 
 ### Enabling metrics
 
@@ -13,23 +13,23 @@ Same goal is achieved by using the `CELLS_ENABLE_METRICS` environment variable, 
 
 It basically achieves three things:
 
-- Expose metrics as HTTP on a random port under the `/metrics` endpoint on **each Cells process** (only one per process, not per service)
-- Gather info about these exposed endpoints for all processes via the registry and thus list all these endpoints as Prometheus compatible targets.
-- Dynamically update a JSON file under `<cells root dir>/services/pydio.grpc.metrics/prom_clients.json`. This file is watched by Prometheus so that the endpoints can be dynamically discovered (see below).
+- Exposes metrics as HTTP on a random port under the `/metrics` endpoint for **each Cells process** (only one per process, not per service)
+- Gathers info about these exposed endpoints for all processes via the registry and lists all these endpoints as Prometheus compatible targets.
+- Dynamically updates a JSON file under `<cells root dir>/services/pydio.grpc.metrics/prom_clients.json`. This file is watched by Prometheus so that the endpoints can be dynamically discovered (see below).
 
 In a distributed environment (that is if you have split your microservices on various nodes), you must install and run Prometheus **on the same node** where the `pydio.gateway.metrics` service is running.
 
 ### Installation
 
 You can download [Prometheus](https://prometheus.io/download/) and [Grafana](https://grafana.com/grafana/download) binaries for your platform.
-Both website also provide complete documentation and best practices to install these tools.
+Both websites also provide a complete documentation and some best practices to install these tools.
 
-Another (and easier) way to go is to directly use the Docker images that can be found on Docker Hub.
+Another (and easier) way to go is to directly use the Docker images that can be found on [Docker Hub](https://hub.docker.com).
 
 ### Configure Prometheus
 
 Edit `prometheus.yml` to add a new job in the `scrape_config section`, using the embedded `file_sd_configs` Prometheus discovery mechanism.
-This tool allows Prometheus to watch for a specific JSon (or YAML) file and thus know where to load scraping targets.
+This tool allows Prometheus to watch for a specific JSON (or YAML) file and thus know from where to load scraping targets.
 
 YAML section should look like (the first job is set by default by Prometheus to monitor itself):
 
@@ -77,15 +77,14 @@ The new dashboard should be available and show something like the image below.
 
 ## Advanced Dashboard
 
-For power users that wish to monitor more about their server we also prepared a dashboard with additional gauges.
+For power users who want to gather and display more info about their server, we have also prepared a dashboard with additional gauges.
 
-This how-to will provide you with the required configuration to have this working with Grafana.
-
-- [Dashboard](https://grafana.com/grafana/dashboards/15153), import by ID with `15153`.
+This section describes the required configuration to display them in a more complete Grafana dashboard.
 
 ### Prerequisites
 
-- [Node Exporter](https://github.com/prometheus/node_exporter)
+- Download and install the [Node Exporter](https://github.com/prometheus/node_exporter) application,
+- Import this [Dashboard](https://grafana.com/grafana/dashboards/15153) (ID: `15153`) in your Grafana instance.
 
 ### System metrics
 
@@ -97,7 +96,9 @@ Append this configuration to your `prometheus.yml` to enable prometheus to colle
     - targets: ['localhost:9100']
 ```
 
-To run the `node_exporter`, it is advised to create a service file and use systemd, here is a simple template that can be used for that purpose.
+To run the `node_exporter`, it is advised to create a service file and use systemd.
+
+Here is a simple template:
 
 ```conf
 [Unit]
