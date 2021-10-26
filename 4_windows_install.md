@@ -15,33 +15,25 @@ Open your terminal (powershell by default on windows) then proceed to install wi
 
 - `.\cells.exe configure`
 
-> Note, on powershell (terminal) the keys to navigate are H-J-K-L ( J = UP, K = DOWN).
+> Note: on powershell (Windows terminal), with legacy version of Cells or Windows, if the arrows keys do not seem to work, you can try with H-J-K-L ( J: Up, K: Down).
 
-The binary will ask you to choose how to run the installation :
+You are first asked to choose how you want to run the installation:
 
-- **Browser based**: will open a browser tab with an intuitive installer.
+- **Browser based**: opens a tab in your local browser with an intuitive installer.
 - **command line interface**: for advanced users, pretty straight forward.
 
-Then, provide your database information and you are good to go.
+After succesfully completing installation, the application working folder with data, configurations and logs is located under %APPDATA%, for instance: `C:\Users\pydio\AppData\Roaming\Pydio\cells`.
 
-Once the installation is done the folder containing your data and settings is located under %APPDATA%.
+> Note: you may have to explicitly allow displaying **hidden files/folders** in your settings to see this folder.
 
-> To display the folder, this might require enabling the setting, display **hidden files/folders**
-
-**Data Location** : `C:\Users\pydio\AppData\Roaming\Pydio\cells`
-
-You can now start Cells and access through `https://localhost:8080` or `https://<server ip or domain>:8080`
+You can now start Cells and access it at `https://localhost:8080` or `https://<server ip or domain>:8080`
 
 ```
 .\cells.exe start
 ```
 
-By default the port 8080 is used, to configure a different interface and port run the following command:
+By default the port 8080 is used, to configure a different URL and/or port, run:
 
 ```
 .\cells.exe configure sites
 ```
-
-
-
-
