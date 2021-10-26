@@ -81,6 +81,8 @@ For power users that wish to monitor more about their server we also prepared a 
 
 This how-to will provide you with the required configuration to have this working with Grafana.
 
+- [Dashboard](https://grafana.com/grafana/dashboards/15153), import by ID with `15153`.
+
 ### Prerequisites
 
 - [Node Exporter](https://github.com/prometheus/node_exporter)
