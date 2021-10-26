@@ -1,12 +1,18 @@
-In this tutorial, we explain how to use a Caddy webserver as reverse proxy in front of a Pydio Cells installation.
+In this tutorial, we explain how to use a [Caddy webserver](https://caddyserver.com) v1 as reverse proxy in front of a Pydio Cells installation.
 
-Caddy is a lightweight webserver coded in Go language. It is embedded in Pydio Cells to serve as a gateway and expose the various services.
-For more details and to download, please visit the [Caddy website](https://caddyserver.com).
+> Note: Caddy server v2 is out and much better. You really should refer to the [corresponding page of our documentation](./running-cells-behind-caddy2-reverse-proxy) to rather use a recent version of the Caddy server.
 
-In this example, we have a Pydio Cells running with following URLs, **on the same machine** as the Caddy reverse proxy:
+Caddy is a lightweight webserver implemented with the Go language. It is also embedded in Pydio Cells to serve as a gateway and expose the various services.
 
-- Internal (bind) URL: `share.example.com:8080`
-- External (public) URL `https://share.example.com` - you can notice that the external URL is also the proxy URL.
+To follow this tutorial, you must first install Cells and Caddy **on the same machine**.
+
+Assuming you are using a Cells v2+, you must then configure a site with the `cells configure sites` command with:
+
+- Binding Port: `8080`
+- Binding Host: `cells.example.com`
+- Do not add another host
+- TLS Activation 
+- External (public) URL `https://cells.example.com` - you can notice that the external URL is also the proxy URL.
 
 One of the great feature of Caddy is the automatic generation of Let's Encrypt certificates by default. For the record the [official Caddy documentation states](https://caddyserver.com/docs/tls):
 
@@ -22,13 +28,13 @@ If you have your own certificate, you can use following directive: `tls /etc/cer
 In a simple case, the caddy file of the reverse proxy looks then like this:
 
 ```conf
-https://share.example.com {
+https://cells.example.com {
 
   log stdout
   timeouts 0
-  tls /home/pydio/cert/share.example.crt /home/pydio/cert/share.example.key
+  tls /home/pydio/cert/cells.example.com.crt /home/pydio/cert/cells.example.com.key
   
-  proxy / share.example.com:8080 {
+  proxy / cells.example.com:8080 {
     #transparent
     websocket
   }
@@ -67,5 +73,5 @@ https://share.example.com:33060 {
 
 _See Also_:
 
-[Running Cells Behind a reverse proxy](en/docs/cells/v2/run-cells-behind-proxy)
-[Using Caddy version 2](en/docs/kb/deployment/running-cells-behind-caddy2-reverse-proxy)
+[Running Cells Behind a reverse proxy](../../cells/v3/run-cells-behind-proxy)
+[Using Caddy version 2](./running-cells-behind-caddy2-reverse-proxy)
