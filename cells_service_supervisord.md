@@ -1,8 +1,8 @@
-You can use supervisor to run your Pydio Cells instance as a service. Among others, supervisor relaunches the service after a machine reboot or when there is a failure.
+ On UNIX-like operating systems, you can use [Supervisor](http://supervisord.org) to run your Pydio Cells instance as a service: this enables automated application relaunch after a server reboot or a fatal failure, for instance.
 
 ### Requirements
 
-You only need to install supervisor if not yet present:
+To install Supervisor on Debian-like systems for instance, you can do:
 
 ```sh
 sudo apt-get install supervisor
@@ -11,13 +11,13 @@ sudo systemctl enable supervisor
 sudo systemctl start supervisor
 ```
 
-### Configuration for debian/ubuntu based systems
+### Configuration for Debian/Ubuntu based systems
 
-_Note: this configuration assume you have done a vanilla setup following our install guides. Adapt to your specific setup if necessary._
+_Note: this configuration assumes you have done a vanilla setup by following our install guides. Adapt to your specific setup if necessary._
 
-You must then declare the path to your binary **cells** file in a supervisor configuration file:
+You must then declare the path to your `cells` binary file in a supervisor configuration file:
 
-- Create a file here `/etc/supervisor/conf.d/<the-file>.conf` named for instance `cells.conf` (the path might be different on centos).
+- Create a `/etc/supervisor/conf.d/cells.conf` file
 - Add this after having replaced the `<path-to-binary>` and `<user-launching-cells>` place holders by their respective values depending on your setup:
 
 ```conf
@@ -52,13 +52,13 @@ stderr_logfile=<path-to-cells-working-dir>/logs/cells_err.log        ; stderr lo
 ;serverurl=AUTO                              ; override serverurl computation (childutils)
 ```
 
-Configure supervisor to monitor this new program by using following command:
+Reload Supervisor configuration with:
 
 ```sh
 sudo supervisorctl reread
 ```
 
-_Note: this triggers a reload of all `*.conf` files located within the `/etc/supervisor/conf.d` directory_
+_Note: this triggers a reload of all `*.conf` files located within the `/etc/supervisor/conf.d` directory_.
 
 Then enact the changes with:
 
@@ -68,17 +68,13 @@ sudo supervisorctl update
 
 ### Usage
 
-You can now monitor your program by using `supervisorctl`
+You can now monitor your program with `supervisorctl`
 
 ``` sh
 $ sudo supervisorctl
 cells                             RUNNING   pid 3365, uptime 1:10:26
-supervisor>
-```
 
-To stop and start your program, you can then do:
-
-```sh
+# You can now manage Cells service life cycle:
 supervisor> stop cells
 long_script: stopped
 supervisor> start cells
@@ -86,17 +82,12 @@ long_script: started
 supervisor> restart cells
 long_script: stopped
 long_script: started
-```
-
-To check the status:
-
-```sh
+# To check the status:
 supervisor> status
 cells                             RUNNING   pid 3365, uptime 1:13:07
-supervisor>
+# To leave supervisor 
+supervisor> quit
 ```
-
-Use `quit` to leave the supervisor menu.
 
 You now have Pydio Cells running as a daemon and auto-restarting after server reboot.
 
@@ -111,7 +102,7 @@ This configuration is based on a system that has, among others, a **pydio** Unix
 
 ```conf
 [program:cells]
-command=/home/pydio/cells start
+command=/opt/pydio/bin/cells start
 directory=/home/pydio       ; directory to cwd to before exec (def no cwd)
 ;umask=022                     ; umask for process (default None)
 ;priority=999                  ; the relative start priority (default 999)
@@ -127,12 +118,12 @@ stopasgroup=false             ; send stop signal to the UNIX process group (defa
 user=pydio                 ; setuid to this UNIX account to run the program
 
 redirect_stderr=true          ; redirect proc stderr to stdout (default false)
-stdout_logfile=/home/pydio/.config/pydio/cells/logs/cells.log
+stdout_logfile=/var/cells/logs/cells.log
 stdout_logfile_maxbytes=1MB   ; max # logfile bytes b4 rotation (default 50MB)
 stdout_logfile_backups=10     ; # of stdout logfile backups (default 10)
 stdout_capture_maxbytes=1MB   ; number of bytes in 'capturemode' (default 0)
 ;stdout_events_enabled=false   ; emit events on stdout writes (default false)
-stderr_logfile=/home/pydio/.config/pydio/cells/logs/cells_err.log        ; stderr log path, NONE for none; default AUTO
+stderr_logfile=/var/cells/logs/cells_err.log        ; stderr log path, NONE for none; default AUTO
 ;stderr_logfile_maxbytes=1MB   ; max # logfile bytes b4 rotation (default 50MB)
 ;stderr_logfile_backups=10     ; # of stderr logfile backups (default 10)
 ;stderr_capture_maxbytes=1MB   ; number of bytes in 'capturemode' (default 0)
@@ -141,10 +132,10 @@ stderr_logfile=/home/pydio/.config/pydio/cells/logs/cells_err.log        ; stder
 ;serverurl=AUTO                ; override serverurl computation (childutils)
 ```
 
-- Enable supervisor start with system `systemctl enable supervisor && systemctl start supervisor`
-- Update new program to supervisor: `supervisorctl update`
-- Start cell program in supervisor: `supervisorctl start cells`
+- Enable and launch Supervisor with Systemd `systemctl enable supervisor && systemctl start supervisor`
+- Update Supervisor config: `supervisorctl update`
+- Start Cells with Supervisor: `supervisorctl start cells`
 
-To insure everything is correctly configured, restart the machine. Pydio Cells is now launched by supervisord.
+To insure everything is correctly configured, restart the machine. Pydio Cells should be running, launched by Supervisord.
 
-To watch the output, you can use: `tail -f /home/pydio/.config/pydio/cells/logs/cells.log`
+To watch the output, you can use: `tail -f /var/cells/logs/cells.log`

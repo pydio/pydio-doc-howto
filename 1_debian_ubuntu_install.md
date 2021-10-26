@@ -1,7 +1,7 @@
 
 _This guide contains strongly opinionated choices and best practices. It will show you the steps required for a production-ready and reasonnably secured server. For a simple test on a Debian-like server, you can skim through [this page](./quick-start) instead_.
 
-**Usecase**
+**Use case**
 
 Deploy a self-contained Pydio Cells instance on a web-facing Debian 10 server,  
 exposed at `https://<your-fqdn>` using a Let's Encrypt certificate.
@@ -13,7 +13,7 @@ exposed at `https://<your-fqdn>` using a Let's Encrypt certificate.
 - **Operating System**:
   - Debian (8, 9, 10), Ubuntu (16, 18, 20), Raspbian (Jessie or Stretch).  
   - An admin user with sudo rights that can connect to the server via SSH
-  - _Note: The present guide uses a Debian 10 (Buster) server.  You might have to adapt some commands if you use a different version or flavour._
+  - _Note: The present guide uses a Debian 10 (Buster) server. You might have to adapt some commands if you use a different version or flavour._
 - **Networking**:
   - One Network Interface Controller connected to the internet
   - A registered domain that points toward the public IP of your server: if you already know your IP address, it is a good idea to already add a `A Record` in your provider DNS so that the record has been already propagated when we need it.
@@ -136,7 +136,7 @@ You can alternatively finalise the configuration from the command line by answer
 
 #### Verification
 
-If you used the browser install, you can login in the web browser as user `admin`
+If you used the browser install, you can login in the web browser as user `admin`.
 
 If you have done the CLI install, you first need to start the server:
 
@@ -148,7 +148,7 @@ cells start
 Connect and login at `https://<YOUR PUBLIC IP>:8080`
 
 **Note**:  
-At this stage, we start the server in **foreground** mode. It is important that you **always stop** the server using the `CTRL + C` shortcut before calling the `start` command again.
+At this stage, we start the server in **foreground** mode. In such case, it is important that you **always stop** the server using the `CTRL + C` shortcut before calling the `start` command again.
 
 ### Declare site and generate Let's Encrypt Certificate
 
@@ -263,7 +263,7 @@ If you can still connect to your web GUI and open a ssh connection, re-enable th
 
 ### Main tips
 
-With cells as a service, you can reach the logs in different ways:
+With cells as a service, you can access the logs in different ways:
 
 ```sh
 # Pydio file logs
