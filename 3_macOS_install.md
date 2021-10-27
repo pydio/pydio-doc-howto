@@ -1,4 +1,4 @@
-_This guide explains how to install and congigure Pydio Cells on macOS_.
+_This guide explains how to install and configure Pydio Cells on macOS_.
 
 Cells comes as a self-contained binary that can be directly run. The only hard requirement is a recent MySQL server. You can use either MySQL (5.7 or 8) or MariaDB 10.3+, both are available in Homebrew.
 

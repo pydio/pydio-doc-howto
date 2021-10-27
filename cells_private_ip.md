@@ -1,9 +1,10 @@
-
-When starting `cells`, you see this warning:
+When starting `cells`, you see this warning in your logs:
 
 ```sh
 Warning: no private IP detected for binding broker. Will bind to <YOUR PUBLIC IP ADDRESS>, which may give public access to the broker.
 ```
+
+You should solve this issue by adding a virtual NIC  on your machine or you might be at risk (depending onn how secure is your network).
 
 ## Overview
 

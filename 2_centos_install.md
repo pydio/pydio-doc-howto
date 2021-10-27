@@ -1,5 +1,4 @@
-
-_This guide contains strongly opinionated choices and best practices. It will show you the steps required for a production-ready and reasonnably secured server. For a simple test on a RHEL-like server, you can skim through [this page](./quick-start) instead_.
+_This guide explains how to configure Cells on an Enterprise-Linux-like system. It contains strongly opinionated choices and best practices. It guides you through the steps required for a production-ready and reasonnably secured server. For a simple test on a RHEL-like server, you can skim through [our quick start page](./quick-start) instead_.
 
 **Usecase**
 

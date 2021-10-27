@@ -1,6 +1,6 @@
-When deployed in production environment, we generally advise to run Pydio Cells as a `systemd` service.
+When deployed in a production environment, we generally advise to run Pydio Cells as a [systemd](https://systemd.io) service.
 
-This configuration assumes that you have followed our [recommended best practices](../../cells/v2/best-practices) during the installation process. Adapt to your specific setup if necessary.
+The present guide explains you how to do it on a Linux box, assuming that you have followed our [recommended best practices](../../cells/v2/best-practices) during the installation process. Adapt to your specific setup if necessary.
 
 Thus you have:
 

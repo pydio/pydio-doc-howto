@@ -1,12 +1,10 @@
-In this tutorial, we explain how to configure a reverse proxy for your Cells Docker container and what settings are the most important to change.
+In this tutorial, we explain how to configure a [Traefik v2](https://doc.traefik.io/traefik/v2.0) reverse proxy for your Cells Docker container and what settings are the most important to change.
 
-## Run your Cells docker container behind a Traefik reverse-proxy using SSL
-
-Traefik is a very efficient Go reverse proxy designed to perfectly integrate with Docker and Kubernetes.  
+Traefik v2 is a very efficient Go reverse proxy designed to perfectly integrate with Docker and Kubernetes.  
 
 For the purpose of this deployment, we use `docker-compose`: it offers a simple way to visualize the full stack deployment under a single file.  
 
-### Quick start on localhost
+## Quick start on localhost
 
 ```yaml
 version: "3.7"
@@ -56,7 +54,7 @@ services:
 
 You can then access the Cells installer on http://localhost and the Traefik dashboard at http://localhost/dashboard/ (the trailing slash is important or you get a 404 - Page not found exception).
 
-### For live environments
+## For live environments
 
 This file sets up a production ready Cells ecosystem with opiniated configuration.
 

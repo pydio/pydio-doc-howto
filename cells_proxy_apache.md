@@ -1,8 +1,22 @@
-In this tutorial, we present a basic setup to use an Apache webserver as reverse proxy in front of a Pydio Cells installation.
+In this tutorial, we explain how to use an [Apache HTTP Server](https://httpd.apache.org) as reverse proxy in front of a Pydio Cells instance.  
+We present a basic vanilla setup and give a few tips to address most common issues. 
 
-### Specific Pydio Cells Configuration
+### Adapt Cells' internal webserver configuration
 
-During the installation process, instead of the default settings, enter a configuration similar to this:
+By default, Cells start on port 8080 with a self-signed certificate.
+To adapt your configuration, you have 3 options:
+
+- open a shell on the same machine where the service is running and call the `cells configure sites` command
+- define (at least) the CELLS_BIND and CELLS_EXTERNAL environment variables or the corresponding flags (see the help for other flags, typically to choose http or https between Apache and Cells) 
+- add a `proxyconfig` section in your YAML installation file (or `ProxyConfig` if you use JSON format)
+
+Doing so, you can define: 
+
+- Bind Address: interface and port on which Cells server is bound. It MUST contain a server name (or IP) and a port.
+- External URL: the public URL that you communicate to your end users. Note that the external URL must contain the protocol (http or https) depending on wether you do TLS termination at the Apache layer or not.
+
+
+A typical example if Apache and Cells run on the same machine:
 
 ```conf
 +---+------------------------+-------------+---------------------------------------------+
@@ -12,18 +26,9 @@ During the installation process, instead of the default settings, enter a config
 +---+------------------------+-------------+---------------------------------------------+
 ```
 
-To configure the external URL on Cells, run the following command:
-
-```
-./cells configure sites
-```
-
-- Bind Address: interface and port on which Cells server is bound. It MUST contain a server name (or IP) and a port.
-- External URL: the public URL that you communicate to your end users, in our case, this should point towards the reverse proxy. Note that the external URL must contain the protocol (http or https) depending on wether you support TLS at the Apache layer or not.
-
 ### Configure Apache
 
-You must enable the following mods with Apache :
+You must enable the following mods with Apache:
 
 - `proxy`
 - `proxy_http`
@@ -75,7 +80,7 @@ Create or Edit your apache virtual host configuration with :
 </VirtualHost>
 ```
 
-_**This was tested with Apache/2.4.51 (Debian)**_
+_**This was tested with Apache/2.4.51 on Debian**_
 
 ### Important points
 

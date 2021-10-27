@@ -1,6 +1,4 @@
- On UNIX-like operating systems, you can use [Supervisor](http://supervisord.org) to run your Pydio Cells instance as a service: this enables automated application relaunch after a server reboot or a fatal failure, for instance.
-
-### Requirements
+ On UNIX-like operating systems, you can use [Supervisor](http://supervisord.org) to run your Pydio Cells instance as a service: this enables for instance automated application relaunch after a server reboot.
 
 To install Supervisor on Debian-like systems for instance, you can do:
 
@@ -11,7 +9,7 @@ sudo systemctl enable supervisor
 sudo systemctl start supervisor
 ```
 
-### Configuration for Debian/Ubuntu based systems
+## Configuration for Debian/Ubuntu based systems
 
 _Note: this configuration assumes you have done a vanilla setup by following our install guides. Adapt to your specific setup if necessary._
 
@@ -91,7 +89,7 @@ supervisor> quit
 
 You now have Pydio Cells running as a daemon and auto-restarting after server reboot.
 
-### For CentOS
+## For CentOS
 
 On a RHEL/CentOS system and assuming you have followed our [recommended best practices](./install-cells-centosrhel) during installation, here is a config sample that will run Cells as a service.
 
