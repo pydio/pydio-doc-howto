@@ -1,25 +1,30 @@
-### Specific Cells parameters
+In this tutorial, we explain how to use [nginx](https://www.nginx.com/) as reverse proxy in front of a Pydio Cells instance.  
+We present a basic setup and give a few tips to address most common issues. 
 
-To configure your external and bind for Cells you run the following command:
+## Adapt Cells configuration
 
-```
-./cells configure sites
-```
+By default, Cells start on port 8080 with a self-signed certificate.
+To adapt your configuration, you have 3 options:
 
-* **Bind Address**: is the interface and port used to bind Cells on the server.
+- open a shell on the same machine where the service is running and call the `cells configure sites` command
+- define (at least) the CELLS_BIND and CELLS_EXTERNAL environment variables or the corresponding flags (see the help for other flags, typically to choose http or https between nginx and Cells) 
+- add a `proxyconfig` section in your YAML installation file (or `ProxyConfig` if you use JSON format)
 
-* **External URL**: is the url used to access Cells from outside (in this case, the reverse proxy).
+Doing so, you can define: 
 
+- **Bind Address**: interface and port used to bind Cells on the server.
+- **External URL**: the public URL that you communicate to your end users. Note that the external URL must contain the protocol (http or https).
 
-> Make sure to have the **external URL** set to the URL that you use to access with your reverse proxy.
 
 ### Basic NGINX reverse proxy configuration
 
 To have the latest nginx version follow the official nginx documentation (https://nginx.org/en/linux_packages.html).
 
+Then edit the configuration file to have (replace dummy place holder with your specific info):
+
 ```nginx
 server {
-    server_name my-cells-server.com;
+    server_name cells.example.com;
     
     # Allow any size file to be uploaded.
     client_max_body_size 0;
@@ -27,7 +32,7 @@ server {
     proxy_buffering off;
 
     location / {
-        # Specific to cells-sync
+        # Uncomment this to enable gRPC and thus be able to use cells-sync
         #if ($http_content_type = "application/grpc") {
         #    grpc_pass grpcs://cells:8080;
         #}
@@ -56,29 +61,28 @@ server {
 }
 
 server {
-    if ($host = my-cells-server.com) {
-        return 301 https://$host$request_uri;
+        if ($host = cells.example.com) {
+            return 301 https://$host$request_uri;
         }
-
 
         listen 80;
         listen [::]:80;
-        server_name my-cells-server.com;
+        server_name cells.example.com;
         return 404;
     }
 ```
 
-> This config was updated with nginx version: **nginx/1.20.0**.
+> This config has been last tested and updated with version: **nginx/1.20.0**.
 
 
 ### Cells Sync
 
-**Mandatory section for the Sync Client to work behind a Nginx reverse proxy.**
+**Mandatory section for the Sync Client to work behind a nginx reverse proxy.**
 
-If your Cells Server is running behind a Nginx reverse proxy you must meet atleast the following requirements.
+If your Cells Server is running behind a nginx reverse proxy you must meet at least the following requirements.
 
-- TLS encryption between Cells and Nginx.
-- HTTP 2 has to be enabled on Nginx with `http2` for instance `listen 443 ssl http2;`.
+- TLS encryption between Cells and nginx.
+- HTTP 2 has to be enabled on nginx with `http2` for instance `listen 443 ssl http2;`.
 
 #### Finale note
 
