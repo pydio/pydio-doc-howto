@@ -13,7 +13,7 @@ version: "3.7"
 
 services:
   reverse:
-    image: traefik:2.3
+    image: traefik:2.5
     ports: ["80:80"]
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
@@ -38,28 +38,39 @@ services:
       - traefik.http.routers.cells.entrypoints=web
 
   mysql:
-    image: mysql:5.7
+    image: mysql:8
     restart: unless-stopped
-    environment: [MYSQL_DATABASE=cells, MYSQL_USER=pydio, MYSQL_ROOT_PASSWORD=cells, MYSQL_PASSWORD=cells]
-    command: [mysqld, --character-set-server=utf8mb4, --collation-server=utf8mb4_unicode_ci]
+    environment: 
+      - MYSQL_ROOT_PASSWORD=cells
+      - MYSQL_DATABASE=cells
+      - MYSQL_USER=pydio
+      - MYSQL_PASSWORD=cells
+    cap_add: 
+      - SYS_NICE 
+    command: 
+      - mysqld
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+      - --default_authentication_plugin=mysql_native_password
 ```
 
-You can then access the Cells installer on http://localhost and the Traefik dashboard at http://localhost/dashboard/ (the trailing slash is important).
+You can then access the Cells installer on http://localhost and the Traefik dashboard at http://localhost/dashboard/ (the trailing slash is important or you get a 404 - Page not found exception).
 
 ### For live environments
 
-This file sets up a production ready Cells echo-system with opiniated configuration.
+This file sets up a production ready Cells ecosystem with opiniated configuration.
 
 It exposes various services via HTTPS (provided by Let's Encrypt) under $PUBLIC_FQDN:
 
 - The Pydio Cells server at the root
-- The Traefik dashboard  under `/dashboard`
+- The Traefik dashboard  under `/dashboard/`
 - Promotheus metrics under `/prometheus`
 
 Both Traefik and Prometheus endpoints are protected by basic authentication with login/password: admin/admin
 
-Do not forget to prepare / reset acme.json file when changing the Let's Encrypt configiguration,typically at first start or when switching from staging to prod CA server:
-`touch acme.json; chmod 600 acme.json`
+> Do not forget to prepare / reset acme.json file when changing the Let's Encrypt configiguration,typically at first start or when switching from staging to prod CA server: `touch acme.json; chmod 600 acme.json`
+
+> Note that we do not do the TLS termination of the requests for Cells at the Traefik level in order to enable gRPC communication between the End-User and the Cells application (necessary for the Sync client typically). If you do not need that, refer to the example above to perform TLS termination at the reverse proxy layer and thus have a simpler and easier to maintain configuration.
 
 ```yaml
 version: "3.7"
@@ -73,7 +84,7 @@ volumes:
 services:
   # Traefik as reverse proxy with dashboard enabled
   reverse:
-    image: traefik:2.3
+    image: traefik:2.5
     restart: unless-stopped
     command:
       # More logs when debugging
@@ -86,8 +97,8 @@ services:
       # Listen default HTTP ports
       - --entrypoints.web.address=:80
       - --entrypoints.websecure.address=:443
-      # Trust all certificates that are exposed by the services:
-      # Typically to accept the self-signed certificate that is exposed by default by the Cells service
+      # Trust all certificates that are exposed by the downstream services, this is 
+      # necessary to accept the default self-signed cert exposed by the Cells service.
       - --serverstransport.insecureskipverify=true
       # Automatic generation of certificate with Let's Encrypt
       - --certificatesresolvers.leresolver.acme.email=${TLS_MAIL_ADDRESS}
@@ -122,18 +133,23 @@ services:
 
   # DB backend
   mysql:
-    image: mysql:5.7
+    image: mysql:8
     restart: unless-stopped
-    volumes:
-      - mysql_data:/var/lib/mysql
-    environment:
+    environment: 
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
       - MYSQL_DATABASE=cells
       - MYSQL_USER=${MYSQL_CELLS_USER_LOGIN}
       - MYSQL_PASSWORD=${MYSQL_CELLS_USER_PASSWORD}
-    command: [mysqld, --character-set-server=utf8mb4, --collation-server=utf8mb4_unicode_ci]
+    cap_add: 
+      - SYS_NICE 
+    command: 
+      - mysqld
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+      - --default_authentication_plugin=mysql_native_password
 
-  # Pydio Cells app
+
+# Pydio Cells app
   cells:
     image: ${CELLS_DOCKER_IMAGE}
     restart: unless-stopped
@@ -144,7 +160,6 @@ services:
     volumes:
       - cells_working_dir:/var/cells
       - cells_data:/data
-      - ./pydio-license:/var/cells/pydio-license:ro
       - ./metrics:/var/cells/services/pydio.gateway.metrics
     environment:
       - CELLS_WORKING_DIR=/var/cells
@@ -169,12 +184,12 @@ services:
       - 9090
     volumes:
       - prometheus_data:/prometheus
-      - ./conf/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./prom.yml:/etc/prometheus/prometheus.yml
       - ./metrics:/etc/prometheus/watch:ro
     command:
       - --config.file=/etc/prometheus/prometheus.yml
       - --storage.tsdb.path=/prometheus
-      - --storage.tsdb.retention.time=90d
+      - --storage.tsdb.retention.time=30d
       - --web.external-url=https://${PUBLIC_FQDN}/prometheus
       - --web.listen-address=:9090
     labels:
@@ -188,7 +203,7 @@ services:
       - traefik.http.routers.prometheus.middlewares=admin
 ```
 
-In order to use the above file, you must add a `.env` file in the same folder with following content:
+In order to use the above file, you must add a `.env` and a `prom.yml` file in the same folder with following content:
 
 ```properties
 CELLS_DOCKER_IMAGE=pydio/cells-enterprise:latest
@@ -198,6 +213,22 @@ MYSQL_ROOT_PASSWORD=cells
 MYSQL_CELLS_USER_LOGIN=pydio
 MYSQL_CELLS_USER_PASSWORD=cells
 ```
+
+```yaml
+# Simple prometheus configuration that watches itself and the entry points declared by cells:
+scrape_configs:
+  # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
+  - job_name: 'prometheus'
+    metrics_path: '/prometheus/metrics'
+    # scheme defaults to 'http'.
+    static_configs:
+    - targets: ['prometheus:9090']
+  - job_name: 'cells'
+    file_sd_configs:
+      - files:
+        - /etc/prometheus/watch/prom_clients.json
+```
+
 
 ### A few more hints about the docker-compose file
 
