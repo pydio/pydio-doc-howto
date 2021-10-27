@@ -45,8 +45,8 @@ Create or Edit your apache virtual host configuration with :
 	RewriteCond %{HTTPS} off
 	RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI}
   
-  RewriteCond %{SERVER_NAME} =cells.example.com
-  RewriteRule ^ https://%{SERVER_NAME}%{REQUEST_URI} [END,NE,R=permanent]
+	RewriteCond %{SERVER_NAME} =cells.example.com
+  	RewriteRule ^ https://%{SERVER_NAME}%{REQUEST_URI} [END,NE,R=permanent]
 </VirtualHost>
 
 <VirtualHost *:443>
@@ -56,10 +56,10 @@ Create or Edit your apache virtual host configuration with :
 	SSLProxyEngine On
 
 	## The order of the directives matters.
-  # If Cells is not running with https, consider using ws instead of wss
+	# If Cells is not running with https, consider using ws instead of wss
 	ProxyPassMatch "/ws/(.*)" wss://localhost:8080/ws/$1 nocanon
 
-  ## This rewrite condition is required if using Cells-Sync
+	## This rewrite condition is required if using Cells-Sync
 	# RewriteCond %{HTTP:Content-Type} =application/grpc [NC]
 	# RewriteRule /(.*) h2://localhost:8080/$1 [P,L]
 	
@@ -71,7 +71,7 @@ Create or Edit your apache virtual host configuration with :
 
 	SSLCertificateFile /etc/letsencrypt/live/cells.example.com/fullchain.pem
 	SSLCertificateKeyFile /etc/letsencrypt/live/cells.example.com/privkey.pem
-  Include /etc/letsencrypt/options-ssl-apache.conf
+	Include /etc/letsencrypt/options-ssl-apache.conf
 </VirtualHost>
 ```
 
@@ -100,8 +100,8 @@ Once you have met the prerequisites, enable the http2 proxy with the following d
 
 ```
 ## The order of the directive is important please see the full example above.
-# RewriteCond %{HTTP:Content-Type} =application/grpc [NC]
-# RewriteRule /(.*) h2://localhost:8080/$1 [P,L]
+	# RewriteCond %{HTTP:Content-Type} =application/grpc [NC]
+	# RewriteRule /(.*) h2://localhost:8080/$1 [P,L]
 ```
 
 _All requests done from Cells-Sync have the header `Content-Type` set to `application/grpc`_.
