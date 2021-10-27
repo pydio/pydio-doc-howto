@@ -63,7 +63,7 @@ Create or Edit your apache virtual host configuration with :
 	# RewriteCond %{HTTP:Content-Type} =application/grpc [NC]
 	# RewriteRule /(.*) h2://localhost:8080/$1 [P,L]
 	
-  ProxyPass "/" "https://localhost:8080/"	
+	ProxyPass "/" "https://localhost:8080/"	
 	ProxyPassReverse "/" "https://localhost:8080/"
 		
 	ErrorLog ${APACHE_LOG_DIR}/error.log
