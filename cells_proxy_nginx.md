@@ -1,9 +1,9 @@
-In this tutorial, we explain how to use [nginx](https://www.nginx.com/) as reverse proxy in front of a Pydio Cells instance.  
-We present a basic setup and give a few tips to address most common issues. 
+In this tutorial, we explain how to use [nginx](https://www.nginx.com) as reverse proxy in front of a Pydio Cells instance.  
+We present a basic setup and give a few tips to address the most common issues. 
 
 ## Adapt Cells configuration
 
-By default, Cells start on port 8080 with a self-signed certificate.
+By default, Cells starts on port 8080 with a self-signed certificate.
 To adapt your configuration, you have 3 options:
 
 - open a shell on the same machine where the service is running and call the `cells configure sites` command
