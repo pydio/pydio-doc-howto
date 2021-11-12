@@ -8,7 +8,7 @@ The WebDAV protocol makes the Web a readable and writable medium. It provides a 
 
 The interest of this protocol is that nowadays, most Operating System implement its support by default, and provide the ability to “mount a network drive” mapping to a remote WebDAV server. But still, as each OS has its own implementation of a WebDAV client to do this, it can be quite cumbersome to setup on both server and client sides.
 
-We assume that you have already read the [WebDAV Activation Guide](https://pyd.io/administrator/enriching-your-users-experience/webdav-server/) in the Admin Guide.
+We assume that you have already read the WebDAV Activation Guide in the Admin Guide.
 
 ## Testing the server ability
 ### Check requirements

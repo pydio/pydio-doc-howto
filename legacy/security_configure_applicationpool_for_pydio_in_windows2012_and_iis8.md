@@ -7,9 +7,7 @@ In earlier version of IIS 8, it has sometimes been difficult to isolate web appl
 In this “How-to”, we will try to configure Pydio to run inside an Application Pool.
 For further info: http://adopenstatic.com/cs/blogs/ken/archive/2008/01/29/15759.aspx
 
-##### 1. Download pydio from internet:
-
-https://pyd.io/download/
+##### 1. Download pydio from internet
 
 ##### 2. Extract to C:\inetpub\wwwroot\pydio
 
@@ -106,8 +104,6 @@ Don’t forget to set permission on this folder for iis **apppool\pydio** accoun
  
 
 ##### 9. Enforce security for your system
-
-After doing all above steps, please refer to https://pyd.io/installing-on-win8-iis8/ for:
 
 ###### 9.1. configure mysql
 
