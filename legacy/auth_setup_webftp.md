@@ -1,3 +1,8 @@
+<div style="background-color: #fbe9b7;font-size: 14px;">
+<span style="background-color: #fae4a6;padding: 10px;">WARNING</span>
+<span style="padding: 10px;display: inline-block;">This article is for Pydio 8 (PHP). Time to move to <a href="https://pydio.com/en/docs/administration-guides">Pydio Cells</a>!</span>
+</div>
+
 ### SETUP A WEBFTP REMOTE AUTHENTICATION
 With Pydio you can have FTP Workspaces implying that you will have to authenticate one way or another to access the content and so we offer you a plugin that allows you to have users log in this workspace as if they were logging in to a FTP server such as *FileZilla*.
 #### Requirements

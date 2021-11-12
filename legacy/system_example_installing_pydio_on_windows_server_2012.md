@@ -1,3 +1,8 @@
+<div style="background-color: #fbe9b7;font-size: 14px;">
+<span style="background-color: #fae4a6;padding: 10px;">WARNING</span>
+<span style="padding: 10px;display: inline-block;">This article is for Pydio 8 (PHP). Time to move to <a href="https://pydio.com/en/docs/administration-guides">Pydio Cells</a>!</span>
+</div>
+
 Author Allan Dynes (Allan @ AllanDynes.com)
 This guide is assuming a vanilla install of Server 2012 R2 and lists all prereqs to get Pydio up and running with IIS 8.5 / Server 2012 R2.   I have found that none of the current guides cover everything 100% so through lots of testing and looking at all the other guides I wrote this one.  It’s making a couple assumptions which I think make sense for the average Windows based server:
 

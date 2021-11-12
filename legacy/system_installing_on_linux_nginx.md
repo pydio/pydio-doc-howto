@@ -1,3 +1,8 @@
+<div style="background-color: #fbe9b7;font-size: 14px;">
+<span style="background-color: #fae4a6;padding: 10px;">WARNING</span>
+<span style="padding: 10px;display: inline-block;">This article is for Pydio 8 (PHP). Time to move to <a href="https://pydio.com/en/docs/administration-guides">Pydio Cells</a>!</span>
+</div>
+
 ### INSTALLING LINUX + NGINX AND PYDIO
 After a fresh install of a Linux distribution we will see all the steps that will help you run Pydio on a LINUX/Nginx environnement.
 **All the command lines where used on Ubuntu but you have the same thing pretty much on every Linux Distriution so dont forget to adapt it to your configuration if required**

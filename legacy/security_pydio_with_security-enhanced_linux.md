@@ -1,3 +1,8 @@
+<div style="background-color: #fbe9b7;font-size: 14px;">
+<span style="background-color: #fae4a6;padding: 10px;">WARNING</span>
+<span style="padding: 10px;display: inline-block;">This article is for Pydio 8 (PHP). Time to move to <a href="https://pydio.com/en/docs/administration-guides">Pydio Cells</a>!</span>
+</div>
+
 SELinux is a linux kernel module security that provides the mechanism for enforcing the security in access control management of the system. As we can see, linux has applied Discret Access Control (DAC) model since it was in conception form. In DAC, each object (file, folder …) has attached attribuites to indicate the ownership and permissions. SELinux, howerver, can provide an other method which is more powerful and flexible in controlling access to system resource. SELinux base on several Mandatory Access Control (MAC) method such as: Type-Domain, Multi-levels Multi-Categories, RBAC. And the combination of such methods forme the context in SELinux, which can make a lot of trouble and difficulties to typical system administrators.
 
 For further information: [selinux](https://www.ibm.com/developerworks/library/l-selinux/)

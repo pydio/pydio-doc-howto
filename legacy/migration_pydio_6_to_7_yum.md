@@ -1,3 +1,9 @@
+<div style="background-color: #fbe9b7;font-size: 14px;">
+<span style="background-color: #fae4a6;padding: 10px;">WARNING</span>
+<span style="padding: 10px;display: inline-block;">This article is for Pydio 8 (PHP). Time to move to <a href="https://pydio.com/en/docs/administration-guides">Pydio Cells</a>!</span>
+</div>
+
+
 In this how-to, you will find the steps to do the migration and upgrade from Pydio 6 to pydio 7 on another machine base on CentOS 7.
 
 ## Contents
@@ -7,8 +13,7 @@ In this how-to, you will find the steps to do the migration and upgrade from Pyd
 4. Test and finalize
 
 ## Step 1.
-Following this article to install Pydio latest version on CentOS 7:
-https://pydio.com/en/docs/v7-enterprise/centosrhel-7-systems
+Install Pydio PHP latest version on CentOS 7:
 
 Another option is using virtual machine image (OVF). You can also download this file from https://pydio.com
 
