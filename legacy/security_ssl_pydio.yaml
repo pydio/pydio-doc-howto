@@ -1,5 +1,5 @@
 title: "Secure install using SSL with Pydio"
 icon: security-lock-safe-authority-shield
-abstract: "SSL security"
+abstract: "[Deprecated] SSL security for Pydio."
 language: und
 category: Pydio 8
