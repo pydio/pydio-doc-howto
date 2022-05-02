@@ -1,3 +1,8 @@
+<div style="background-color: #fbe9b7;font-size: 14px;">
+<span style="background-color: #fae4a6;padding: 10px;">WARNING</span>
+<span style="padding: 10px;display: inline-block;">This article is for Pydio 8 (PHP). Time to move to <a href="https://pydio.com/en/docs/administration-guides">Pydio Cells</a>!</span>
+</div>
+
 Author Allan Dynes (Allan @ AllanDynes.com)
 This guide is assuming a vanilla install of Server 2012 R2 and lists all prereqs to get Pydio up and running with IIS 8.5 / Server 2012 R2.   I have found that none of the current guides cover everything 100% so through lots of testing and looking at all the other guides I wrote this one.  It’s making a couple assumptions which I think make sense for the average Windows based server:
 
@@ -36,7 +41,7 @@ You will need the Microsoft URL Rewrite 2.0 module for public links to redirect 
 Lastly PHP requires the Microsoft Visual C++ 2012 Redistributable.  Without it you’ll throw Internal Server 500 errors all day trying to run PHP.  Download the x86 version to match PHP: http://www.microsoft.com/en-us/download/details.aspx?id=30679 and install it.
 
 ## Download Pydio
-Download the latest version of Pydio from https://pyd.io/download/ .  Unzip the zip file to C:\inetpub\wwwroot\pydio or whatever name you choose.  For my server I called the folder “cloud.mydomain.com” which I will be using throughout these instructions.  Now I have found that public links do not work because of a later requests filtering rule on the data directory.  For this reason I MOVE the public directory one directory higher off the root as such: [:image-popup:system/example_installing_pydio_on_windows_server_2012/Selection_092.png]
+Download the latest version of Pydio.  Unzip the zip file to C:\inetpub\wwwroot\pydio or whatever name you choose.  For my server I called the folder “cloud.mydomain.com” which I will be using throughout these instructions.  Now I have found that public links do not work because of a later requests filtering rule on the data directory.  For this reason I MOVE the public directory one directory higher off the root as such: [:image-popup:system/example_installing_pydio_on_windows_server_2012/Selection_092.png]
 
 Once the public folder is moved up a directory browse into it and delete the index.htm.  We’re going to add a handler later to redirect people trying to browse the public folder over to our custom 404 error page.
 

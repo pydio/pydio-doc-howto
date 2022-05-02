@@ -1,5 +1,5 @@
 title: "Using AWS Cognito as an Identity Provider"
-abstract: "[Cells Enterprise] Using AWS Cognito as an Identity Provider"
+abstract: "This article show how to use AWS Cognito as an Identity Provider for Pydio Cells."
 language: und
 category: Identity Management
 tags:

@@ -1,3 +1,8 @@
+<div style="background-color: #fbe9b7;font-size: 14px;">
+<span style="background-color: #fae4a6;padding: 10px;">WARNING</span>
+<span style="padding: 10px;display: inline-block;">This article is for Pydio 8 (PHP). Time to move to <a href="https://pydio.com/en/docs/administration-guides">Pydio Cells</a>!</span>
+</div>
+
 ### ADVANCED SETTINGS OF THE "LDAP/AD" AUTHENTIFICATION
 In this guide we will look at the specifics that Pydio offers when you're authenticating with an LDAP/AD server and give you examples to make it easier to use it.
 

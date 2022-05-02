@@ -1,5 +1,5 @@
 title: "Running a Cells container behind a Traefik reverse proxy"
-abstract: "How to run a Cells container with a Traefik reverse proxy"
+abstract: "This article shows how to run Pydio Cells container with a Traefik reverse proxy."
 language: und
 category: Deployment
 tags:

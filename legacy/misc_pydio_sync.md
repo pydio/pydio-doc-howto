@@ -1,5 +1,9 @@
+<div style="background-color: #fbe9b7;font-size: 14px;">
+<span style="background-color: #fae4a6;padding: 10px;">WARNING</span>
+<span style="padding: 10px;display: inline-block;">This article is for Pydio 8 (PHP). Time to move to <a href="https://pydio.com/en/docs/administration-guides">Pydio Cells</a>!</span>
+</div>
+
 ### How to use the pydio Sync client
-Once you have **[Pydio Sync](https://pydio.com/en/get-pydio/downloads/pydiosync-desktop-app)** installed which should be pretty easy on Windows & Mac.
 
 #### Setting & Using the pydio sync client
 

@@ -1,5 +1,5 @@
 title: "Running Cells as a service with Supervisor"
-abstract: "How to run Cells as a service using supervisor"
+abstract: "This article shows how to run Pydio Cells as a service using supervisor."
 language: und
 category: Deployment
 tags:

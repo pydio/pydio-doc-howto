@@ -1,5 +1,5 @@
 title: "Setup Cells Server for CellsSync"
-abstract: "Tips and tricks for a correct configuration of your Cells server to connect the CellsSync client."
+abstract: "This article shows some tips and tricks to correctly configure Pydio Cells for the Pydio CellsSync client application."
 language: und
 category: Client Applications
 tags:

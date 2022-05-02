@@ -1,6 +1,6 @@
 title: "Installing on a Linux Distribution NGINX"
 icon: setting-gear-window-control-panel
-abstract: "How to Install NGINX on a LINUX Distribution to use PYDIO"
+abstract: "[Deprecated] How to Install Nginx on a Linux Distribution to use Pydio."
 language: und
 category: Pydio 8
 tags: debian

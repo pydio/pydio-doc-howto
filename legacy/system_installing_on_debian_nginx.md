@@ -1,3 +1,8 @@
+<div style="background-color: #fbe9b7;font-size: 14px;">
+<span style="background-color: #fae4a6;padding: 10px;">WARNING</span>
+<span style="padding: 10px;display: inline-block;">This article is for Pydio 8 (PHP). Time to move to <a href="https://pydio.com/en/docs/administration-guides">Pydio Cells</a>!</span>
+</div>
+
 **Last Update** Updated on Dec. 8 2016 for Pydio 7
 
 Following are the instructions for installing [Pydio](https://pydio.com/) with [Nginx](http://nginx.org/en/) on [Debian Jessie](http://www.debian.org/intro/about).
@@ -157,7 +162,7 @@ We can enable the site by deleting the default Nginx site and linking to the new
     rm default
     ln -s ../sites-available/pydio.conf
 
-Time to get the Pydio code. [Download](https://pydio.com/en/get-pydio) the latest version and save it to your /var/www directory. Extract the downloaded file to the root of the www directory;
+Time to get the Pydio code. Download the latest version and save it to your /var/www directory. Extract the downloaded file to the root of the www directory;
 
     cd /var/www
     tar -xzf <gz file name here>
@@ -174,7 +179,7 @@ You will need to fix any issues discovered by the Diagnostics program before con
 
 Once you have fixed any errors reported by the Diagnostics page click on the link under the title to continue to the Pydio installation wizard. Use the MySQL credentials and 'pydio' database you just created, and make sure to use the correct URL for the server (like https://your_server_name/), otherwise you may have issues loading public links.
 
-That’s it.   Pydio is now installed and waiting for you to configure workspaces and other customizations. There are [plugins available](https://pydio.com/en/docs/references/plugins) and [client applications](https://pydio.com/products/downloads/)
+That’s it. Pydio is now installed and waiting for you to configure workspaces and other customizations. 
 
 ## PS: Pydio 6 Nginx Configuration
 

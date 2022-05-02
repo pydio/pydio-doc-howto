@@ -1,10 +1,13 @@
+<div style="background-color: #fbe9b7;font-size: 14px;">
+<span style="background-color: #fae4a6;padding: 10px;">WARNING</span>
+<span style="padding: 10px;display: inline-block;">This article is for Pydio 8 (PHP). Time to move to <a href="https://pydio.com/en/docs/administration-guides">Pydio Cells</a>!</span>
+</div>
+
 In earlier version of IIS 8, it has sometimes been difficult to isolate web application pool from each other. If multiple web application pool are configured to run as the same identify (for example, Network Service), then code running inside one web application pool would be able to access to resources of others.
 In this “How-to”, we will try to configure Pydio to run inside an Application Pool.
 For further info: http://adopenstatic.com/cs/blogs/ken/archive/2008/01/29/15759.aspx
 
-##### 1. Download pydio from internet:
-
-https://pyd.io/download/
+##### 1. Download pydio from internet
 
 ##### 2. Extract to C:\inetpub\wwwroot\pydio
 
@@ -101,8 +104,6 @@ Don’t forget to set permission on this folder for iis **apppool\pydio** accoun
  
 
 ##### 9. Enforce security for your system
-
-After doing all above steps, please refer to https://pyd.io/installing-on-win8-iis8/ for:
 
 ###### 9.1. configure mysql
 

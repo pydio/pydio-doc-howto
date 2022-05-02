@@ -1,5 +1,5 @@
 title: "Running Cells as a service with Systemd"
-abstract: "How to run Cells as a service using Systemd"
+abstract: "This article shows how to run Pydio Cells as a service using Systemd."
 language: und
 category: Deployment
 tags:

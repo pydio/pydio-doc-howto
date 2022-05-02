@@ -1,3 +1,8 @@
+<div style="background-color: #fbe9b7;font-size: 14px;">
+<span style="background-color: #fae4a6;padding: 10px;">WARNING</span>
+<span style="padding: 10px;display: inline-block;">This article is for Pydio 8 (PHP). Time to move to <a href="https://pydio.com/en/docs/administration-guides">Pydio Cells</a>!</span>
+</div>
+
 ##Security basics
 ### Architecture
 Storing all your organization information in a SaaS-based Box service can prove to turn into a nightmare: are the provider’s servers located in a country that is compliant with your juridiction? Is the service provider trust-worthy? Can he actually read the data? And eventually let third-party read them (like NSA…)? And what if a trainee has opened a “box” last year, and no one can close it anymore? Will she still see all the documents forever??
