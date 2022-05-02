@@ -10,7 +10,7 @@ exposed at `https://<your-fqdn>` using a Let's Encrypt certificate.
 - **CPU/Memory**: 4GB RAM, 2 CPU
 - **Storage**: 100GB SSD hard drive
 - **Operating System**:
-  - CentOS, RHEL, Scientific Linux (6, 7, 8).  
+  - RHEL 7 or 8, Rocky Linux 8, CentOS and Scientific Linux 7.  
   - An admin user with sudo rights that can connect to the server via SSH
   - _Note: The present guide uses a CentOS 7 server. You might have to adapt some commands if you use a different version or flavour._
 - **Networking**:
@@ -40,7 +40,6 @@ export CADDYPATH=/var/cells/certs
 EOF
 sudo chmod 0755 /etc/profile.d/cells-env.sh
 ```
-
 #### Verification
 
 Login as user `pydio` and make sure that the environment variables are correctly set:
@@ -54,24 +53,13 @@ pydio@server:~$ exit
 
 ### Database
 
-The default MariaDB package shipped with CentOS 7 is too old, so we install MariaDB repo to get version 10.4:
+On Rocky Linux 8.5, default MariaDB package is 10.3 that works well for Cells. So simply do:
 
 ```sh
-# Add MariaDB 10.4 CentOS repository list
-# See http://downloads.mariadb.org/mariadb/repositories/
-sudo mkdir -p /etc/yum.repos.d
-sudo tee /etc/yum.repos.d/MariaDB.repo << EOF
-[mariadb]
-name = MariaDB
-baseurl = http://yum.mariadb.org/10.4/centos7-amd64
-gpgkey=https://yum.mariadb.org/RPM-GPG-KEY-MariaDB
-gpgcheck=1
-EOF
+sudo yum install mariadb-server
+systemctl start mariadb
+systemctl enable mariadb
 
-# Install and start the server
-sudo yum install MariaDB-server
-sudo systemctl enable mariadb
-sudo systemctl start mariadb
 # Run the script to secure your install
 sudo mysql_secure_installation
 
@@ -286,3 +274,26 @@ If, after a successful installation and when you try to navigate to the main app
 > Access denied.
 
 ensure you have modified SELinux to be in permissive mode.
+
+### Non standard DB install 
+
+If the default MariaDB package shipped with your OS does not meet your needs, you can install a more recent version from official MariaDB repository.
+Typically to get version 10.4 on Centos7:
+
+```sh
+# Add MariaDB 10.4 CentOS repository list
+# See http://downloads.mariadb.org/mariadb/repositories/
+sudo mkdir -p /etc/yum.repos.d
+sudo tee /etc/yum.repos.d/MariaDB.repo << EOF
+[mariadb]
+name = MariaDB
+baseurl = http://yum.mariadb.org/10.4/centos7-amd64
+gpgkey=https://yum.mariadb.org/RPM-GPG-KEY-MariaDB
+gpgcheck=1
+EOF
+
+# Install and start the server
+sudo yum install MariaDB-server
+sudo systemctl enable mariadb
+sudo systemctl start mariadb
+```
