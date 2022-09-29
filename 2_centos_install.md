@@ -12,7 +12,7 @@ exposed at `https://<your-fqdn>` using a Let's Encrypt certificate.
 - **Operating System**:
   - RHEL 7 or 8, Rocky Linux 8, CentOS and Scientific Linux 7.  
   - An admin user with sudo rights that can connect to the server via SSH
-  - _Note: The present guide uses a CentOS 7 server. You might have to adapt some commands if you use a different version or flavour._
+  - _Note: The present guide uses a Rocky Linux 8.6 server. You might have to adapt some commands if you use a different version or flavour._
 - **Networking**:
   - One Network Interface Controller connected to the internet
   - A registered domain that points toward the public IP of your server: if you already know your IP address, it is a good idea to already add a `A Record` in your provider DNS so that the record has been already propagated when we need it.
@@ -53,7 +53,7 @@ pydio@server:~$ exit
 
 ### Database
 
-On Rocky Linux 8.5, default MariaDB package is 10.3 that works well for Cells. So simply do:
+On Rocky Linux 8.6, default MariaDB package is 10.3 that works well for Cells. So simply do:
 
 ```sh
 sudo yum install mariadb-server
@@ -71,7 +71,7 @@ Start a MySQL prompt and create the database and the dedicated `pydio` user.
 
 ```mysql
 CREATE DATABASE cells;
-CREATE USER 'pydio'@'localhost' IDENTIFIED BY 'cells';
+CREATE USER 'pydio'@'localhost' IDENTIFIED BY '<PUT YOUR OWN PASSWORD HERE>';
 GRANT ALL PRIVILEGES ON cells.* to 'pydio'@'localhost';
 FLUSH PRIVILEGES;
 exit
@@ -96,7 +96,7 @@ sudo su - pydio
 distribId=cells 
 # or for Cells Enterprise
 # distribId=cells-enterprise 
-wget -O /opt/pydio/bin/cells https://download.pydio.com/latest/${distribId}/release/{latest}/linux-amd64/${distribId}
+wget -O /opt/pydio/bin/cells -v https://download.pydio.com/latest/${distribId}/release/{latest}/linux-amd64/${distribId}
 
 # Make it executable
 chmod a+x /opt/pydio/bin/cells
@@ -175,21 +175,20 @@ cells configure sites
 - Enter your FQDN as the address to bind to
 - Choose "Automagically generate certificate with Let's Encrypt"
 - Enter your Email, Accept Let's Encrypt EULA
-- Redirect default `HTTP` port towards `HTTPS`  
+- In a first pass, if you have a _complicated_ network setup, you might want to choose to use the staging entrypoint for Let's Encrypt: it has much more _generous_ limitations and let you try/error while fixing glitches in your network setup without getting black-listed. 
+- Redirect default `HTTP` port towards `HTTPS`
 - Double check and save.
 
 #### Verification
 
 
 ```sh
-# Open permanently standard HTTP ports on Firewall
-firewall-cmd --permanent --zone=public --add-service=http
-firewall-cmd --permanent --zone=public --add-service=https
-
 # Restart your server
 sudo su - pydio 
 cells start
 ```
+
+> Note: if you experiment
 
 Connect to your web site at `https://<YOUR_FQDN>`. A valid certificate is now used.
 
@@ -266,6 +265,10 @@ ls -lsah /var/cells/logs/
 # Check systemd files
 journalctl -fu cells -S -1h
 ```
+
+### Time-out while trying to reach the web UI
+
+If the server is started and you get timeout errors while trying to connect to the web UI, it is generally a sign that the connection to the declared port is blocked by a firewall. Check both on your OS and on the admin console of your machine provider. 
 
 ### SELinux is enforced
 
