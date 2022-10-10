@@ -14,11 +14,13 @@ The only hard requirement is a recent MySQL database. If not yet present on your
 
 You can then download the Pydio Cells executable from [our download server](https://download.pydio.com/latest/cells/release/{latest}/windows-amd64/cells.exe).
 
-Open your terminal (powershell by default on Windows) then proceed to install with the following command:
+Open a powershell terminal then proceed to install with the following command:
 
 - `.\cells.exe configure`
 
-> Note: on powershell (Windows terminal), with legacy version of Cells or Windows, if the arrows keys do not seem to work, you can try with H-J-K-L (J: Up, K: Down).
+> Note: on Powershell, with legacy version of Cells or Windows, if the arrows keys do not seem to work, you can try with H-J-K-L (J: Up, K: Down).
+
+> Note: the legacy _Windows Command Prompt_, also known as _CMD_, which is the original shell for the Microsoft DOS operating system and has been the default until Windows 10 is known to have issues with the `Go` language command framework that we use to directly communicate with the server via terminal. On some version, it renders the Cells CLI completely unusable. TL;DR: use `powershell`.
 
 At first prompt, you can choose how you want to go on with the installation:
 
