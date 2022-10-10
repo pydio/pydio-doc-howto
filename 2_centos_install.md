@@ -2,7 +2,7 @@ _This guide explains how to configure Cells on an Enterprise-Linux-like system. 
 
 **Usecase**
 
-Deploy a self-contained Pydio Cells instance on a web-facing CentOS 7 server,  
+Deploy a self-contained Pydio Cells instance on a web-facing RHEL-like Linux server,  
 exposed at `https://<your-fqdn>` using a Let's Encrypt certificate.
 
 **Requirements**
@@ -10,7 +10,7 @@ exposed at `https://<your-fqdn>` using a Let's Encrypt certificate.
 - **CPU/Memory**: 4GB RAM, 2 CPU
 - **Storage**: 100GB SSD hard drive
 - **Operating System**:
-  - RHEL 7 or 8, Rocky Linux 8, CentOS and Scientific Linux 7.  
+  - RHEL 7, 8 or 9, Rocky Linux 8 or 9, CentOS and Scientific Linux 7.  
   - An admin user with sudo rights that can connect to the server via SSH
   - _Note: The present guide uses a Rocky Linux 8.6 server. You might have to adapt some commands if you use a different version or flavour._
 - **Networking**:
@@ -181,14 +181,11 @@ cells configure sites
 
 #### Verification
 
-
 ```sh
 # Restart your server
 sudo su - pydio 
 cells start
 ```
-
-> Note: if you experiment
 
 Connect to your web site at `https://<YOUR_FQDN>`. A valid certificate is now used.
 
@@ -235,8 +232,7 @@ Reload systemd daemon, enable and start cells:
 
 ```sh
 sudo systemctl daemon-reload
-sudo systemctl enable cells
-sudo systemctl restart cells
+sudo systemctl enable --now cells
 ```
 
 #### Verification
