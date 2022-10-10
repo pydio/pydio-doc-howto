@@ -41,3 +41,15 @@ By default, Cells start on port 8080 with a self-signed certificate. To change t
 ```
 .\cells.exe configure sites
 ```
+
+## Troubleshooting
+
+### Error message when moving files (license, binary...) 
+
+You might encounter this message in the logs after performing actions like updating the license or upgrading to the latest version of the server via the in-app process:
+
+```
+Update successfully applied but previous binary could not be moved to backup folder     {"error": "remove C:\\<path to you binary file>\\cells-v3.0.9.exe: Access is denied."}
+```
+
+This is a known issue and non-blocking: the new file is correctly installed on its intended destination and the app will function normally.
