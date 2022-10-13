@@ -2,7 +2,7 @@ _This guide explains how to install and configure Cells on an Debian-like system
 
 **Use case**
 
-Deploy a self-contained Pydio Cells instance on a web-facing Debian 10 server,  
+Deploy a self-contained Pydio Cells instance on a web-facing Debian 11 server,  
 exposed at `https://<your-fqdn>` using a Let's Encrypt certificate.
 
 **Requirements**
