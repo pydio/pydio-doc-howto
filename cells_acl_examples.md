@@ -1,6 +1,6 @@
 This chapter presents some real-life use cases of the ACL feature. At the bottom of the page, you can find a more complete glossary.
 
-For a deeper understanding on how Security Policy work you might also refer [to the corresponding section of our administration guide](en/docs/cells/v2/security-policies).
+For a deeper understanding on how Security Policy work you might also refer [to the corresponding section of our administration guide](en/docs/cells/v4/secure-your-data).
 
 ## IP Restrictions
 

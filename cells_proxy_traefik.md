@@ -254,3 +254,8 @@ For `cells`:
   - we specify that the requests that are served are the ones reaching the entrypoint `websecure` - that we have defined in traefik, listening on port 443
   - we define that the SSL communication for this host is using the resolver `leresolver` we configured in traefik
   - Note: the `extra_hosts` option can be used if there is no DNS entry accessible by the Cells container matching the FQDN: and if you are using an old version of Cells (prior to 2.1). Cells must be able to access itself via the `CELLS_BIND` address. `extra_hosts` directive simply add a new entry to the `/etc/hosts` file of the container.
+
+--------------------------------------------------------------------------------------------------------
+_See Also_
+
+[Running Cells Behind a reverse proxy](en/docs/cells/v4/configure-cells-reverse-proxy)

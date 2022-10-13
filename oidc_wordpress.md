@@ -1,7 +1,7 @@
 Resources :
 
 - https://wordpress.org/plugins/miniorange-login-with-eve-online-google-facebook/
-- https://pydio.com/en/docs/cells/v2/cells-identity-provider
+- https://pydio.com/en/docs/cells/v4/cells-identity-provider
 
 ## Create an OAuth2 client for WordPress on Pydio Cells
 

@@ -91,4 +91,4 @@ Make sure to substitute the values of the **certificates** and **ip/domains**.
 --------------------------------------------------------------------------------------------------------
 _See Also_
 
-[Running Cells Behind a reverse proxy](../../cells/v2/configure-cells-reverse-proxy)
+[Running Cells Behind a reverse proxy](en/docs/cells/v4/configure-cells-reverse-proxy)
