@@ -5,8 +5,7 @@ To install Supervisor on Debian-like systems for instance, you can do:
 ```sh
 sudo apt-get install supervisor
 # Enable and start the service
-sudo systemctl enable supervisor
-sudo systemctl start supervisor
+sudo systemctl enable --now supervisor
 ```
 
 ## Configuration for Debian/Ubuntu based systems

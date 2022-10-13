@@ -46,8 +46,7 @@ WantedBy=multi-user.target
 Then, enable and start the service:
 
 ```sh
-sudo systemctl enable cells
-sudo systemctl start cells
+sudo systemctl enable --now cells
 ```
 
 ## Various Notes
@@ -63,7 +62,7 @@ tail -200f /var/cells/logs/pydio.log
 It is worth noting that logs are also outputed to the systemd standard loging system so that you can also see them with e.g.:
 
 ```sh
-sudo journalctl -f -u cells --since "1 hour ago"
+sudo journalctl -fu cells --since "1 hour ago"
 ```
 
 ### Systemd working directory

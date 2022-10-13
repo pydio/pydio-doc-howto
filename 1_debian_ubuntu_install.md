@@ -10,9 +10,9 @@ exposed at `https://<your-fqdn>` using a Let's Encrypt certificate.
 - **CPU/Memory**: 4GB RAM, 2 CPU
 - **Storage**: 100GB SSD hard drive
 - **Operating System**:
-  - Debian (8, 9, 10), Ubuntu (16, 18, 20), Raspbian (Jessie or Stretch).  
+  - Debian (9, 10, 11), Ubuntu (18, 20, 22), Raspbian (Stretch, Buster or Bullseye).  
   - An admin user with sudo rights that can connect to the server via SSH
-  - _Note: The present guide uses a Debian 10 (Buster) server. You might have to adapt some commands if you use a different version or flavour._
+  - _Note: The present guide uses a Debian 11 (Bullseye) server. You might have to adapt some commands if you use a different version or flavour._
 - **Networking**:
   - One Network Interface Controller connected to the internet
   - A registered domain that points toward the public IP of your server: if you already know your IP address, it is a good idea to already add a `A Record` in your provider DNS so that the record has been already propagated when we need it.
@@ -54,7 +54,7 @@ pydio@server:~$ exit
 
 ### Database
 
-We use the default MariaDB package shipped with Debian Buster:
+We use the default MariaDB package shipped with Debian Bullseye:
 
 ```sh
 # Install the server from the default repository
@@ -171,6 +171,8 @@ cells configure sites
 - Redirect default `HTTP` port towards `HTTPS`  
 - Double check and save.
 
+Note: if you are not 100% sure of your network setup, we suggest that you first use the staging entry point for Let's Encrypt. You can then avoid being black-listed while fine-tuning and fixing any network issue you might still have at this point.
+
 #### Verification
 
 Restart your server:
@@ -225,8 +227,7 @@ Reload systemd daemon, enable and start cells:
 
 ```sh
 sudo systemctl daemon-reload
-sudo systemctl enable cells
-sudo systemctl restart cells
+sudo systemctl enable --now cells
 ```
 
 #### Verification

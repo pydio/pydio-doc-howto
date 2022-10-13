@@ -1,8 +1,8 @@
 In this HowTo, we take a closer look at the visibility parameters of the shared resources:
 
-- what they are
-- how to enable them
-- and a few use cases
+- What they are,
+- How to enable them,
+- A few use cases.
 
 ### Cells ownership
 
