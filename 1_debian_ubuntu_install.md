@@ -10,7 +10,7 @@ exposed at `https://<your-fqdn>` using a Let's Encrypt certificate.
 - **CPU/Memory**: 4GB RAM, 2 CPU
 - **Storage**: 100GB SSD hard drive
 - **Operating System**:
-  - Debian (9, 10, 11), Ubuntu (18, 20, 22), Raspbian (Stretch, Buster or Bullseye).  
+  - Debian (9, 10, 11), Ubuntu (18, 20, 22)
   - An admin user with sudo rights that can connect to the server via SSH
   - _Note: The present guide uses a Debian 11 (Bullseye) server. You might have to adapt some commands if you use a different version or flavour._
 - **Networking**:
@@ -243,8 +243,6 @@ Connect to your certified web site at `https://<YOUR_FQDN>`.
 
 In this tutorial, we use [UncomplicatedFirewall (UFW)](https://wiki.ubuntu.com/UncomplicatedFirewall).
 
-**Note**:  
-Just after the firewall is installed, it is better to temporary  **disable** the firewall service. This way, if you make a mistake and loose your SSH access, you only have to reboot your server to _turn it off_.
 
 ```sh
 sudo apt install ufw
@@ -255,9 +253,9 @@ sudo systemctl start ufw
 sudo systemctl status ufw
 ```
 
-If you can still connect to your web GUI and open a ssh connection, re-enable the service.
+If you can still connect to your web GUI and open a ssh connection, even after reboot, **you are now good to go**. 
 
-**You are now good to go**. Happy file sharing!
+Happy file sharing!
 
 ## Troubleshooting
 
@@ -276,6 +274,8 @@ journalctl -fu cells -S -1h
 ```
 
 ### No private IP Address
+
+This is a legacy issue. This has been internally solved with v4, you shouldn't bump in this anymore.
 
 #### Symptom
 
