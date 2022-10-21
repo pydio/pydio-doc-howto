@@ -2,14 +2,14 @@ _This guide explains how to install and configure Cells on a Raspberry Pi system
 
 **Use case**
 
-Deploy a self-contained Pydio Cells instance on your local network with a single Raspberry Pi for your Local Home Network.
+Deploy a self-contained Pydio Cells instance on your local home network with a simple Raspberry Pi.
 
 **Requirements**
 
 - Although we tested and could start Cells on a Rasberry Pi 3B with only 1GB of RAM, we suggest to use a version 4B with at least 4 GB RAM.
 - **Storage**: 32 SD card
 - **Operating System**:
-  - Raspbian (Stretch, Buster or Bullseye).  
+  - Raspbian (Bullseye, Buster or Stretch), the official Raspberry Pi desktop OS (which a Raspbian repackaged the Raspberry Pi team) also works out of the box.  
   - An admin user with sudo rights that can connect to the server via SSH
 - **Networking**: TODO.
 
@@ -17,9 +17,7 @@ Deploy a self-contained Pydio Cells instance on your local network with a single
 
 ### Dedicated user and file system layout
 
-We recommend to run Pydio Cells with a dedicated `pydio` user with **no sudo** permission.
-
-As admin user on your server:
+We recommend to run Pydio Cells with a dedicated `pydio` user with **no sudo** permission:
 
 ```sh
 # Create pydio user with a home directory
@@ -32,7 +30,6 @@ sudo chown -R pydio: /opt/pydio /var/cells
 # Add system-wide ENV var
 sudo tee -a /etc/profile.d/cells-env.sh << EOF
 export CELLS_WORKING_DIR=/var/cells
-export CADDYPATH=/var/cells/certs
 EOF
 sudo chmod 0755 /etc/profile.d/cells-env.sh
 ```
@@ -42,20 +39,19 @@ sudo chmod 0755 /etc/profile.d/cells-env.sh
 Login as user `pydio` and make sure that the environment variables are correctly set:
 
 ```sh
-sysadmin@server:~$ sudo su - pydio 
-pydio@server:~$ echo $CELLS_WORKING_DIR
+user@raspberrypi:~$ sudo su - pydio 
+pydio@raspberrypi:~$ echo $CELLS_WORKING_DIR
 /var/cells
-pydio@server:~$ exit
+pydio@raspberrypi:~$ exit
 ```
 
 ### Database
 
-We use the default MariaDB package shipped with Bullseye:
+We use the default mariadb-server package shipped with Bullseye, it installs the 10.5 version with no hassle:
 
 ```sh
-# Install the server from the default repository
 sudo apt install mariadb-server
-# Run the script to secure your install
+# You should run the script to secure your install
 sudo mysql_secure_installation
 
 # Open MySQL CLI to create your database and a dedicated user
@@ -83,6 +79,8 @@ mysql -u pydio -p
 
 ### Retrieve binary
 
+Note: we only started shipping the necessary ARM build for Cells at v4.
+
 ```sh
 # As pydio user
 sudo su - pydio 
@@ -91,7 +89,7 @@ sudo su - pydio
 distribId=cells 
 # or for Cells Enterprise
 # distribId=cells-enterprise 
-wget -O /opt/pydio/bin/cells https://download.pydio.com/latest/${distribId}/release/{latest}/linux-amd64/${distribId}
+wget -O /opt/pydio/bin/cells https://download.pydio.com/latest/${distribId}/release/{latest}/linux-arm/${distribId}
 
 # Make it executable
 chmod a+x /opt/pydio/bin/cells
@@ -145,43 +143,6 @@ Connect and login at `https://<YOUR PUBLIC IP>:8080`
 **Note**:  
 At this stage, we start the server in **foreground** mode. In such case, it is important that you **always stop** the server using the `CTRL + C` shortcut before calling the `start` command again.
 
-### Declare site and generate Let's Encrypt Certificate
-
-At this point, we assume that:
-
-- your `A record` has been propagated: verify with `ping <YOUR_FQDN>` from your local workstation
-- both port 80 and 443 are free and not blocked by any firewall `sudo netstat -tulpn`
-
-Create a site:
-
-```sh
-sudo su - pydio 
-cells configure sites
-```
-
-- Choose "Create a new site"
-- Choose `443` as the port to bind to
-- Enter your FQDN as the address to bind to
-- Choose "Automagically generate certificate with Let's Encrypt"
-- Enter your Email, Accept Let's Encrypt EULA
-- Redirect default `HTTP` port towards `HTTPS`  
-- Double check and save.
-
-Note: if you are not 100% sure of your network setup, we suggest that you first use the staging entry point for Let's Encrypt. You can then avoid being black-listed while fine-tuning and fixing any network issue you might still have at this point.
-
-#### Verification
-
-Restart your server:
-
-```sh
-sudo su - pydio 
-cells start
-```
-
-Connect to your web site at `https://<YOUR_FQDN>`. A valid certificate is now used.
-
-Stop your server once again before performing the finalisation steps.
-
 ## Finalisation
 
 ### Run your server as a service with systemd
@@ -233,26 +194,6 @@ sudo systemctl enable --now cells
 journalctl -fu cells -S -1h
 ```
 
-Connect to your certified web site at `https://<YOUR_FQDN>`.
-
-### Add a firewall
-
-In this tutorial, we use [UncomplicatedFirewall (UFW)](https://wiki.ubuntu.com/UncomplicatedFirewall).
-
-**Note**:  
-Just after the firewall is installed, it is better to temporary  **disable** the firewall service. This way, if you make a mistake and loose your SSH access, you only have to reboot your server to _turn it off_.
-
-```sh
-sudo apt install ufw
-sudo ufw allow ssh
-sudo ufw allow http
-sudo ufw allow https
-sudo systemctl start ufw
-sudo systemctl status ufw
-```
-
-If you can still connect to your web GUI and open a ssh connection, re-enable the service.
-
 **You are now good to go**. Happy file sharing!
 
 ## Troubleshooting
@@ -269,43 +210,4 @@ ls -lsah /var/cells/logs/
 
 # Check systemd files
 journalctl -fu cells -S -1h
-```
-
-### No private IP Address
-
-#### Symptom
-
-When starting `cells`, you see this warning:
-
-```sh
-Warning: no private IP detected for binding broker. Will bind to <YOUR PUBLIC IP ADDRESS>, which may give public access to the broker.
-```
-
-#### Explication
-
-Internally, Pydio Cells is implemented with a microservice oriented architecture: each simple feature is implemented as an independant brick that exposes a set of internal APIs inside Cells.
-
-All microservices communicate together via gRPC, a HTML2 based protocol. It is important that this communication happens on a private network for better security.
-
-On single instance servers, this is done by using a private IP of the server.
-
-#### How to fix
-
-Simply declare a private virtual interface. For instance, if your main interface is called `eno1`, simply add this at the end of the `/etc/network/interfaces` file (after a proper backup):
-
-```conf
-# virtual IP on eno1
-auto eno1:0
-iface eno1:0 inet static
-address 10.0.0.1
-netmask 255.255.255.0
-network 10.0.0.0
-broadcast 10.0.0.255
-```
-
-To test everything is OK:
-
-```sh
-sudo ifup eno1:0
-sudo ip address
 ```
