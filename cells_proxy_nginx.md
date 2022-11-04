@@ -2,12 +2,12 @@ In this tutorial, we explain how to use [nginx](https://www.nginx.com) as revers
 
 ## Requirements
 
-In the current example, we assume that:
+We assume that:
 
-- you are using a Linux server, if not you might have to adapt some commands.
-- you own a FQDN (e.g.: `cells.example.com`) that has been registered in a public DNS
-- your `A record` has been propagated: you can verify this with `ping <YOUR_FQDN>` from your local workstation
-- both port 80 and 443 are free and not blocked by any firewall `sudo netstat -tulpn`
+- You are using a Linux server, if not you might have to adapt some commands
+- You own a FQDN (e.g.: `cells.example.com`) that has been registered in a public DNS
+- Your `A record` has been propagated: you can verify this with `ping <YOUR_FQDN>` from your local workstation
+- Both port 80 and 443 are free and not blocked by any firewall `sudo netstat -tulpn`
 
 Depending on your setup, you might have to install nginx on your machine, please refer to the [official documentation](https://nginx.org/en/linux_packages.html).
 
@@ -25,10 +25,10 @@ Note that the external (public) URL must contain the protocol (http or https).
 
 We assume that:
 
-- your registered FQDN is `cells.example.com` 
-- nginx and cells are running on the same machine. 
+- your registered FQDN is `cells.example.com`, adapt with **your** FQDN
+- nginx and cells are running on the same machine
 - you have docker installed and have launched a [Collabora](https://www.collaboraoffice.com/code/) server with e.g.: `docker run -t -d --restart=always -p 9980:9980 -e "domain=cells.example.com" collabora/code`
-- you have used [Certbot](https://certbot.eff.org/) to generate the certificates.
+- you have used [Certbot](https://certbot.eff.org/) to generate the certificates
 
 _This config has been last tested with nginx version 1.18 that can be installed on Debian 11 (Bulleyes) by running `sudo apt install nginx`_.
 
@@ -36,7 +36,7 @@ _This config has been last tested with nginx version 1.18 that can be installed 
 server {
     server_name cells.example.com;
     
-    # Allow any size file to be uploaded.
+    # Allow any size file to be uploaded
     client_max_body_size 0;
     # Disable buffering
     proxy_buffering off;
@@ -78,14 +78,14 @@ server {
 }
 
 server {
-        if ($host = cells.example.com) {
-            return 301 https://$host$request_uri;
-        }
+    if ($host = cells.example.com) {
+        return 301 https://$host$request_uri;
+    }
 
-        listen 80;
-        listen [::]:80;
-        server_name cells.example.com;
-        return 404;
+    listen 80;
+    listen [::]:80;
+    server_name cells.example.com;
+    return 404;
 }
 ```
 
