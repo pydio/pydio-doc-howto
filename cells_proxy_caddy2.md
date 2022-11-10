@@ -64,7 +64,7 @@ https://cells.example.com {
 
 - We use caddy2 basic authentication mechanism to protect prometheus end-point, otherwise anybody knowing the URL could access the metrics of your instance.
 - 2nd argument of the `basicauth` directive is a hash password that can be simply generated using with the `caddy hash-password` command on the server where you have installed caddy
-- Do not forget to set the `web.external-url` flag on Prometheus when using such a configuration. Typically, if you are using systemd, you must add this flag to the `ExecStart` directive `--web.external-url=https://cells.example.com/prometheus`
+- Do not forget to set the `web.external-url` flag on Prometheus when using such a configuration. Typically, if you are using systemd, you must add this flag to the `ExecStart` directive `--web.external-url=https://cells.example.com/prometheus` in the `*.service` configuration file.
 
 --------------------------------------------------------------------------------------------------------
 _See Also_

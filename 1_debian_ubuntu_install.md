@@ -10,7 +10,7 @@ exposed at `https://<your-fqdn>` using a Let's Encrypt certificate.
 - **CPU/Memory**: 4GB RAM, 2 CPU
 - **Storage**: 100GB SSD hard drive
 - **Operating System**:
-  - Debian (9, 10, 11), Ubuntu (18, 20, 22)
+  - Debian (9, 10, 11), Ubuntu LTS (18, 20, 22)
   - An admin user with sudo rights that can connect to the server via SSH
   - _Note: The present guide uses a Debian 11 (Bullseye) server. You might have to adapt some commands if you use a different version or flavour._
 - **Networking**:
@@ -242,7 +242,6 @@ Connect to your certified web site at `https://<YOUR_FQDN>`.
 ### Add a firewall
 
 In this tutorial, we use [UncomplicatedFirewall (UFW)](https://wiki.ubuntu.com/UncomplicatedFirewall).
-
 
 ```sh
 sudo apt install ufw
