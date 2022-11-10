@@ -1,3 +1,6 @@
+
+_Note: This is a legacy issue. The root cause has been internally solved and you shouldn't bump in this problem anymore with Cells v4 (or more recent version)_.
+
 When starting `cells`, you see this warning in your logs:
 
 ```sh
