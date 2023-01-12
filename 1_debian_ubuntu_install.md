@@ -30,13 +30,12 @@ As admin user on your server:
 sudo useradd -m -s /bin/bash pydio
 
 # Create necessary folders
-sudo mkdir -p /opt/pydio/bin /var/cells/certs
+sudo mkdir -p /opt/pydio/bin /var/cells
 sudo chown -R pydio: /opt/pydio /var/cells
 
 # Add system-wide ENV var
 sudo tee -a /etc/profile.d/cells-env.sh << EOF
 export CELLS_WORKING_DIR=/var/cells
-export CADDYPATH=/var/cells/certs
 EOF
 sudo chmod 0755 /etc/profile.d/cells-env.sh
 ```
@@ -270,45 +269,4 @@ ls -lsah /var/cells/logs/
 
 # Check systemd files
 journalctl -fu cells -S -1h
-```
-
-### No private IP Address
-
-This is a legacy issue. This has been internally solved with v4, you shouldn't bump in this anymore.
-
-#### Symptom
-
-When starting `cells`, you see this warning:
-
-```sh
-Warning: no private IP detected for binding broker. Will bind to <YOUR PUBLIC IP ADDRESS>, which may give public access to the broker.
-```
-
-#### Explication
-
-Internally, Pydio Cells is implemented with a microservice oriented architecture: each simple feature is implemented as an independant brick that exposes a set of internal APIs inside Cells.
-
-All microservices communicate together via gRPC, a HTML2 based protocol. It is important that this communication happens on a private network for better security.
-
-On single instance servers, this is done by using a private IP of the server.
-
-#### How to fix
-
-Simply declare a private virtual interface. For instance, if your main interface is called `eno1`, simply add this at the end of the `/etc/network/interfaces` file (after a proper backup):
-
-```conf
-# virtual IP on eno1
-auto eno1:0
-iface eno1:0 inet static
-address 10.0.0.1
-netmask 255.255.255.0
-network 10.0.0.0
-broadcast 10.0.0.255
-```
-
-To test everything is OK:
-
-```sh
-sudo ifup eno1:0
-sudo ip address
 ```
