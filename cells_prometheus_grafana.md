@@ -16,9 +16,7 @@ Same goal is achieved by using the `CELLS_ENABLE_METRICS` environment variable, 
 The `enable_metrics` flag triggers 3 things: 
 
 - **each Cells process** exposes metrics as HTTP on a random port under the `/metrics` endpoint (only one per process, not per service)
-
 - a `pydio.gateway.metrics` service gathers info about these exposed endpoints for all processes via the registry and lists all these endpoints as Prometheus compatible targets.
-
 - Cells updates a JSON file under `$CELLS_WORKING_DIR/services/pydio.grpc.metrics/prom_clients.json`. This file is watched by Prometheus so that the endpoints can be dynamically discovered (see below).
 
 In a distributed environment (that is if you have split your microservices on various nodes), you must install and run Prometheus **on the same node** where the `pydio.gateway.metrics` service is running.
