@@ -2,7 +2,7 @@ This tutorial introduces how to set up and run [Prometheus](https://prometheus.i
 
 _Please note that this feature is only available in the Enterprise Distribution_.
 
-### Enabling metrics
+### Enable metrics
 
 The backend code is instrumented with gauges and counters. We use an interface for various metrics systems (uber-go/tally), using a no-op implementation by default.
 
@@ -11,15 +11,32 @@ Same goal is achieved by using the `CELLS_ENABLE_METRICS` environment variable, 
 
 `Environment=CELLS_ENABLE_METRICS=true`
 
-It basically achieves three things:
+#### Via the file system 
 
-- Exposes metrics as HTTP on a random port under the `/metrics` endpoint for **each Cells process** (only one per process, not per service)
-- Gathers info about these exposed endpoints for all processes via the registry and lists all these endpoints as Prometheus compatible targets.
-- Dynamically updates a JSON file under `<cells root dir>/services/pydio.grpc.metrics/prom_clients.json`. This file is watched by Prometheus so that the endpoints can be dynamically discovered (see below).
+The `enable_metrics` flag triggers 3 things: 
+
+- **each Cells process** exposes metrics as HTTP on a random port under the `/metrics` endpoint (only one per process, not per service)
+
+- a `pydio.gateway.metrics` service gathers info about these exposed endpoints for all processes via the registry and lists all these endpoints as Prometheus compatible targets.
+
+- Cells updates a JSON file under `$CELLS_WORKING_DIR/services/pydio.grpc.metrics/prom_clients.json`. This file is watched by Prometheus so that the endpoints can be dynamically discovered (see below).
 
 In a distributed environment (that is if you have split your microservices on various nodes), you must install and run Prometheus **on the same node** where the `pydio.gateway.metrics` service is running.
 
-### Installation
+#### Via https with basic auth
+
+You can also directly expose a scrape config for Prometheus in https with basic authentication using the `metrics_basic_auth` flag.
+
+**WARNING** this flag is useless if the `enable_metrics` flag is not set.
+
+**WARNING** this feature is experimental and has been rather tested in dev and staging environments to monitor the application. Use at your own risk in production. 
+
+Adding `--metrics_basic_auth="metrics:metrics"` to your start command rather:
+
+- starts an http server that exposes the scrape config at `<YOUR FQDN>/metrics/sd` that can be directly consumed by a client Prometheus (see below)
+- proxy the various metrics exposed by each process to be available via https with basic auth   
+
+### Install Agents
 
 You can download [Prometheus](https://prometheus.io/download/) and [Grafana](https://grafana.com/grafana/download) binaries for your platform.
 Both websites also provide a complete documentation and some best practices to install these tools.
@@ -28,10 +45,14 @@ Another (and easier) way to go is to directly use the Docker images that can be 
 
 ### Configure Prometheus
 
-Edit `prometheus.yml` to add a new job in the `scrape_config section`, using the embedded `file_sd_configs` Prometheus discovery mechanism.
-This tool allows Prometheus to watch for a specific JSON (or YAML) file and thus know from where to load scraping targets.
+Edit `prometheus.yml` to add a new job in the `scrape_config section`, using either the `file_sd_configs` or the `    http_sd_configs` Prometheus discovery mechanism.
 
-YAML section should look like (the first job is set by default by Prometheus to monitor itself):
+This tells Prometheus where to watch to get an up-to-date list of scraping targets.
+
+The `scrape_configs` section of your Prometheus config should look like this, knowing that:
+
+- the first job is set by default by Prometheus to monitor itself,
+- you have to choose if your Cells is local or not: you generally have either one or the other `cells` config.
 
 ```yaml
 # A scrape configuration containing exactly one endpoint to scrape:
@@ -43,15 +64,32 @@ scrape_configs:
     static_configs:
     - targets: ['localhost:9090']
 
-  - job_name: 'cells'
+  # Scrape configuration locally or via a mounted volume
+  - job_name: 'cells@localhost'
     file_sd_configs:
       - files:
-        - {PATH_TO_CELLS_CONFIG_FOLDER}/services/pydio.gateway.metrics/prom_clients.json
+        - {PATH_TO_CELLS_WORKING_DIR}/services/pydio.gateway.metrics/prom_clients.json
+
+  # Scrape remote configuration and metrics via http
+  - job_name: 'cells@http'
+    scheme: https
+    tls_config:
+      # insecure_skip_verify: true # e.g within docker compose setups
+    basic_auth:
+      username: "metrics" # adapt here
+      password: "metrics" # and here
+    http_sd_configs:
+      - url: "https://cells:8080/metrics/sd"
+        basic_auth:
+          username: "metrics"  # and also here
+          password: "metrics"  # and here
+        tls_config:
+          insecure_skip_verify: true  
 ```
 
 You can configure Prometheus to start on the port you wish, default is 9090.
 
-With Cells ED running, you can check that all processes are correctly detected by visiting [http://localhost:9090/targets](http://localhost:9090/targets).
+In the machine where Prometheus runs, you can check that all processes are correctly detected by visiting [http://localhost:9090/targets](http://localhost:9090/targets).
 
 [:image-popup:/devops/Prometheus-Targets.png]
 
