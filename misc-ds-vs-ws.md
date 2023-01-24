@@ -35,4 +35,4 @@ Please keep in mind that you can create new datasource only on the first-level o
 
 For further information, you can see .minio.sys directory in /data/cells/datasources. This is the data for the object service, all datasources that are then defined in this location depend on it.
 
-See also: https://pydio.com/en/docs/cells/v3/datasources-overview
+See also: https://pydio.com/en/docs/cells/v4/datasources-overview
