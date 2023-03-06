@@ -1,0 +1,8 @@
+title: "Changing the default datasource storage type"
+abstract: "This article shows how to change the default filesytem datasources for another type of storage on Pydio Cells."
+language: und
+category: Cells in Production
+tags:
+  - cells
+  - datasources
+  - s3
