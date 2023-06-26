@@ -12,7 +12,7 @@ exposed at `https://<your-fqdn>` using a Let's Encrypt certificate.
 - **Operating System**:
   - RHEL 7, 8 or 9, Rocky Linux 8 or 9, CentOS and Scientific Linux 7.  
   - An admin user with sudo rights that can connect to the server via SSH
-  - _Note: The present guide uses a Rocky Linux 8.6 server. You might have to adapt some commands if you use a different version or flavour._
+  - _Note: The present guide uses a Rocky Linux 9 server. You might have to adapt some commands if you use a different version or flavour._
 - **Networking**:
   - One Network Interface Controller connected to the internet
   - A registered domain that points toward the public IP of your server: if you already know your IP address, it is a good idea to already add a `A Record` in your provider DNS so that the record has been already propagated when we need it.
@@ -31,12 +31,11 @@ sudo useradd -m -s /bin/bash pydio
 
 # Create necessary folders
 sudo mkdir -p /opt/pydio/bin /var/cells/certs
-sudo chown -R pydio: /opt/pydio /var/cells
+sudo chown -R pydio:pydio /opt/pydio /var/cells
 
 # Add system-wide ENV var
 sudo tee -a /etc/profile.d/cells-env.sh << EOF
 export CELLS_WORKING_DIR=/var/cells
-export CADDYPATH=/var/cells/certs
 EOF
 sudo chmod 0755 /etc/profile.d/cells-env.sh
 ```
@@ -53,12 +52,11 @@ pydio@server:~$ exit
 
 ### Database
 
-On Rocky Linux 8.6, default MariaDB package is 10.3 that works well for Cells. So simply do:
+On Rocky Linux 9.2, default MariaDB package is 10.5 that works well for Cells. So simply do:
 
 ```sh
 sudo yum install mariadb-server
-systemctl start mariadb
-systemctl enable mariadb
+sudo systemctl enable --now mariadb
 
 # Run the script to secure your install
 sudo mysql_secure_installation
