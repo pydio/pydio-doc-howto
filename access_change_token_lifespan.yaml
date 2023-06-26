@@ -1,0 +1,7 @@
+title: "Changing Token Lifespan"
+abstract: "Quick tip explaining how to change the default authentication token TTL."
+language: und
+category: Access Control
+tags:
+  - cells
+  - share
