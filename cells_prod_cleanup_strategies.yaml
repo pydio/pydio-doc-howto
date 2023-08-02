@@ -1,0 +1,4 @@
+title: "Cleanup Strategies for Production Instances"
+abstract: "This article explains how to control the size used by the internal technical data and defines strategies to prune old info to spare some space."
+language: und
+category: Cells in Production
