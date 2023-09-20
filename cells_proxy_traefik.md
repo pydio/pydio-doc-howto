@@ -7,11 +7,11 @@ For the purpose of this deployment, we use `docker-compose`: it offers a simple 
 ## Quick start on localhost
 
 ```yaml
-version: "3.7"
+version: "3"
 
 services:
   reverse:
-    image: traefik:2.5
+    image: traefik:2.10
     ports: ["80:80"]
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
@@ -71,7 +71,7 @@ Both Traefik and Prometheus endpoints are protected by basic authentication with
 > Note that we do not do the TLS termination of the requests for Cells at the Traefik level in order to enable gRPC communication between the End-User and the Cells application (necessary for the Sync client typically). If you do not need that, refer to the example above to perform TLS termination at the reverse proxy layer and thus have a simpler and easier to maintain configuration.
 
 ```yaml
-version: "3.7"
+version: "3"
 
 volumes:
     cells_working_dir: {}
@@ -82,7 +82,7 @@ volumes:
 services:
   # Traefik as reverse proxy with dashboard enabled
   reverse:
-    image: traefik:2.5
+    image: traefik:2.10
     restart: unless-stopped
     command:
       # More logs when debugging
@@ -133,19 +133,14 @@ services:
   mysql:
     image: mysql:8
     restart: unless-stopped
+    volumes:
+      - mysql_data:/var/lib/mysql
     environment: 
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
       - MYSQL_DATABASE=cells
       - MYSQL_USER=${MYSQL_CELLS_USER_LOGIN}
       - MYSQL_PASSWORD=${MYSQL_CELLS_USER_PASSWORD}
-    cap_add: 
-      - SYS_NICE 
-    command: 
-      - mysqld
-      - --character-set-server=utf8mb4
-      - --collation-server=utf8mb4_unicode_ci
-      - --default_authentication_plugin=mysql_native_password
-
+    command: [mysqld, --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci]
 
 # Pydio Cells app
   cells:
@@ -165,6 +160,7 @@ services:
       - CELLS_BIND=${PUBLIC_FQDN}:443
       - CELLS_EXTERNAL=https://${PUBLIC_FQDN}
       - CELLS_ENABLE_METRICS=true
+      - CELLS_METRICS_BASIC_AUTH=admin:admin
     labels:
       - traefik.enable=true
       - traefik.http.services.cells.loadbalancer.server.scheme=https
@@ -211,6 +207,7 @@ MYSQL_ROOT_PASSWORD=cells
 MYSQL_CELLS_USER_LOGIN=pydio
 MYSQL_CELLS_USER_PASSWORD=cells
 ```
+  
 
 ```yaml
 # Simple prometheus configuration that watches itself and the entry points declared by cells:
@@ -222,11 +219,20 @@ scrape_configs:
     static_configs:
     - targets: ['prometheus:9090']
   - job_name: 'cells'
-    file_sd_configs:
-      - files:
-        - /etc/prometheus/watch/prom_clients.json
+    scheme: https
+    basic_auth:
+      username: "admin"
+      password: "admin"
+    tls_config:
+      insecure_skip_verify: true
+    http_sd_configs:
+      - url: "https://cells/metrics/sd"
+        basic_auth:
+          username: "admin"
+          password: "admin"
+        tls_config:
+          insecure_skip_verify: true
 ```
-
 
 ### A few more hints about the docker-compose file
 
