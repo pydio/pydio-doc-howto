@@ -2,7 +2,7 @@ In this tutorial, we explain how to configure a [Traefik v2](https://doc.traefik
 
 Traefik v2 is a very efficient Go reverse proxy designed to perfectly integrate with Docker and Kubernetes.  
 
-For the purpose of this deployment, we use `docker-compose`: it offers a simple way to visualize the full stack deployment under a single file.  
+For the purpose of this deployment, we use `docker compose`: it offers a simple way to visualize the full stack deployment under a single file.  
 
 ## Quick start on localhost
 
