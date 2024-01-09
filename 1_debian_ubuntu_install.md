@@ -2,7 +2,7 @@ _This guide explains how to install and configure Cells on an Debian-like system
 
 **Use case**
 
-Deploy a self-contained Pydio Cells instance on a web-facing Debian 11 server,  
+Deploy a self-contained Pydio Cells instance on a web-facing Debian 12 server,  
 exposed at `https://<your-fqdn>` using a Let's Encrypt certificate.
 
 **Requirements**
@@ -10,7 +10,7 @@ exposed at `https://<your-fqdn>` using a Let's Encrypt certificate.
 - **CPU/Memory**: 4GB RAM, 2 CPU
 - **Storage**: 100GB SSD hard drive
 - **Operating System**:
-  - Debian (9, 10, 11), Ubuntu LTS (18, 20, 22)
+  - Debian (10, 11, 12), Ubuntu LTS (18, 20, 22)
   - An admin user with sudo rights that can connect to the server via SSH
   - _Note: The present guide uses a Debian 11 (Bullseye) server. You might have to adapt some commands if you use a different version or flavour._
 - **Networking**:
@@ -62,7 +62,7 @@ sudo apt install mariadb-server
 sudo mysql_secure_installation
 
 # Open MySQL CLI to create your database and a dedicated user
-sudo mysql -u root -p
+mysql -u root -p
 ```
 
 Start a MySQL prompt and create the database and the dedicated `pydio` user.
@@ -72,7 +72,15 @@ CREATE DATABASE cells;
 CREATE USER 'pydio'@'localhost' IDENTIFIED BY '<PUT YOUR PASSWORD HERE>';
 GRANT ALL PRIVILEGES ON cells.* to 'pydio'@'localhost';
 FLUSH PRIVILEGES;
-exit
+```
+
+Note: default limits on MariaDB are quite low after install. If your target instance is not small, you probably should adapt them for Cells to run smoothly:
+
+```mysql
+SET GLOBAL max_connections = 1000;
+SHOW VARIABLES LIKE "max_connections";
+SET GLOBAL max_prepared_stmt_count = 131056;
+SHOW VARIABLES LIKE "max_prepared_stmt_count";
 ```
 
 #### Verification
@@ -253,7 +261,7 @@ sudo systemctl status ufw
 
 If you can still connect to your web GUI and open a ssh connection, even after reboot, **you are now good to go**. 
 
-Happy file sharing!
+Thanks for using Pydio Cells and happy file sharing!
 
 ## Troubleshooting
 
